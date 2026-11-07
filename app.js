@@ -1,1151 +1,868 @@
 /* ==========================================================================
-   SEMIH UTKU CANVERDI — INTERACTIVE NEURAL PORTFOLIO ENGINE
+   SEMIH UTKU CANVERDI — FLUID INTERACTIVE PORTFOLIO SCRIPT
    ========================================================================== */
 
 (() => {
   'use strict';
 
   /* --------------------------------------------------------------------------
-     1. BILINGUAL DICTIONARY (TR / EN)
+     1. BILINGUAL DICTIONARY (EXACT, UN-EXAGGERATED CV TEXTS)
      -------------------------------------------------------------------------- */
-  const I18N = {
+  const TEXTS = {
     tr: {
-      'preloader.skip': 'Girişi Geç',
-      'nav.role': 'AI & Software Architect',
-      'nav.overview': 'Genel Bakış',
-      'nav.lab': 'Neural Lab',
-      'nav.experience': 'Deneyim',
-      'nav.projects': 'Projeler',
-      'nav.skills': 'Yetenek & Eğitim',
+      'nav.exp': 'Deneyim',
+      'nav.proj': 'Projeler',
+      'nav.demo': 'İnteraktif Modeller',
+      'nav.edu': 'Eğitim & Yetenekler',
+      'nav.cv': 'CV',
       'nav.contact': 'İletişim',
-      'hero.badge': 'VISTA LAB DEEP LEARNING RESEARCHER • HEALTH-AI (EU)',
-      'hero.titleLine1': 'Zeki Sistemler,',
-      'hero.titleHighlight': 'Derin Öğrenme',
-      'hero.titleLine2': '& Algoritmik Mimari.',
-      'hero.description': 'Merhaba, ben <strong>Semih Utku Canverdi</strong>. Çankaya Üniversitesi 4. sınıf Yazılım Mühendisliği öğrencisi ve <strong>VISTA Lab</strong> bünyesinde derin öğrenme araştırmacısıyım. Klasik piyano konservatuvar geçmişimi <strong>PyTorch</strong> tabanlı sinir ağı modelleriyle birleştiriyor; ölçeklenebilir backend servisleri (FastAPI, Java, PostgreSQL) ve otonom algoritmalar geliştiriyorum.',
-      'hero.ctaLab': 'Canlı AI Laboratuvarını Dene',
-      'hero.ctaProjects': 'Seçkin Projeler',
-      'hero.ctaCv': 'CV İncele / İndir',
-      'hero.tensorLabel': 'ETKİLEŞİMLİ TENSÖR TOPOLOJİSİ (FAREYİ GEZDİRİN)',
-      'hero.cardFocusKey': 'Odak Alanı',
-      'hero.cardFocusVal': 'Deep Learning, Symbolic Music AI & Backend',
-      'hero.cardLabKey': 'Aktif Araştırma',
-      'hero.cardStackKey': 'Çekirdek Stack',
-      'hero.cardCertKey': 'Avrupa Fonlu Sertifika',
-      'hero.metricYear': 'Sınıf Yazılım Müh.',
-      'hero.metricExp': 'Kurumsal & Lab Deneyimi',
-      'hero.metricPiano': 'Konservatuvar Piyano',
-      'hero.scrollPrompt': 'AŞAĞI KAYDIR & KEŞFET',
-      'lab.tag': 'ETKİLEŞİMLİ YAPAY ZEKA & ALGORİTMA LABORATUVARI',
-      'lab.title1': 'Sadece Okumayın —',
-      'lab.title2': 'Modellerimi Canlı Test Edin.',
-      'lab.subtitle': "VISTA Lab'deki klasik piyano parmak pozisyonu derin öğrenme araştırmamın ve algoritmik yol bulma (Knight Path Finder) çalışmalarımın tarayıcı içinde çalışan canlı simülasyonları.",
-      'lab.pianoTitle': 'Deep Learning Piano Finger Positioning',
-      'lab.audioReady': 'WEB AUDIO SYNTH AKTİF',
-      'lab.pianoDesc': 'Klasik piyano eserlerinde (nota dizisi, aralık mesafesi ve biyomekanik el kısıtları) en uygun parmak numarasını (1: Başparmak → 5: Serçe Parmak) tahmin eden sinir ağı hattı. Tuşlara tıklayın veya hazır bir klasik motif çalıştırın:',
-      'lab.inputNote': 'AKTİF NOTA / FREKANS',
-      'lab.predFinger': 'TAHMİN EDİLEN PARMAK',
-      'lab.confidence': 'MODEL GÜVENİ (SOFTMAX)',
-      'lab.biomechCost': 'BİYOMEKANİK MALİYET',
-      'lab.runBach': 'Bach Motifini Çalıştır (Neural Sequence)',
-      'lab.runChopin': 'Chopin Arpej Analizi',
-      'lab.knightTitle': 'Knight Path Finder & Search Visualizer',
-      'lab.knightDesc': '<strong>Knight Path Finder</strong> ve <strong>MağaraJam AI</strong> projelerimdeki graf gezinme (graph traversal) ve engel aşma algoritması. Tahtada herhangi bir hedef kareye tıklayın; otonom ajan engellerin etrafından en kısa L-hamleli yolu gerçek zamanlı hesaplasın:',
-      'lab.startPos': 'BAŞLANGIÇ DÜĞÜMÜ',
-      'lab.targetPos': 'HEDEF DÜĞÜM',
-      'lab.OptimalMoves': 'MİNİMUM HAMLE',
-      'lab.visitedNodes': 'TARANAN DÜĞÜMLER',
-      'lab.optimalRoute': 'OPTİMAL VEKTÖR ROTASI',
-      'lab.randomTarget': 'Rastgele Hedef & Çöz',
-      'lab.shuffleWalls': 'Engelleri Yeniden Dağıt',
-      'exp.tag': 'KARİYER & ARAŞTIRMA GEÇMİŞİ',
-      'exp.title1': 'Akademik Araştırma &',
-      'exp.title2': 'Endüstriyel Mühendislik.',
-      'exp.vistaDate': 'Eylül 2026 — Günümüz',
-      'exp.vistaType': 'DERİN ÖĞRENME ARAŞTIRMASI',
-      'exp.vistaRole': 'Deep Learning Researcher',
-      'exp.vistaDesc': 'Karmaşık müzik veri setlerini kullanarak klasik piyano notaları için <strong>optimal parmak pozisyonunu tahmin eden</strong> ileri düzey bir derin öğrenme modeli geliştiriyorum. Kapsamlı veri ön işleme (data preprocessing), öznitelik çıkarım hatları (feature extraction pipelines), sinir ağı mimarisi tasarımı ve iteratif model eğitimi iş akışlarına liderlik ediyorum.',
-      'exp.teiasDate': 'Temmuz 2026 — Ağustos 2026',
-      'exp.teiasType': 'KURUMSAL YAZILIM MÜHENDİSLİĞİ',
-      'exp.teiasRole': 'Software Engineering Intern',
-      'exp.teiasDesc': 'Kurumsal operasyonlar için kritik öneme sahip (mission-critical) iç web uygulamalarının <strong>Java</strong> ve <strong>Angular</strong> kullanılarak geliştirilmesi ve bakımında görev aldım. Backend <strong>RESTful API</strong> mimarisi tasarımına, güvenli veritabanı entegrasyonuna ve modüler frontend arayüz bileşenlerine doğrudan katkı sağladım.',
-      'exp.teamsecDate': 'Temmuz 2025 — Ocak 2026',
-      'exp.teamsecType': 'BACKEND & VERİ MÜHENDİSLİĞİ',
-      'exp.teamsecRole': 'Software & Data Engineer',
-      'exp.teamsecDesc': '<strong>FastAPI</strong> ve <strong>Streamlit</strong> kullanarak güçlü backend servisleri ile interaktif finansal ve operasyonel veri panelleri (dashboards) inşa ettim. Eski (legacy) sistemleri modern <strong>React.js</strong> mimarisine taşıdım, <strong>Power BI</strong> ile yapılandırılmış veri analizi gerçekleştirdim ve <strong>PostgreSQL</strong> sorgu/indeksleme optimizasyonlarıyla veritabanı çalışma performansını ve sistem güvenilirliğini artırdım.',
-      'proj.tag': 'SEÇKİN MÜHENDİSLİK & AI PROJELERİ',
-      'proj.title1': 'Üretim Kalitesinde',
-      'proj.title2': 'Kod & Araştırma.',
-      'proj.filterAll': 'Tümü',
-      'proj.filterAi': 'AI & Veri Bilimi',
-      'proj.filterAlgo': 'Algoritma & Oyun AI',
-      'proj.filterSys': 'Sistem & Mimari',
-      'proj.p1Title': 'Neural Piano Finger Positioning',
-      'proj.p1Desc': 'Klasik piyano partisyonlarında nota dizilerini, el anatomisi kısıtlarını ve geçiş maliyetlerini analiz ederek en doğru parmak numaralandırmasını tahmin eden derin öğrenme mimarisi.',
-      'proj.p1H1': 'Sembolik müzik verisi ön işleme & çok boyutlu öznitelik çıkarımı',
-      'proj.p1H2': 'Sekans tabanlı sinir ağı eğitimi ve doğrulama boru hattı',
-      'proj.tryDemo': 'Canlı Simülasyon',
-      'proj.p2Title': 'Air Quality Prediction Engine',
-      'proj.p2Desc': 'Çevresel sensör ve atmosfer veri setlerini analiz ederek hava kalitesi indeksini yüksek doğrulukla tahmin eden uçtan uca makine öğrenmesi ve veri bilimi projesi.',
-      'proj.p2H1': 'Kapsamlı Keşifsel Veri Analizi (EDA), aykırı değer temizliği ve korelasyon matrisleri',
-      'proj.p2H2': 'Regresyon ve topluluk (ensemble) modelleri ile hiperparametre optimizasyonu',
-      'proj.p3Title': 'Knight Path Finder',
-      'proj.p3Desc': 'Graf gezinme (graph traversal), en kısa yol bulma mantığı ve interaktif algoritmik problem çözmeye odaklanan görsel algoritma analiz ve simülasyon aracı.',
-      'proj.p3H1': 'BFS ve sezgisel (heuristic) durum uzayı araması ile optimal hamle garantisi',
-      'proj.p3H2': 'Adım adım düğüm keşfi ve rota görselleştirme motoru',
-      'proj.p4Title': 'MağaraJam — Autonomous AI & Game Prototype',
-      'proj.p4Desc': 'Kısıtlı sürede Unity ve C# kullanılarak geliştirilen; geniş kapsamlı arama (search), yol bulma (pathfinding) ve optimizasyon algoritmalarını kullanan karmaşık yapay zeka ajanlarına sahip oynanabilir prototip.',
-      'proj.p4H1': 'Gerçek zamanlı karar ağaçları, otonom ajan navigasyonu ve oyun mekaniği mimarisi',
-      'proj.p4H2': 'Modüler C# bileşen tasarımı ve yüksek kare hızı (FPS) optimizasyonu',
-      'proj.p5Title': 'YatDice — State-Driven Interactive Engine',
-      'proj.p5Desc': 'C# kullanılarak sıfırdan tasarlanan; temiz nesne yönelimli mimari (Clean OOP), olasılıksal mekanikler ve yapılandırılmış durum yönetimi (state management) içeren interaktif uygulama.',
-      'proj.p5H1': 'SOLID prensiplerine uygun, genişletilebilir oyun/uygulama durum makinesi',
-      'proj.p5H2': 'Deterministik olmayan zar olasılık hesaplayıcısı ve akıcı kullanıcı etkileşimi',
-      'proj.p6Title': 'Real-Time Financial & Operational Analytics Suite',
-      'proj.p6Desc': 'FastAPI, Streamlit ve React.js kullanılarak geliştirilen; yüksek hacimli verileri işleyen, indeksleme ile hızlandırılmış PostgreSQL sorguları ve Power BI görselleştirmeleri sunan kurumsal analitik mimari.',
-      'proj.p6H1': 'Legacy sistemlerin modern React.js ve asenkron FastAPI servislerine dönüşümü',
-      'proj.p6H2': 'B-Tree / kompozit veritabanı indeksleme ile sorgu sürelerinde yüksek iyileştirme',
-      'proj.expDetails': 'Deneyim Detayı',
-      'cred.tag': 'TEKNİK MİMARİ, AKADEMİ & SERTİFİKALAR',
-      'cred.title1': 'Çok Disiplinli',
-      'cred.title2': 'Mühendislik Yetkinliği.',
-      'cred.certTitle': 'HEALTH-AI Project',
-      'cred.certDesc': 'Avrupa Birliği ve Erasmus+ tarafından fonlanan <strong>HEALTH-AI</strong> projesi kapsamında sağlıkta yapay zeka uygulamaları ve veri odaklı sistemler üzerine Başarı Sertifikası (Certificate of Achievement).',
-      'cred.eduTag': 'AKADEMİK & SANATSAL TEMEL',
-      'cred.eduTitle': 'Eğitim Geçmişi',
-      'cred.eduCankaya': 'Yazılım Mühendisliği Lisans (B.Sc. Software Engineering — 4. Sınıf)',
-      'cred.eduCons': 'Müzik / Klasik Piyano Eğitimi (VISTA Lab AI araştırmasının sanatsal temeli)',
-      'cred.eduHigh': 'Lise Eğitimi',
-      'cred.skillsTitle': 'Dil, Framework ve Mimari Yetkinlikler',
-      'cred.skillsHint': 'KARTLARIN ÜZERİNDE GEZİNİN',
-      'cred.catAi': 'AI, Deep Learning & Veri',
-      'cred.catBackend': 'Backend & Veritabanı Mimarisi',
-      'cred.catSys': 'Algoritma, Oyun & Frontend',
-      'contact.badge': 'AÇIK POZİSYONLAR & ARAŞTIRMA İŞ BİRLİKLERİNE UYGUN',
-      'contact.title1': 'Bir Sonraki Zeki Sistemi',
-      'contact.title2': 'Birlikte İnşa Edelim.',
-      'contact.desc': 'Yapay zeka / derin öğrenme mühendisliği, ölçeklenebilir backend mimarileri veya Ar-Ge projeleri için doğrudan iletişime geçebilirsiniz.',
-      'contact.copy': 'Kopyala',
-      'contact.phoneLbl': 'TELEFON',
-      'contact.socialLbl': 'AĞLAR',
-      'contact.formTitle': 'Hızlı Mesaj Gönder',
-      'contact.nameLabel': 'Adınız / Kurum',
-      'contact.emailLabel': 'E-Posta Adresiniz',
-      'contact.topicLabel': 'Konu',
-      'contact.optAi': 'AI / Machine Learning Mühendisliği',
-      'contact.optSoft': 'Yazılım & Backend Mühendisliği',
-      'contact.optRes': 'Akademik / Ar-Ge İş Birliği',
-      'contact.optOther': 'Diğer Tanışma & Proje',
-      'contact.msgLabel': 'Mesajınız',
-      'contact.sendBtn': 'Mesajı Hazırla & Gönder',
-      'modal.printBtn': 'PDF Olarak Yazdır / Kaydet'
+      'hero.tag': 'Software Engineering · Machine Learning · Piano',
+      'hero.summary': "Piyano çalan bir yazılım mühendisliği öğrencisiyim. Şu an VISTA Lab'de bir sinir ağına, piyanoda hangi notaya hangi parmağın basacağını öğretiyorum.",
+      'piano.idleKind': 'Bir tuşa bas',
+      'piano.idleTitle': 'Her tuş bir yetenek ya da bir iş.',
+      'piano.idleLine': 'Beyaz tuşlar teknolojiler, siyah tuşlar deneyim ve projeler. Klavyenden de çalabilirsin.',
+      'piano.play': 'Çal',
+      'piano.hint': 'Çal\'a basınca gamın üstünde gerçek sağ el parmak numaraları görünür (1 = başparmak, 5 = serçe).',
+      'hero.btnExplore': 'Çalışmalarımı İncele',
+      'hero.btnCv': "Orijinal CV'lerim (PDF)",
+      'exp.eyebrow': 'WORK EXPERIENCE',
+      'exp.title1': 'Deneyim &',
+      'exp.title2': 'Araştırma',
+      'exp.vistaDate': 'Eylül 2026 – Günümüz',
+      'exp.vistaDesc': 'Klasik piyano notaları için optimal parmak pozisyonunu tahmin eden bir derin öğrenme modeli geliştiriyorum; kapsamlı veri ön işleme (data preprocessing), öznitelik çıkarım hatları (feature extraction pipelines), sinir ağı mimarisi tasarımı ve iteratif model eğitimi süreçlerine odaklanıyorum.',
+      'exp.teiasDate': 'Temmuz 2026 – Ağustos 2026',
+      'exp.teiasDesc': 'Java ve Angular kullanarak kurum içi web uygulamaları geliştirdim ve bakımını üstlendim; backend RESTful API tasarımına, güvenli veritabanı entegrasyonuna ve kurumsal operasyonlar için modüler frontend arayüz bileşenlerine katkıda bulundum.',
+      'exp.teamsecDate': 'Temmuz 2025 – Ocak 2026',
+      'exp.teamsecDesc': 'FastAPI ve Streamlit kullanarak backend servisleri ile interaktif operasyonel/finansal paneller (dashboards) geliştirdim. Eski (legacy) sistemleri modern React mimarisine taşıdım, Power BI ile veri analizi ve görselleştirme yaptım; PostgreSQL sorgu performansını ve sistem güvenilirliğini artırmak için optimize edilmiş SQL sorguları ve veritabanı indekslemeleri yazdım.',
+      'proj.eyebrow': 'SELECTED PROJECTS',
+      'proj.title1': 'Seçili',
+      'proj.title2': 'Projeler',
+      'proj.airType': 'University Project • Machine Learning',
+      'proj.airDesc': 'Çevresel veri setlerini analiz etmek, keşifsel veri analizi (EDA) gerçekleştirmek ve uçtan uca veri bilimi iş akışlarını yürütmek üzere Python kullanarak tahminleyici bir makine öğrenmesi modeli geliştirdim.',
+      'proj.knightType': 'Algorithms & Graph Traversal',
+      'proj.knightDesc': 'Yol bulma mantığı (pathfinding logic), graf gezinme (graph traversal) ve interaktif algoritmik problem çözmeye odaklanan bir algoritma görselleştiricisi tasarladım.',
+      'proj.jamType': 'Game Jam Project • AI Agents',
+      'proj.jamDesc': 'Unity ve C# kullanarak kısıtlı süre altında oynanabilir bir oyun prototipi geliştirdim; çeşitli arama (search), yol bulma (pathfinding) ve optimizasyon algoritmalarını kullanan yapay zeka ajanları ve temel oynanış mekanikleri uyguladım.',
+      'proj.yatType': 'Personal Project • OOP Architecture',
+      'proj.yatDesc': 'C# kullanarak sıfırdan interaktif bir zar oyunu uygulaması tasarladım ve geliştirdim; temiz nesne yönelimli mimari (clean OOP), rastgeleleştirilmiş mekanikler, yapılandırılmış durum yönetimi (state management) ve güçlü kullanıcı etkileşimi kurguladım.',
+      'demo.eyebrow': 'INTERACTIVE PREVIEW',
+      'demo.title1': 'İnteraktif',
+      'demo.title2': 'Deneyim',
+      'demo.subtitle': 'Üzerinde çalıştığım <strong>VISTA Lab Piyano Parmak Pozisyonu</strong> modelinin ve <strong>Knight Path Finder</strong> algoritmasının sadeleştirilmiş interaktif önizlemesi.',
+      'demo.tabPiano': '01. VISTA Lab — Piano Fingering',
+      'demo.tabKnight': '02. Knight Path Finder',
+      'demo.pianoHint': 'Tuşlara tıklayarak veya örnek sekansı başlatarak nota geçişlerine göre tahmin edilen parmak numaralarını (1: Başparmak → 5: Serçe) görebilirsiniz.',
+      'demo.playMotif': '▶ Örnek Sekansı Çalıştır',
+      'demo.lblNote': 'Nota',
+      'demo.lblFinger': 'Optimal Parmak',
+      'demo.lblConf': 'Tahmin Güveni',
+      'demo.knightHint': 'Tahta üzerinde herhangi bir kareye tıklayın; başlangıç noktasından (♞) hedefe (★) engellerin etrafından en kısa L-hamleli yol hesaplansın.',
+      'demo.btnRandom': 'Rastgele Hedef Seç',
+      'demo.btnWalls': 'Engelleri Değiştir',
+      'demo.kStart': 'Başlangıç',
+      'demo.kTarget': 'Hedef Kare',
+      'demo.kMoves': 'En Kısa Yol',
+      'demo.kRoute': 'Rota Dizisi',
+      'edu.eyebrow': 'EDUCATION, CERTIFICATES & SKILLS',
+      'edu.title1': 'Eğitim &',
+      'edu.title2': 'Yetkinlikler',
+      'edu.eduHeading': 'Eğitim',
+      'edu.cankaya': 'Yazılım Mühendisliği (4. Sınıf)',
+      'edu.conservatory': 'Müzik / Piyano',
+      'edu.highschool': 'Lise Eğitimi',
+      'edu.certHeading': 'Sertifika',
+      'edu.skillsHeading': 'Teknik Yetenekler',
+      'cv.title1': 'Orijinal',
+      'cv.title2': 'Özgeçmişlerim',
+      'cv.subtitle': "Farklı odak alanları için hazırladığım orijinal CV'lerimi doğrudan buradan inceleyebilir veya PDF olarak indirebilirsiniz.",
+      'cv.openTab': 'Yeni Sekmede Aç ↗',
+      'cv.download': 'PDF İndir ↓',
+      'contact.eyebrow': 'GET IN TOUCH',
+      'contact.title1': 'İletişime',
+      'contact.title2': 'Geçin',
+      'contact.desc': 'Staj, tam/yarı zamanlı mühendislik pozisyonları veya proje iş birlikleri için bana doğrudan ulaşabilirsiniz.',
+      'contact.phone': 'Telefon'
     },
     en: {
-      'preloader.skip': 'Skip Intro',
-      'nav.role': 'AI & Software Architect',
-      'nav.overview': 'Overview',
-      'nav.lab': 'Neural Lab',
-      'nav.experience': 'Experience',
-      'nav.projects': 'Projects',
-      'nav.skills': 'Skills & Education',
+      'nav.exp': 'Experience',
+      'nav.proj': 'Projects',
+      'nav.demo': 'Interactive Demos',
+      'nav.edu': 'Education & Skills',
+      'nav.cv': 'CV',
       'nav.contact': 'Contact',
-      'hero.badge': 'VISTA LAB DEEP LEARNING RESEARCHER • HEALTH-AI (EU)',
-      'hero.titleLine1': 'Intelligent Systems,',
-      'hero.titleHighlight': 'Deep Learning',
-      'hero.titleLine2': '& Algorithmic Precision.',
-      'hero.description': 'Hello, I am <strong>Semih Utku Canverdi</strong> — a 4th-year Software Engineering student at Çankaya University and Deep Learning Researcher at <strong>VISTA Lab</strong>. I fuse my classical piano conservatory background with <strong>PyTorch</strong> neural network pipelines, scalable backend architectures (FastAPI, Java, PostgreSQL), and autonomous algorithms.',
-      'hero.ctaLab': 'Launch Live AI Lab',
-      'hero.ctaProjects': 'Featured Projects',
-      'hero.ctaCv': 'View / Download CV',
-      'hero.tensorLabel': 'INTERACTIVE TENSOR TOPOLOGY (HOVER MOUSE)',
-      'hero.cardFocusKey': 'Core Focus',
-      'hero.cardFocusVal': 'Deep Learning, Symbolic Music AI & Backend',
-      'hero.cardLabKey': 'Active Research',
-      'hero.cardStackKey': 'Primary Stack',
-      'hero.cardCertKey': 'EU Certification',
-      'hero.metricYear': 'Year Software Eng.',
-      'hero.metricExp': 'Industry & Lab Roles',
-      'hero.metricPiano': 'Conservatory Piano',
-      'hero.scrollPrompt': 'SCROLL TO EXPLORE',
-      'lab.tag': 'INTERACTIVE AI & ALGORITHMIC SANDBOX',
-      'lab.title1': "Don't Just Read —",
-      'lab.title2': 'Experience the Models Live.',
-      'lab.subtitle': 'Interactive in-browser simulations of my VISTA Lab deep learning research on classical piano finger positioning and my Knight Path Finder graph traversal engine.',
-      'lab.pianoTitle': 'Deep Learning Piano Finger Positioning',
-      'lab.audioReady': 'WEB AUDIO SYNTH READY',
-      'lab.pianoDesc': 'Neural network pipeline predicting optimal finger assignments (1: Thumb → 5: Pinky) for classical piano scores based on pitch intervals and biomechanical constraints. Click keys or run a classical phrase:',
-      'lab.inputNote': 'ACTIVE PITCH / FREQ',
-      'lab.predFinger': 'PREDICTED FINGER',
-      'lab.confidence': 'MODEL CONFIDENCE',
-      'lab.biomechCost': 'BIOMECHANICAL COST',
-      'lab.runBach': 'Run Bach Motif (Neural Sequence)',
-      'lab.runChopin': 'Run Chopin Arpeggio Analysis',
-      'lab.knightTitle': 'Knight Path Finder & Search Visualizer',
-      'lab.knightDesc': 'Graph traversal and obstacle-avoidance algorithm from my <strong>Knight Path Finder</strong> and <strong>MağaraJam AI</strong> projects. Click any target cell on the board to compute the shortest L-move trajectory in real time:',
-      'lab.startPos': 'ORIGIN NODE',
-      'lab.targetPos': 'TARGET NODE',
-      'lab.OptimalMoves': 'MINIMUM MOVES',
-      'lab.visitedNodes': 'EXPLORED NODES',
-      'lab.optimalRoute': 'OPTIMAL VECTOR ROUTE',
-      'lab.randomTarget': 'Random Target & Solve',
-      'lab.shuffleWalls': 'Regenerate Obstacles',
-      'exp.tag': 'CAREER & RESEARCH TIMELINE',
-      'exp.title1': 'Academic Research &',
-      'exp.title2': 'Production Engineering.',
-      'exp.vistaDate': 'September 2026 — Present',
-      'exp.vistaType': 'DEEP LEARNING RESEARCH',
-      'exp.vistaRole': 'Deep Learning Researcher',
-      'exp.vistaDesc': 'Developing an advanced deep learning model to <strong>predict optimal finger positioning for classical piano scores</strong> using complex musical datasets. Leading comprehensive data preprocessing, feature extraction pipelines, neural network architecture design, and iterative model training workflows.',
-      'exp.teiasDate': 'July 2026 — August 2026',
-      'exp.teiasType': 'ENTERPRISE SOFTWARE ENGINEERING',
-      'exp.teiasRole': 'Software Engineering Intern',
-      'exp.teiasDesc': 'Developed and maintained internal mission-critical web applications using <strong>Java</strong> and <strong>Angular</strong>, contributing directly to backend <strong>RESTful API</strong> design, secure database integration, and modular frontend interface components.',
-      'exp.teamsecDate': 'July 2025 — January 2026',
-      'exp.teamsecType': 'BACKEND & DATA ENGINEERING',
-      'exp.teamsecRole': 'Software & Data Engineer',
-      'exp.teamsecDesc': 'Engineered robust backend services and interactive financial/operational dashboards using <strong>FastAPI</strong> and <strong>Streamlit</strong>. Migrated legacy systems to a modern <strong>React.js</strong> stack, performed structured data analysis via <strong>Power BI</strong>, and wrote optimized SQL queries with database indexing to boost <strong>PostgreSQL</strong> execution performance.',
-      'proj.tag': 'SELECTED ENGINEERING & AI WORKS',
-      'proj.title1': 'Production-Grade',
-      'proj.title2': 'Code & Research.',
-      'proj.filterAll': 'All Works',
-      'proj.filterAi': 'AI & Data Science',
-      'proj.filterAlgo': 'Algorithms & Game AI',
-      'proj.filterSys': 'Systems & Architecture',
-      'proj.p1Title': 'Neural Piano Finger Positioning',
-      'proj.p1Desc': 'Deep learning architecture analyzing musical score sequences, hand anatomy constraints, and biomechanical transition costs to predict optimal piano fingering.',
-      'proj.p1H1': 'Symbolic music data preprocessing & multidimensional feature extraction',
-      'proj.p1H2': 'Sequence-based neural network training and validation pipeline',
-      'proj.tryDemo': 'Live Simulation',
-      'proj.p2Title': 'Air Quality Prediction Engine',
-      'proj.p2Desc': 'End-to-end predictive machine learning pipeline utilizing Python to analyze environmental datasets, perform exploratory data analysis, and forecast air quality metrics.',
-      'proj.p2H1': 'Comprehensive Exploratory Data Analysis (EDA), outlier removal, and correlation matrices',
-      'proj.p2H2': 'Regression & ensemble modeling with hyperparameter optimization',
-      'proj.p3Title': 'Knight Path Finder',
-      'proj.p3Desc': 'Interactive algorithm visualizer focusing on graph traversal, shortest-path logic, and algorithmic problem-solving across constrained state spaces.',
-      'proj.p3H1': 'BFS and heuristic state-space search guaranteeing optimal move sequences',
-      'proj.p3H2': 'Real-time step-by-step node discovery and route visualization engine',
-      'proj.p4Title': 'MağaraJam — Autonomous AI & Game Prototype',
-      'proj.p4Desc': 'Playable game prototype built with Unity & C# featuring complex autonomous AI agents utilizing search, pathfinding, and optimization algorithms.',
-      'proj.p4H1': 'Real-time decision trees, autonomous agent navigation, and core gameplay mechanics',
-      'proj.p4H2': 'Modular C# component architecture and high-framerate performance',
-      'proj.p5Title': 'YatDice — State-Driven Interactive Engine',
-      'proj.p5Desc': 'Interactive dice game application engineered from scratch in C#, implementing clean object-oriented architecture, randomized mechanics, and structured state management.',
-      'proj.p5H1': 'Extensible state machine adhering to SOLID and Clean OOP principles',
-      'proj.p5H2': 'Probabilistic mechanics engine and responsive user interaction layer',
-      'proj.p6Title': 'Real-Time Financial & Operational Analytics Suite',
-      'proj.p6Desc': 'Enterprise analytics stack built with FastAPI, Streamlit, and React.js featuring index-accelerated PostgreSQL queries and interactive Power BI reporting.',
-      'proj.p6H1': 'Migration of legacy modules into modern React.js and async FastAPI services',
-      'proj.p6H2': 'B-Tree & composite PostgreSQL indexing for high-speed query execution',
-      'proj.expDetails': 'Experience Details',
-      'cred.tag': 'TECHNICAL ARCHITECTURE, ACADEMIA & CERTIFICATES',
-      'cred.title1': 'Multidisciplinary',
-      'cred.title2': 'Engineering Mastery.',
-      'cred.certTitle': 'HEALTH-AI Project',
-      'cred.certDesc': 'Certificate of Achievement awarded under the <strong>Erasmus+ / European Union Funded HEALTH-AI Project</strong> for artificial intelligence in healthcare and data-driven systems.',
-      'cred.eduTag': 'ACADEMIC & ARTISTIC FOUNDATION',
-      'cred.eduTitle': 'Education',
-      'cred.eduCankaya': 'B.Sc. in Software Engineering (4th-Year Senior Student)',
-      'cred.eduCons': 'Classical Music & Piano Training (Artistic foundation for VISTA Lab AI research)',
-      'cred.eduHigh': 'High School Diploma',
-      'cred.skillsTitle': 'Languages, Frameworks & Architectural Stack',
-      'cred.skillsHint': 'HOVER CARDS TO INTERACT',
-      'cred.catAi': 'AI, Deep Learning & Data',
-      'cred.catBackend': 'Backend & Database Systems',
-      'cred.catSys': 'Algorithms, Game AI & Frontend',
-      'contact.badge': 'AVAILABLE FOR AI & SOFTWARE ENGINEERING ROLES',
-      'contact.title1': "Let's Architect the Next",
-      'contact.title2': 'Intelligent System.',
-      'contact.desc': 'Reach out directly for Machine Learning / Deep Learning roles, Backend & Systems Engineering positions, or research collaborations.',
-      'contact.copy': 'Copy',
-      'contact.phoneLbl': 'PHONE',
-      'contact.socialLbl': 'NETWORKS',
-      'contact.formTitle': 'Send a Direct Message',
-      'contact.nameLabel': 'Your Name / Organization',
-      'contact.emailLabel': 'Your Email',
-      'contact.topicLabel': 'Subject',
-      'contact.optAi': 'AI / Machine Learning Engineering',
-      'contact.optSoft': 'Software & Backend Engineering',
-      'contact.optRes': 'Academic / R&D Collaboration',
-      'contact.optOther': 'General Inquiry',
-      'contact.msgLabel': 'Message',
-      'contact.sendBtn': 'Compose & Send Message',
-      'modal.printBtn': 'Print / Save as PDF'
+      'hero.tag': 'Software Engineering · Machine Learning · Piano',
+      'hero.summary': 'A software engineering student who plays the piano. At VISTA Lab, I am teaching a neural network which finger should play which note.',
+      'piano.idleKind': 'Press a key',
+      'piano.idleTitle': 'Every key is a skill or a piece of work.',
+      'piano.idleLine': 'White keys are technologies, black keys are experience and projects. Your keyboard works too.',
+      'piano.play': 'Play',
+      'piano.hint': 'Press Play to see real right-hand fingering over the scale (1 = thumb, 5 = pinky).',
+      'hero.btnExplore': 'Explore Work',
+      'hero.btnCv': 'Original CVs (PDF)',
+      'exp.eyebrow': 'WORK EXPERIENCE',
+      'exp.title1': 'Experience &',
+      'exp.title2': 'Research',
+      'exp.vistaDate': 'September 2026 – Present',
+      'exp.vistaDesc': 'Developing a deep learning model to predict optimal finger positioning for classical piano scores using complex musical datasets. Focusing on comprehensive data preprocessing, feature extraction pipelines, neural network architecture design, and iterative model training workflows.',
+      'exp.teiasDate': 'July 2026 – August 2026',
+      'exp.teiasDesc': 'Developed and maintained internal web applications using Java and Angular, contributing to backend RESTful API design, database integration, and modular frontend interface components for internal operations.',
+      'exp.teamsecDate': 'July 2025 – January 2026',
+      'exp.teamsecDesc': 'Built interactive dashboards and backend services using FastAPI and Streamlit. Migrated legacy systems to a modern React stack, performed data analysis and visualization via Power BI, and wrote optimized SQL queries alongside database indexing to improve PostgreSQL execution performance.',
+      'proj.eyebrow': 'SELECTED PROJECTS',
+      'proj.title1': 'Selected',
+      'proj.title2': 'Projects',
+      'proj.airType': 'University Project • Machine Learning',
+      'proj.airDesc': 'Built a predictive machine learning model utilizing Python to analyze environmental datasets, perform exploratory data analysis, and execute complete data science workflows.',
+      'proj.knightType': 'Algorithms & Graph Traversal',
+      'proj.knightDesc': 'Designed an algorithm visualizer focusing on pathfinding logic, graph traversal, and interactive problem-solving.',
+      'proj.jamType': 'Game Jam Project • AI Agents',
+      'proj.jamDesc': 'Developed a playable game prototype using Unity & C#; implemented complex AI agents utilizing a wide range of search, pathfinding, and optimization algorithms.',
+      'proj.yatType': 'Personal Project • OOP Architecture',
+      'proj.yatDesc': 'Designed and developed an interactive dice game application from scratch using C#, implementing clean object-oriented architecture, randomized mechanics, structured state management, and robust user interaction.',
+      'demo.eyebrow': 'INTERACTIVE PREVIEW',
+      'demo.title1': 'Interactive',
+      'demo.title2': 'Showcase',
+      'demo.subtitle': 'A clean interactive preview of my <strong>VISTA Lab Piano Finger Positioning</strong> research and <strong>Knight Path Finder</strong> graph traversal visualizer.',
+      'demo.tabPiano': '01. VISTA Lab — Piano Fingering',
+      'demo.tabKnight': '02. Knight Path Finder',
+      'demo.pianoHint': 'Click any key or run the sample sequence to see predicted finger assignments (1: Thumb → 5: Pinky) across note intervals.',
+      'demo.playMotif': '▶ Run Sample Sequence',
+      'demo.lblNote': 'Active Note',
+      'demo.lblFinger': 'Optimal Finger',
+      'demo.lblConf': 'Confidence',
+      'demo.knightHint': 'Click any square on the board to compute the shortest L-move path from the Knight (♞) to the target (★) around obstacles.',
+      'demo.btnRandom': 'Random Target',
+      'demo.btnWalls': 'Shuffle Obstacles',
+      'demo.kStart': 'Start Node',
+      'demo.kTarget': 'Target Node',
+      'demo.kMoves': 'Shortest Path',
+      'demo.kRoute': 'Route Sequence',
+      'edu.eyebrow': 'EDUCATION, CERTIFICATES & SKILLS',
+      'edu.title1': 'Education &',
+      'edu.title2': 'Skills',
+      'edu.eduHeading': 'Education',
+      'edu.cankaya': 'Software Engineering (4th-Year)',
+      'edu.conservatory': 'Music / Piano',
+      'edu.highschool': 'High School',
+      'edu.certHeading': 'Certificates',
+      'edu.skillsHeading': 'Technical Skills',
+      'cv.title1': 'Original',
+      'cv.title2': 'Resumes (PDF)',
+      'cv.subtitle': 'View or download my original PDF resumes tailored for different engineering focuses directly below.',
+      'cv.openTab': 'Open in New Tab ↗',
+      'cv.download': 'Download PDF ↓',
+      'contact.eyebrow': 'GET IN TOUCH',
+      'contact.title1': 'Get in',
+      'contact.title2': 'Touch',
+      'contact.desc': 'Feel free to reach out directly for software engineering, machine learning roles, or project collaborations.',
+      'contact.phone': 'Phone'
     }
   };
 
   let currentLang = 'tr';
 
-  function setLanguage(lang) {
+  function applyLanguage(lang) {
     currentLang = lang;
     document.documentElement.lang = lang;
-    const dict = I18N[lang];
+    const dict = TEXTS[lang];
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.getAttribute('data-i18n');
-      if (dict[key]) {
-        el.innerHTML = dict[key];
-      }
+      if (dict[key]) el.innerHTML = dict[key];
     });
-    const trBtn = document.getElementById('lang-tr');
-    const enBtn = document.getElementById('lang-en');
-    if (trBtn && enBtn) {
-      trBtn.classList.toggle('active-lang', lang === 'tr');
-      enBtn.classList.toggle('active-lang', lang === 'en');
-    }
+    document.getElementById('lang-tr')?.classList.toggle('active', lang === 'tr');
+    document.getElementById('lang-en')?.classList.toggle('active', lang === 'en');
+    renderKnightBoard();
+    if (lastKey) renderReadout(lastKey);
   }
 
-  /* --------------------------------------------------------------------------
-     2. CINEMATIC PRELOADER SEQUENCE
-     -------------------------------------------------------------------------- */
-  const preloader = document.getElementById('preloader');
-  const preloaderBar = document.getElementById('preloader-bar');
-  const preloaderCounter = document.getElementById('preloader-counter');
-  const preloaderLog = document.getElementById('preloader-log');
-  const skipBtn = document.getElementById('skip-preloader');
-
-  const bootLogs = [
-    '> INITIALIZING PYTORCH TENSOR GRAPH...',
-    '> LOADING VISTA LAB ACOUSTIC NEURAL PIPELINE...',
-    '> CALIBRATING KNIGHT PATHFINDER BFS ENGINE...',
-    '> MOUNTING FASTAPI & POSTGRESQL TELEMETRY...',
-    '> NEURAL INTERFACE READY. WELCOME.'
-  ];
-
-  let preloadProgress = 0;
-  let preloadFinished = false;
-
-  function finishPreloader() {
-    if (preloadFinished) return;
-    preloadFinished = true;
-    if (preloaderBar) preloaderBar.style.width = '100%';
-    if (preloaderCounter) preloaderCounter.textContent = '100%';
-    if (preloaderLog) preloaderLog.textContent = bootLogs[bootLogs.length - 1];
-
-    setTimeout(() => {
-      preloader.classList.add('loaded');
-      document.body.classList.remove('loading');
-      triggerInitialReveals();
-    }, 180);
-
-    setTimeout(() => {
-      preloader.classList.add('hidden');
-    }, 1350);
-  }
-
-  const preloadInterval = setInterval(() => {
-    preloadProgress += Math.floor(Math.random() * 7) + 4;
-    if (preloadProgress >= 100) {
-      preloadProgress = 100;
-      clearInterval(preloadInterval);
-      finishPreloader();
-      return;
-    }
-    if (preloaderBar) preloaderBar.style.width = `${preloadProgress}%`;
-    if (preloaderCounter) {
-      preloaderCounter.textContent = `${String(preloadProgress).padStart(2, '0')}%`;
-    }
-    const logIdx = Math.min(
-      bootLogs.length - 1,
-      Math.floor((preloadProgress / 100) * bootLogs.length)
-    );
-    if (preloaderLog) preloaderLog.textContent = bootLogs[logIdx];
-  }, 55);
-
-  if (skipBtn) {
-    skipBtn.addEventListener('click', () => {
-      clearInterval(preloadInterval);
-      finishPreloader();
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     3. CUSTOM MAGNETIC CURSOR & 3D CARD SPOTLIGHT / TILT
-     -------------------------------------------------------------------------- */
-  const cursorDot = document.getElementById('cursor-dot');
-  const cursorRing = document.getElementById('cursor-ring');
-  const cursorLabel = document.getElementById('cursor-label');
-  const cursorGlow = document.getElementById('cursor-ambient-glow');
-
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let ringX = mouseX;
-  let ringY = mouseY;
-  let glowX = mouseX;
-  let glowY = mouseY;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    if (cursorDot) {
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-    }
+  document.getElementById('lang-btn')?.addEventListener('click', () => {
+    applyLanguage(currentLang === 'tr' ? 'en' : 'tr');
   });
 
-  function animateCursor() {
-    ringX += (mouseX - ringX) * 0.18;
-    ringY += (mouseY - ringY) * 0.18;
-    glowX += (mouseX - glowX) * 0.08;
-    glowY += (mouseY - glowY) * 0.08;
+  /* --------------------------------------------------------------------------
+     2. OPENING CURTAIN — the name flies from the curtain into the hero
+     -------------------------------------------------------------------------- */
+  const curtain = document.getElementById('intro-curtain');
+  const curtainLine = document.getElementById('curtain-line');
+  const curtainTitle = curtain?.querySelector('.curtain-title');
+  const heroName = document.getElementById('hero-name');
+  const heroPiano = document.getElementById('hero-piano');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (cursorRing) {
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
-    }
-    if (cursorGlow) {
-      cursorGlow.style.left = `${glowX}px`;
-      cursorGlow.style.top = `${glowY}px`;
-    }
-    requestAnimationFrame(animateCursor);
+  function finishIntro() {
+    document.body.classList.remove('name-pending');
+    curtain?.classList.add('curtain-gone');
+    setTimeout(() => heroPiano?.classList.add('is-ready'), 120);
   }
-  requestAnimationFrame(animateCursor);
 
-  // Magnetic & Cursor Hover Label
+  function liftCurtain() {
+    document.body.classList.remove('is-loading');
+    initScrollReveal();
+
+    if (!curtain || !curtainTitle || !heroName) {
+      finishIntro();
+      return;
+    }
+
+    // Measure after is-loading is gone, so scrollbar/layout are final
+    window.scrollTo(0, 0);
+    const from = curtainTitle.getBoundingClientRect();
+    const to = heroName.getBoundingClientRect();
+    const ratioFrom = from.width / (from.height || 1);
+    const ratioTo = to.width / (to.height || 1);
+    // Only fly when both names sit on one line (same shape); otherwise just fade
+    const canFly = !reduceMotion && to.width > 0 && Math.abs(ratioFrom - ratioTo) / ratioFrom < 0.2;
+
+    if (!canFly) {
+      curtain.classList.add('curtain-open', 'curtain-fade');
+      setTimeout(finishIntro, 650);
+      return;
+    }
+
+    const scale = to.width / from.width;
+    curtain.classList.add('curtain-open');
+    curtainTitle.classList.add('flying');
+    curtainTitle.style.transform = `translate(${to.left - from.left}px, ${to.top - from.top}px) scale(${scale})`;
+
+    let done = false;
+    const land = () => {
+      if (done) return;
+      done = true;
+      finishIntro();
+    };
+    curtainTitle.addEventListener('transitionend', land, { once: true });
+    setTimeout(land, 1250);
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => {
+      if (curtainLine) curtainLine.style.width = '100%';
+    });
+    setTimeout(liftCurtain, 1000);
+  });
+
+  /* --------------------------------------------------------------------------
+     2b. HERO PIANO — white keys are skills, black keys are work
+     -------------------------------------------------------------------------- */
+  const WHITE_KEYS = [
+    { n: 'C4', f: 261.63, k: 'KeyZ', label: 'Python',
+      tr: 'En çok konuştuğum dil: modeller, scriptler, API\'ler.',
+      en: 'The language I speak most: models, scripts, APIs.' },
+    { n: 'D4', f: 293.66, k: 'KeyX', label: 'PyTorch',
+      tr: 'VISTA Lab\'deki parmaklama modeli burada eğitiliyor.',
+      en: 'Where the fingering model at VISTA Lab gets trained.' },
+    { n: 'E4', f: 329.63, k: 'KeyC', label: 'Machine Learning',
+      tr: 'Air Quality projesinde EDA\'dan tahmine kadar uçtan uca.',
+      en: 'End to end on Air Quality, from EDA to prediction.' },
+    { n: 'F4', f: 349.23, k: 'KeyV', label: 'Java',
+      tr: 'TEİAŞ\'ta kurum içi uygulamaların backend tarafı.',
+      en: 'The backend side of internal apps at TEİAŞ.' },
+    { n: 'G4', f: 392.0, k: 'KeyB', label: 'Spring Boot',
+      tr: 'RESTful API\'ler ve veritabanı entegrasyonu.',
+      en: 'RESTful APIs and database integration.' },
+    { n: 'A4', f: 440.0, k: 'KeyN', label: 'Angular',
+      tr: 'TEİAŞ\'ta modüler arayüz bileşenleri.',
+      en: 'Modular interface components at TEİAŞ.' },
+    { n: 'B4', f: 493.88, k: 'KeyM', label: 'FastAPI',
+      tr: 'TeamSec\'te backend servisleri ve dashboard API\'leri.',
+      en: 'Backend services and dashboard APIs at TeamSec.' },
+    { n: 'C5', f: 523.25, k: 'KeyQ', label: 'React',
+      tr: 'TeamSec\'te legacy sistemleri React\'e taşıdım.',
+      en: 'Migrated legacy systems to React at TeamSec.' },
+    { n: 'D5', f: 587.33, k: 'KeyW', label: 'PostgreSQL',
+      tr: 'İndeksleme ve sorgu optimizasyonuyla daha hızlı sorgular.',
+      en: 'Faster queries through indexing and query tuning.' },
+    { n: 'E5', f: 659.25, k: 'KeyE', label: 'Power BI',
+      tr: 'Veriyi okunur hale getirmek: analiz ve görselleştirme.',
+      en: 'Making data readable: analysis and visualization.' },
+    { n: 'F5', f: 698.46, k: 'KeyR', label: 'C#',
+      tr: 'YatDice ve MağaraJam: OOP ve oyun mantığı.',
+      en: 'YatDice and MağaraJam: OOP and game logic.' },
+    { n: 'G5', f: 783.99, k: 'KeyT', label: 'Unity',
+      tr: 'Game jam\'de kısıtlı sürede oynanabilir prototip.',
+      en: 'A playable prototype under game-jam time pressure.' },
+    { n: 'A5', f: 880.0, k: 'KeyY', label: 'C / C++',
+      tr: 'Veri yapıları ve algoritmalar tarafının dili.',
+      en: 'The language of my data structures & algorithms work.' },
+    { n: 'B5', f: 987.77, k: 'KeyU', label: 'Docker & Git',
+      tr: 'Çalışan şeyi her yerde aynı şekilde çalıştırmak.',
+      en: 'Making what works run the same everywhere.' }
+  ];
+
+  // `after` = index of the white key this black key sits after
+  const BLACK_KEYS = [
+    { n: 'C♯4', f: 277.18, k: 'KeyS', after: 0, label: 'VISTA Lab',
+      kindTr: 'Araştırma · Eylül 2026 –', kindEn: 'Research · Sep 2026 –',
+      tr: 'Klasik piyano notaları için optimal parmak pozisyonunu tahmin eden derin öğrenme modeli.',
+      en: 'A deep learning model that predicts optimal finger positions for classical piano scores.' },
+    { n: 'D♯4', f: 311.13, k: 'KeyD', after: 1, label: 'TEİAŞ',
+      kindTr: 'Staj · Tem – Ağu 2026', kindEn: 'Internship · Jul – Aug 2026',
+      tr: 'Java ve Angular ile kurum içi web uygulamaları.',
+      en: 'Internal web applications with Java and Angular.' },
+    { n: 'F♯4', f: 369.99, k: 'KeyG', after: 3, label: 'TeamSec',
+      kindTr: 'Deneyim · Tem 2025 – Oca 2026', kindEn: 'Experience · Jul 2025 – Jan 2026',
+      tr: 'FastAPI/Streamlit servisleri, React geçişi, PostgreSQL optimizasyonu.',
+      en: 'FastAPI/Streamlit services, a React migration, PostgreSQL tuning.' },
+    { n: 'G♯4', f: 415.3, k: 'KeyH', after: 4, label: 'Air Quality',
+      kindTr: 'Proje · Makine Öğrenmesi', kindEn: 'Project · Machine Learning',
+      tr: 'Çevresel veri setleri üzerinde tahminleyici model.',
+      en: 'A predictive model on environmental datasets.' },
+    { n: 'A♯4', f: 466.16, k: 'KeyJ', after: 5, label: 'Knight Path',
+      kindTr: 'Proje · Algoritmalar', kindEn: 'Project · Algorithms',
+      tr: 'At hamleleriyle en kısa yolu bulan graf gezinme görselleştiricisi.',
+      en: 'A graph traversal visualizer for shortest knight paths.' },
+    { n: 'C♯5', f: 554.37, k: 'Digit2', after: 7, label: 'MağaraJam',
+      kindTr: 'Game Jam · AI Ajanları', kindEn: 'Game Jam · AI Agents',
+      tr: 'Unity ile arama ve yol bulma kullanan yapay zeka ajanları.',
+      en: 'AI agents using search and pathfinding, built in Unity.' },
+    { n: 'D♯5', f: 622.25, k: 'Digit3', after: 8, label: 'YatDice',
+      kindTr: 'Kişisel Proje · C#', kindEn: 'Personal Project · C#',
+      tr: 'Sıfırdan, temiz OOP mimarisiyle bir zar oyunu.',
+      en: 'A dice game from scratch with clean OOP architecture.' },
+    { n: 'F♯5', f: 739.99, k: 'Digit5', after: 10, label: 'HEALTH-AI',
+      kindTr: 'Sertifika · Mayıs 2026', kindEn: 'Certificate · May 2026',
+      tr: 'Erasmus+ / AB destekli HEALTH-AI projesi başarı sertifikası.',
+      en: 'Certificate of Achievement, Erasmus+ / EU funded HEALTH-AI project.' },
+    { n: 'G♯5', f: 830.61, k: 'Digit6', after: 11, label: 'Çankaya',
+      kindTr: 'Eğitim · 2023 –', kindEn: 'Education · 2023 –',
+      tr: 'Çankaya Üniversitesi, Yazılım Mühendisliği, 4. sınıf.',
+      en: 'Çankaya University, Software Engineering, 4th year.' },
+    { n: 'A♯5', f: 932.33, k: 'Digit7', after: 12, label: 'Konservatuvar',
+      kindTr: 'Piyano · 2017 – 2021', kindEn: 'Piano · 2017 – 2021',
+      tr: 'Süleymanpaşa Belediyesi Konservatuvarı. Bu klavye buradan geliyor.',
+      en: 'Süleymanpaşa Municipality Conservatory. This keyboard comes from here.' }
+  ];
+
+  const heroKeysEl = document.getElementById('hero-keys');
+  const roNote = document.getElementById('ro-note');
+  const roKind = document.getElementById('ro-kind');
+  const roTitle = document.getElementById('ro-title');
+  const roLine = document.getElementById('ro-line');
+  const readoutEl = heroPiano?.querySelector('.piano-readout');
+  const keyEls = new Map(); // note name -> button
+  const keyByCode = new Map(); // KeyboardEvent.code -> key data
+  let lastKey = null;
+
+  // Soft piano-like voice: two partials, fast attack, long exponential decay, gentle lowpass
+  let pianoCtx = null;
+  let pianoOut = null;
+  function playPianoNote(freq) {
+    try {
+      if (!pianoCtx) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        pianoCtx = new AC();
+        pianoOut = pianoCtx.createGain();
+        pianoOut.gain.value = 0.5;
+        const lp = pianoCtx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.value = 3200;
+        pianoOut.connect(lp);
+        lp.connect(pianoCtx.destination);
+      }
+      if (pianoCtx.state === 'suspended') pianoCtx.resume();
+      const t = pianoCtx.currentTime;
+      [[1, 'triangle', 0.32], [2, 'sine', 0.08], [3, 'sine', 0.03]].forEach(([mult, type, peak]) => {
+        const osc = pianoCtx.createOscillator();
+        const g = pianoCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq * mult, t);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(peak, t + 0.008);
+        g.gain.exponentialRampToValueAtTime(peak * 0.35, t + 0.25);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+        osc.connect(g);
+        g.connect(pianoOut);
+        osc.start(t);
+        osc.stop(t + 1.85);
+      });
+    } catch (_) {}
+  }
+
+  function renderReadout(key, finger) {
+    if (!key || !roNote) return;
+    const isBlack = 'kindTr' in key;
+    roNote.textContent = key.n;
+    roKind.textContent = isBlack
+      ? (currentLang === 'tr' ? key.kindTr : key.kindEn)
+      : (finger ? `${currentLang === 'tr' ? 'Parmak' : 'Finger'} ${finger}` : (currentLang === 'tr' ? 'Yetenek' : 'Skill'));
+    roTitle.textContent = key.label;
+    roLine.textContent = currentLang === 'tr' ? key.tr : key.en;
+    readoutEl?.classList.add('flash');
+    clearTimeout(renderReadout.t);
+    renderReadout.t = setTimeout(() => readoutEl?.classList.remove('flash'), 400);
+  }
+
+  function pressKey(key, finger) {
+    const el = keyEls.get(key.n);
+    if (!el) return;
+    playPianoNote(key.f);
+    lastKey = key;
+    renderReadout(key, finger);
+    el.classList.add('down');
+    if (finger) {
+      el.querySelector('.pk-finger').textContent = finger;
+      el.classList.add('show-finger');
+    }
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('down'), 220);
+    clearTimeout(el._ft);
+    if (finger) el._ft = setTimeout(() => el.classList.remove('show-finger'), 900);
+  }
+
+  function buildHeroKeys() {
+    if (!heroKeysEl) return;
+    const all = [...WHITE_KEYS.map((k) => ({ ...k, black: false })), ...BLACK_KEYS.map((k) => ({ ...k, black: true }))];
+    all.forEach((key, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `pk ${key.black ? 'pk-black' : 'pk-white'}`;
+      btn.setAttribute('aria-label', `${key.n} — ${key.label}`);
+      btn.style.setProperty('--d', `${key.black ? 300 + i * 18 : i * 32}ms`);
+      if (key.black) btn.style.left = `calc(100% / 14 * ${key.after + 1} - (100% / 14 * 0.3))`;
+      btn.innerHTML = `<span class="pk-finger" aria-hidden="true"></span><span class="pk-label">${key.label}</span>`;
+      btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        pressKey(key);
+      });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          pressKey(key);
+        }
+      });
+      heroKeysEl.appendChild(btn);
+      keyEls.set(key.n, btn);
+      keyByCode.set(key.k, key);
+    });
+  }
+  buildHeroKeys();
+
+  // Play from the computer keyboard: Z–M / Q–U are white keys, S D G H J / 2 3 5 6 7 black
+  window.addEventListener('keydown', (e) => {
+    if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    const tag = document.activeElement?.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement?.isContentEditable) return;
+    const key = keyByCode.get(e.code);
+    if (!key) return;
+    const rect = heroPiano?.getBoundingClientRect();
+    if (!rect || rect.bottom < 0 || rect.top > window.innerHeight) return; // only while visible
+    pressKey(key);
+  });
+
+  // C major scale up (RH 1-2-3-1-2-3-4-5), then the arpeggio back down (5-3-2-1)
+  const MOTIF = [
+    ['C4', 1], ['D4', 2], ['E4', 3], ['F4', 1], ['G4', 2], ['A4', 3], ['B4', 4], ['C5', 5],
+    ['G4', 3], ['E4', 2], ['C4', 1]
+  ];
+  const playBtn = document.getElementById('hero-play-btn');
+  let motifTimers = [];
+  playBtn?.addEventListener('click', () => {
+    motifTimers.forEach(clearTimeout);
+    playBtn.classList.add('playing');
+    motifTimers = MOTIF.map(([note, finger], i) => setTimeout(() => {
+      const key = WHITE_KEYS.find((k) => k.n === note);
+      if (key) pressKey(key, finger);
+    }, i < 8 ? i * 260 : 7 * 260 + (i - 7) * 340));
+    motifTimers.push(setTimeout(() => playBtn.classList.remove('playing'), 8 * 260 + 3 * 340 + 400));
+  });
+
+  /* --------------------------------------------------------------------------
+     3. MAGNETIC ELEMENTS & DIRECTIONAL CARD SHEEN
+     -------------------------------------------------------------------------- */
+  let mx = window.innerWidth / 2;
+  let my = window.innerHeight / 2;
+  let prevMx = mx;
+  let prevMy = my;
+  let mvx = 0;
+  let mvy = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mvx = e.clientX - mx;
+    mvy = e.clientY - my;
+    mx = e.clientX;
+    my = e.clientY;
+  });
+
   document.querySelectorAll('.magnetic').forEach((el) => {
-    el.addEventListener('mouseenter', () => {
-      document.body.classList.add('cursor-hover');
-      const label = el.getAttribute('data-cursor') || 'VIEW';
-      if (cursorLabel) cursorLabel.textContent = label;
-    });
-
     el.addEventListener('mousemove', (e) => {
-      const rect = el.getBoundingClientRect();
-      const relX = e.clientX - (rect.left + rect.width / 2);
-      const relY = e.clientY - (rect.top + rect.height / 2);
-      el.style.transform = `translate(${relX * 0.18}px, ${relY * 0.18}px)`;
+      const r = el.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + rectHeight(r) / 2);
+      el.style.transform = `translate(${dx * 0.14}px, ${dy * 0.14}px)`;
     });
-
     el.addEventListener('mouseleave', () => {
-      document.body.classList.remove('cursor-hover');
       el.style.transform = '';
     });
   });
 
-  // 3D Tilt & Radial Spotlight on Cards
-  document.querySelectorAll('.tilt-card').forEach((card) => {
-    const maxTilt = parseFloat(card.getAttribute('data-tilt-max') || '6');
+  function rectHeight(r) {
+    return r.height || 1;
+  }
 
+  document.querySelectorAll('.interactive-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-
-      const pctX = (x / rect.width) - 0.5;
-      const pctY = (y / rect.height) - 0.5;
-      const rotY = pctX * maxTilt * 2;
-      const rotX = -pctY * maxTilt * 2;
-
-      card.style.transform = `perspective(1100px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg)';
+      const r = card.getBoundingClientRect();
+      const pct = ((e.clientX - r.left) / (r.width || 1)) * 100;
+      card.style.setProperty('--sheen-pos', `${pct.toFixed(1)}%`);
     });
   });
 
   /* --------------------------------------------------------------------------
-     4. INTERACTIVE BACKGROUND NEURAL CONSTELLATION CANVAS
+     4. ULTRA-SMOOTH 144FPS SILK COMET TRAIL & SUBTLE DUST (ZERO LAG)
      -------------------------------------------------------------------------- */
-  const bgCanvas = document.getElementById('neural-canvas');
-  if (bgCanvas) {
-    const ctx = bgCanvas.getContext('2d');
-    let width = (bgCanvas.width = window.innerWidth);
-    let height = (bgCanvas.height = window.innerHeight);
+  const canvas = document.getElementById('interactive-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = window.innerHeight);
 
     window.addEventListener('resize', () => {
-      width = bgCanvas.width = window.innerWidth;
-      height = bgCanvas.height = window.innerHeight;
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
     });
 
-    const nodeCount = Math.min(75, Math.floor((width * height) / 22000));
-    const nodes = [];
-    const pulses = [];
+    // Pure LERP trail (never overshoots or explodes)
+    const TRAIL_LENGTH = 18;
+    const trail = Array.from({ length: TRAIL_LENGTH }, () => ({ x: mx, y: my }));
 
-    for (let i = 0; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        r: Math.random() * 1.8 + 1,
-        gold: Math.random() > 0.35
-      });
-    }
+    // Lightweight ambient floating specks (react gently when mouse passes nearby)
+    const SPECK_COUNT = 32;
+    const specks = Array.from({ length: SPECK_COUNT }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      size: Math.random() * 1.4 + 0.6,
+      alpha: Math.random() * 0.35 + 0.15
+    }));
 
-    // Click shockwave
-    window.addEventListener('click', (e) => {
-      nodes.forEach((n) => {
-        const dx = n.x - e.clientX;
-        const dy = n.y - e.clientY;
-        const dist = Math.hypot(dx, dy);
-        if (dist < 260 && dist > 1) {
-          const force = (260 - dist) / 260;
-          n.vx += (dx / dist) * force * 2.4;
-          n.vy += (dy / dist) * force * 2.4;
+    function drawCanvas() {
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. Subtle ambient specks with gentle mouse breeze
+      for (let i = 0; i < specks.length; i++) {
+        const s = specks[i];
+        const dx = s.x - mx;
+        const dy = s.y - my;
+        const distSq = dx * dx + dy * dy;
+
+        if (distSq < 19600 && distSq > 4) {
+          const dist = Math.sqrt(distSq);
+          const push = (140 - dist) / 140;
+          s.vx += (dx / dist) * push * 0.08;
+          s.vy += (dy / dist) * push * 0.08;
         }
-      });
-    });
 
-    function renderNeuralBg() {
-      ctx.clearRect(0, 0, width, height);
+        s.vx *= 0.97;
+        s.vy *= 0.97;
+        s.x += s.vx + 0.08;
+        s.y += s.vy - 0.05;
 
-      for (let i = 0; i < nodes.length; i++) {
-        const a = nodes[i];
-        a.x += a.vx;
-        a.y += a.vy;
+        if (s.x < 0) s.x = w;
+        if (s.x > w) s.x = 0;
+        if (s.y < 0) s.y = h;
+        if (s.y > h) s.y = 0;
 
-        // Dampen velocity softly
-        a.vx *= 0.995;
-        a.vy *= 0.995;
-        if (Math.abs(a.vx) < 0.15) a.vx += (Math.random() - 0.5) * 0.08;
-        if (Math.abs(a.vy) < 0.15) a.vy += (Math.random() - 0.5) * 0.08;
+        ctx.fillStyle = `rgba(243, 229, 194, ${s.alpha})`;
+        ctx.fillRect(s.x, s.y, s.size, s.size);
+      }
 
-        if (a.x < 0 || a.x > width) a.vx *= -1;
-        if (a.y < 0 || a.y > height) a.vy *= -1;
+      // 2. Update silk trail positions strictly via stable LERP (0 overshoot)
+      trail[0].x += (mx - trail[0].x) * 0.45;
+      trail[0].y += (my - trail[0].y) * 0.45;
 
-        // Mouse interaction
-        const mdx = mouseX - a.x;
-        const mdy = mouseY - a.y;
-        const mDist = Math.hypot(mdx, mdy);
+      for (let i = 1; i < TRAIL_LENGTH; i++) {
+        trail[i].x += (trail[i - 1].x - trail[i].x) * 0.42;
+        trail[i].y += (trail[i - 1].y - trail[i].y) * 0.42;
+      }
 
-        if (mDist < 190) {
+      // 3. Draw sleek tapered silk stroke only when moving
+      const totalLen = Math.hypot(trail[0].x - trail[TRAIL_LENGTH - 1].x, trail[0].y - trail[TRAIL_LENGTH - 1].y);
+      if (totalLen > 1.5) {
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        for (let i = 0; i < TRAIL_LENGTH - 1; i++) {
+          const ratio = 1 - i / TRAIL_LENGTH;
           ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(mouseX, mouseY);
-          const alpha = (1 - mDist / 190) * 0.38;
-          ctx.strokeStyle = a.gold
-            ? `rgba(212, 175, 55, ${alpha})`
-            : `rgba(56, 189, 248, ${alpha})`;
-          ctx.lineWidth = 0.9;
+          ctx.moveTo(trail[i].x, trail[i].y);
+          ctx.lineTo(trail[i + 1].x, trail[i + 1].y);
+          ctx.strokeStyle = `rgba(214, 184, 114, ${(ratio * 0.48).toFixed(3)})`;
+          ctx.lineWidth = ratio * 2.2;
           ctx.stroke();
         }
-
-        // Node-to-node synapses
-        for (let j = i + 1; j < nodes.length; j++) {
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.hypot(dx, dy);
-
-          if (dist < 145) {
-            const alpha = (1 - dist / 145) * 0.2;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(212, 175, 55, ${alpha})`;
-            ctx.lineWidth = 0.65;
-            ctx.stroke();
-
-            if (Math.random() < 0.0005 && pulses.length < 18) {
-              pulses.push({ ax: a.x, ay: a.y, bx: b.x, by: b.y, t: 0 });
-            }
-          }
-        }
-
-        // Draw node
-        ctx.beginPath();
-        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-        ctx.fillStyle = a.gold ? 'rgba(246, 231, 184, 0.75)' : 'rgba(56, 189, 248, 0.7)';
-        ctx.fill();
       }
 
-      // Draw synaptic pulses
-      for (let i = pulses.length - 1; i >= 0; i--) {
-        const p = pulses[i];
-        p.t += 0.03;
-        if (p.t >= 1) {
-          pulses.splice(i, 1);
-          continue;
-        }
-        const px = p.ax + (p.bx - p.ax) * p.t;
-        const py = p.ay + (p.by - p.ay) * p.t;
-        ctx.beginPath();
-        ctx.arc(px, py, 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = '#f6e7b8';
-        ctx.fill();
-      }
-
-      requestAnimationFrame(renderNeuralBg);
+      requestAnimationFrame(drawCanvas);
     }
-    requestAnimationFrame(renderNeuralBg);
+    requestAnimationFrame(drawCanvas);
   }
 
   /* --------------------------------------------------------------------------
-     5. HERO 3D TENSOR TOPOLOGY VISUALIZER (#hero-tensor-canvas)
+     5. TABBED INTERACTIVE SHOWCASE (PIANO & KNIGHT PATH FINDER)
      -------------------------------------------------------------------------- */
-  const tensorCanvas = document.getElementById('hero-tensor-canvas');
-  if (tensorCanvas) {
-    const tCtx = tensorCanvas.getContext('2d');
-    const layers = [4, 6, 6, 5];
-    const layerNodes = [];
-    const signals = [];
+  const stageTabs = document.querySelectorAll('.stage-tab');
+  const stagePiano = document.getElementById('stage-piano');
+  const stageKnight = document.getElementById('stage-knight');
 
-    function buildTensorNodes() {
-      layerNodes.length = 0;
-      const w = tensorCanvas.width;
-      const h = tensorCanvas.height;
-      const padX = 52;
-      const usableW = w - padX * 2;
-
-      layers.forEach((count, lIdx) => {
-        const x = padX + (usableW / (layers.length - 1)) * lIdx;
-        const col = [];
-        for (let i = 0; i < count; i++) {
-          const y = ((h - 44) / (count - 1)) * i + 22;
-          col.push({ x, y, act: Math.random() });
-        }
-        layerNodes.push(col);
-      });
-    }
-    buildTensorNodes();
-
-    let tensorHoverX = 210;
-    let tensorHoverY = 110;
-    tensorCanvas.addEventListener('mousemove', (e) => {
-      const r = tensorCanvas.getBoundingClientRect();
-      tensorHoverX = ((e.clientX - r.left) / r.width) * tensorCanvas.width;
-      tensorHoverY = ((e.clientY - r.top) / r.height) * tensorCanvas.height;
-      if (signals.length < 25) {
-        const l = Math.floor(Math.random() * (layers.length - 1));
-        const a = layerNodes[l][Math.floor(Math.random() * layerNodes[l].length)];
-        const b = layerNodes[l + 1][Math.floor(Math.random() * layerNodes[l + 1].length)];
-        signals.push({ a, b, t: 0 });
-      }
+  stageTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      stageTabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.getAttribute('data-stage');
+      stagePiano?.classList.toggle('active-pane', target === 'piano');
+      stageKnight?.classList.toggle('active-pane', target === 'knight');
     });
+  });
 
-    function renderTensorCanvas() {
-      tCtx.clearRect(0, 0, tensorCanvas.width, tensorCanvas.height);
-
-      if (Math.random() < 0.14 && signals.length < 18) {
-        const l = Math.floor(Math.random() * (layers.length - 1));
-        const a = layerNodes[l][Math.floor(Math.random() * layerNodes[l].length)];
-        const b = layerNodes[l + 1][Math.floor(Math.random() * layerNodes[l + 1].length)];
-        signals.push({ a, b, t: 0 });
-      }
-
-      // Draw edges
-      for (let l = 0; l < layerNodes.length - 1; l++) {
-        for (const n1 of layerNodes[l]) {
-          for (const n2 of layerNodes[l + 1]) {
-            tCtx.beginPath();
-            tCtx.moveTo(n1.x, n1.y);
-            tCtx.lineTo(n2.x, n2.y);
-            tCtx.strokeStyle = 'rgba(212, 175, 55, 0.13)';
-            tCtx.lineWidth = 0.8;
-            tCtx.stroke();
-          }
-        }
-      }
-
-      // Draw signals
-      for (let i = signals.length - 1; i >= 0; i--) {
-        const s = signals[i];
-        s.t += 0.04;
-        if (s.t >= 1) {
-          s.b.act = 1;
-          signals.splice(i, 1);
-          continue;
-        }
-        const sx = s.a.x + (s.b.x - s.a.x) * s.t;
-        const sy = s.a.y + (s.b.y - s.a.y) * s.t;
-        tCtx.beginPath();
-        tCtx.arc(sx, sy, 2.6, 0, Math.PI * 2);
-        tCtx.fillStyle = '#38bdf8';
-        tCtx.fill();
-      }
-
-      // Draw nodes
-      for (let l = 0; l < layerNodes.length; l++) {
-        for (const n of layerNodes[l]) {
-          n.act *= 0.96;
-          const dist = Math.hypot(n.x - tensorHoverX, n.y - tensorHoverY);
-          const boost = dist < 65 ? (1 - dist / 65) : 0;
-          const radius = 5 + boost * 3 + n.act * 2;
-
-          tCtx.beginPath();
-          tCtx.arc(n.x, n.y, radius, 0, Math.PI * 2);
-          tCtx.fillStyle = l === layerNodes.length - 1
-            ? '#d4af37'
-            : (n.act > 0.3 || boost > 0.3 ? '#f6e7b8' : '#1e293b');
-          tCtx.strokeStyle = '#d4af37';
-          tCtx.lineWidth = 1.4;
-          tCtx.fill();
-          tCtx.stroke();
-        }
-      }
-
-      requestAnimationFrame(renderTensorCanvas);
-    }
-    requestAnimationFrame(renderTensorCanvas);
-  }
-
-  /* --------------------------------------------------------------------------
-     6. LAB MODULE 1: VISTA LAB DEEP LEARNING PIANO FINGERING + WEB AUDIO
-     -------------------------------------------------------------------------- */
-  const pianoNotes = [
-    { note: 'C4', freq: 261.63, finger: 1, fingerTR: '#1 (Başparmak)', fingerEN: '#1 (Thumb)', probs: [94, 4, 1, 1, 0], cost: '0.09 (Optimal)' },
-    { note: 'D4', freq: 293.66, finger: 2, fingerTR: '#2 (İşaret)', fingerEN: '#2 (Index)', probs: [5, 91, 3, 1, 0], cost: '0.11 (Optimal)' },
-    { note: 'E4', freq: 329.63, finger: 3, fingerTR: '#3 (Orta)', fingerEN: '#3 (Middle)', probs: [2, 6, 89, 2, 1], cost: '0.12 (Optimal)' },
-    { note: 'F4', freq: 349.23, finger: 1, fingerTR: '#1 (Başparmak Geçişi)', fingerEN: '#1 (Thumb Under)', probs: [86, 4, 7, 2, 1], cost: '0.18 (Thumb-Under)' },
-    { note: 'G4', freq: 392.00, finger: 2, fingerTR: '#2 (İşaret)', fingerEN: '#2 (Index)', probs: [4, 92, 3, 1, 0], cost: '0.10 (Optimal)' },
-    { note: 'A4', freq: 440.00, finger: 3, fingerTR: '#3 (Orta)', fingerEN: '#3 (Middle)', probs: [1, 5, 90, 3, 1], cost: '0.11 (Optimal)' },
-    { note: 'B4', freq: 493.88, finger: 4, fingerTR: '#4 (Yüzük)', fingerEN: '#4 (Ring)', probs: [1, 2, 6, 88, 3], cost: '0.15 (Anatomical)' },
-    { note: 'C5', freq: 523.25, finger: 5, fingerTR: '#5 (Serçe)', fingerEN: '#5 (Pinky)', probs: [0, 1, 3, 5, 91], cost: '0.12 (Optimal)' },
-    { note: 'D5', freq: 587.33, finger: 4, fingerTR: '#4 (Yüzük)', fingerEN: '#4 (Ring)', probs: [1, 3, 8, 84, 4], cost: '0.16 (Stretch)' },
-    { note: 'E5', freq: 659.25, finger: 5, fingerTR: '#5 (Serçe)', fingerEN: '#5 (Pinky)', probs: [0, 1, 2, 4, 93], cost: '0.10 (Optimal)' }
+  // Piano Fingering Preview
+  const notes = [
+    { note: 'C4', freq: 261.6, fNum: 1, tr: '1 — Başparmak', en: '1 — Thumb', conf: '95%' },
+    { note: 'D4', freq: 293.7, fNum: 2, tr: '2 — İşaret', en: '2 — Index', conf: '92%' },
+    { note: 'E4', freq: 329.6, fNum: 3, tr: '3 — Orta', en: '3 — Middle', conf: '91%' },
+    { note: 'F4', freq: 349.2, fNum: 1, tr: '1 — Başparmak Geçişi', en: '1 — Thumb Under', conf: '89%' },
+    { note: 'G4', freq: 392.0, fNum: 2, tr: '2 — İşaret', en: '2 — Index', conf: '94%' },
+    { note: 'A4', freq: 440.0, fNum: 3, tr: '3 — Orta', en: '3 — Middle', conf: '93%' },
+    { note: 'B4', freq: 493.9, fNum: 4, tr: '4 — Yüzük', en: '4 — Ring', conf: '90%' },
+    { note: 'C5', freq: 523.3, fNum: 5, tr: '5 — Serçe', en: '5 — Pinky', conf: '94%' },
+    { note: 'D5', freq: 587.3, fNum: 4, tr: '4 — Yüzük', en: '4 — Ring', conf: '88%' },
+    { note: 'E5', freq: 659.3, fNum: 5, tr: '5 — Serçe', en: '5 — Pinky', conf: '95%' }
   ];
 
   let audioCtx = null;
-
-  function playPianoTone(freq) {
+  function playNoteTone(freq) {
     try {
       if (!audioCtx) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContextClass();
+        const AC = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AC();
       }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
       const now = audioCtx.currentTime;
-      const osc1 = audioCtx.createOscillator();
-      const osc2 = audioCtx.createOscillator();
+      const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-
-      osc1.type = 'triangle';
-      osc1.frequency.setValueAtTime(freq, now);
-
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(freq * 2, now);
-
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now);
       gain.gain.setValueAtTime(0.001, now);
-      gain.gain.exponentialRampToValueAtTime(0.22, now + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0008, now + 1.1);
-
-      osc1.connect(gain);
-      osc2.connect(gain);
+      gain.gain.exponentialRampToValueAtTime(0.18, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.9);
+      osc.connect(gain);
       gain.connect(audioCtx.destination);
-
-      osc1.start(now);
-      osc2.start(now);
-      osc1.stop(now + 1.15);
-      osc2.stop(now + 1.15);
-    } catch (_) {
-      // Ignore if browser blocks audio before interaction
-    }
+      osc.start(now);
+      osc.stop(now + 0.95);
+    } catch (_) {}
   }
 
-  const keyboardEl = document.getElementById('piano-keyboard');
-  const noteDisp = document.getElementById('piano-note-display');
-  const fingerDisp = document.getElementById('piano-finger-display');
-  const confDisp = document.getElementById('piano-conf-display');
-  const costDisp = document.getElementById('piano-cost-display');
+  const pianoContainer = document.getElementById('piano-keys');
+  const pNoteEl = document.getElementById('p-note');
+  const pFingerEl = document.getElementById('p-finger');
+  const pConfEl = document.getElementById('p-conf');
 
-  function triggerPianoKey(idx) {
-    const item = pianoNotes[idx];
-    if (!item) return;
+  function activateKey(i) {
+    const item = notes[i];
+    if (!item || !pianoContainer) return;
+    playNoteTone(item.freq);
 
-    playPianoTone(item.freq);
+    const keys = pianoContainer.querySelectorAll('.p-key');
+    keys.forEach((k, idx) => k.classList.toggle('active', idx === i));
 
-    const allKeys = keyboardEl.querySelectorAll('.piano-key');
-    allKeys.forEach((k, i) => {
-      k.classList.toggle('active-key', i === idx);
-    });
+    if (pNoteEl) pNoteEl.textContent = `${item.note} (${item.freq} Hz)`;
+    if (pFingerEl) pFingerEl.textContent = currentLang === 'tr' ? item.tr : item.en;
+    if (pConfEl) pConfEl.textContent = item.conf;
 
-    if (noteDisp) noteDisp.textContent = `${item.note} • ${item.freq.toFixed(1)} Hz`;
-    if (fingerDisp) {
-      fingerDisp.textContent = currentLang === 'tr' ? item.fingerTR : item.fingerEN;
-    }
-    const maxProb = Math.max(...item.probs);
-    if (confDisp) confDisp.textContent = `${(maxProb + 0.4).toFixed(1)}%`;
-    if (costDisp) costDisp.textContent = item.cost;
-
-    for (let f = 1; f <= 5; f++) {
-      const pVal = item.probs[f - 1];
-      const bar = document.getElementById(`prob-bar-${f}`);
-      const lbl = document.getElementById(`prob-val-${f}`);
-      if (bar) {
-        bar.style.width = `${pVal}%`;
-        bar.classList.toggle('active', f === item.finger);
-      }
-      if (lbl) lbl.textContent = `${pVal}%`;
-    }
-
-    setTimeout(() => {
-      if (allKeys[idx]) allKeys[idx].classList.remove('active-key');
-    }, 420);
+    setTimeout(() => keys[i]?.classList.remove('active'), 380);
   }
 
-  if (keyboardEl) {
-    pianoNotes.forEach((item, idx) => {
-      const keyBtn = document.createElement('button');
-      keyBtn.type = 'button';
-      keyBtn.className = 'piano-key';
-      keyBtn.innerHTML = `
-        <span class="key-finger-badge">P${item.finger}</span>
-        <span>${item.note}</span>
-      `;
-      keyBtn.addEventListener('click', () => triggerPianoKey(idx));
-      keyboardEl.appendChild(keyBtn);
+  if (pianoContainer) {
+    notes.forEach((n, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'p-key';
+      btn.innerHTML = `<span class="p-finger-tag">P${n.fNum}</span><span>${n.note}</span>`;
+      btn.addEventListener('click', () => activateKey(idx));
+      pianoContainer.appendChild(btn);
     });
   }
 
-  let seqTimers = [];
-  function runPianoSequence(indices, tempoMs = 260) {
-    seqTimers.forEach((t) => clearTimeout(t));
-    seqTimers = [];
-    indices.forEach((noteIdx, step) => {
-      const timer = setTimeout(() => {
-        triggerPianoKey(noteIdx);
-      }, step * tempoMs);
-      seqTimers.push(timer);
+  document.getElementById('run-sequence-btn')?.addEventListener('click', () => {
+    const seq = [0, 1, 2, 3, 4, 5, 6, 7, 5, 4, 2, 0];
+    seq.forEach((nIdx, step) => {
+      setTimeout(() => activateKey(nIdx), step * 230);
     });
+  });
+
+  // Knight Path Finder Preview
+  const boardEl = document.getElementById('knight-board');
+  const kStartEl = document.getElementById('k-start');
+  const kTargetEl = document.getElementById('k-target');
+  const kMovesEl = document.getElementById('k-moves');
+  const kRouteEl = document.getElementById('k-route');
+
+  const files = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+  const startNode = { r: 7, c: 1 }; // B1
+  let targetNode = { r: 1, c: 6 };  // G7
+  let walls = new Set(['3,3', '3,4', '4,3', '2,5']);
+
+  function cellName(r, c) {
+    return `${files[c]}${8 - r}`;
   }
 
-  const bachBtn = document.getElementById('play-bach-btn');
-  const chopinBtn = document.getElementById('play-chopin-btn');
-  if (bachBtn) {
-    bachBtn.addEventListener('click', () => {
-      runPianoSequence([0, 2, 4, 7, 9, 7, 4, 2, 0], 240);
-    });
-  }
-  if (chopinBtn) {
-    chopinBtn.addEventListener('click', () => {
-      runPianoSequence([0, 3, 4, 7, 6, 4, 2, 5, 7], 220);
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     7. LAB MODULE 2: KNIGHT PATH FINDER & GRAPH TRAVERSAL VISUALIZER
-     -------------------------------------------------------------------------- */
-  const knightGridEl = document.getElementById('knight-grid');
-  const startValEl = document.getElementById('knight-start-val');
-  const targetValEl = document.getElementById('knight-target-val');
-  const movesValEl = document.getElementById('knight-moves-val');
-  const visitedValEl = document.getElementById('knight-visited-val');
-  const routeBadgesEl = document.getElementById('knight-route-badges');
-
-  const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-  const knightStart = { r: 7, c: 1 }; // B1
-  let knightTarget = { r: 1, c: 6 };  // G7
-  let obstacles = new Set(['3,3', '3,4', '4,3', '2,5', '5,2']);
-
-  function toCoordName(r, c) {
-    return `${cols[c]}${8 - r}`;
-  }
-
-  function solveKnightBFS(start, target) {
-    const moves = [
-      [-2, -1], [-2, 1], [-1, -2], [-1, 2],
-      [1, -2], [1, 2], [2, -1], [2, 1]
-    ];
+  function findKnightPath(start, target) {
+    const dirs = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
     const queue = [[start]];
-    const visited = new Set([`${start.r},${start.c}`]);
-    const visitedOrder = [];
+    const seen = new Set([`${start.r},${start.c}`]);
 
-    while (queue.length > 0) {
+    while (queue.length) {
       const path = queue.shift();
-      const curr = path[path.length - 1];
-      visitedOrder.push(curr);
+      const cur = path[path.length - 1];
+      if (cur.r === target.r && cur.c === target.c) return { path, seen };
 
-      if (curr.r === target.r && curr.c === target.c) {
-        return { path, visitedOrder };
-      }
-
-      for (const [dr, dc] of moves) {
-        const nr = curr.r + dr;
-        const nc = curr.c + dc;
-        const key = `${nr},${nc}`;
-        if (
-          nr >= 0 && nr < 8 &&
-          nc >= 0 && nc < 8 &&
-          !visited.has(key) &&
-          !obstacles.has(key)
-        ) {
-          visited.add(key);
+      for (const [dr, dc] of dirs) {
+        const nr = cur.r + dr;
+        const nc = cur.c + dc;
+        const k = `${nr},${nc}`;
+        if (nr >= 0 && nr < 8 && nc >= 0 && nc < 8 && !seen.has(k) && !walls.has(k)) {
+          seen.add(k);
           queue.push([...path, { r: nr, c: nc }]);
         }
       }
     }
-    return { path: [start], visitedOrder };
+    return { path: [start], seen };
   }
 
   function renderKnightBoard() {
-    if (!knightGridEl) return;
-    knightGridEl.innerHTML = '';
+    if (!boardEl) return;
+    boardEl.innerHTML = '';
 
-    const { path, visitedOrder } = solveKnightBFS(knightStart, knightTarget);
-    const pathSet = new Set(path.map((p) => `${p.r},${p.c}`));
-    const visitedSet = new Set(visitedOrder.map((p) => `${p.r},${p.c}`));
+    const { path, seen } = findKnightPath(startNode, targetNode);
+    const pathMap = new Map(path.map((p, idx) => [`${p.r},${p.c}`, idx]));
 
     for (let r = 0; r < 8; r++) {
       for (let c = 0; c < 8; c++) {
-        const cell = document.createElement('button');
-        cell.type = 'button';
-        const isDark = (r + c) % 2 === 1;
+        const btn = document.createElement('button');
+        btn.type = 'button';
         const key = `${r},${c}`;
-        cell.className = `chess-cell ${isDark ? 'dark-cell' : ''}`;
+        btn.className = `k-cell ${(r + c) % 2 === 1 ? 'dark' : ''}`;
 
-        if (r === knightStart.r && c === knightStart.c) {
-          cell.classList.add('cell-start');
-          cell.textContent = '♞';
-        } else if (r === knightTarget.r && c === knightTarget.c) {
-          cell.classList.add('cell-target');
-          cell.textContent = '★';
-        } else if (obstacles.has(key)) {
-          cell.classList.add('cell-obstacle');
-          cell.textContent = '✕';
-        } else if (pathSet.has(key)) {
-          const stepIndex = path.findIndex((p) => p.r === r && p.c === c);
-          cell.classList.add('cell-path');
-          cell.textContent = stepIndex;
-        } else if (visitedSet.has(key)) {
-          cell.classList.add('cell-visited');
-          cell.textContent = toCoordName(r, c);
+        if (r === startNode.r && c === startNode.c) {
+          btn.classList.add('start');
+          btn.textContent = '♞';
+        } else if (r === targetNode.r && c === targetNode.c) {
+          btn.classList.add('target');
+          btn.textContent = '★';
+        } else if (walls.has(key)) {
+          btn.classList.add('wall');
+          btn.textContent = '✕';
+        } else if (pathMap.has(key)) {
+          btn.classList.add('path');
+          btn.textContent = pathMap.get(key);
+        } else if (seen.has(key)) {
+          btn.classList.add('visited');
+          btn.textContent = cellName(r, c);
         } else {
-          cell.textContent = toCoordName(r, c);
+          btn.textContent = cellName(r, c);
         }
 
-        cell.addEventListener('click', () => {
-          if (obstacles.has(key) || (r === knightStart.r && c === knightStart.c)) return;
-          knightTarget = { r, c };
+        btn.addEventListener('click', () => {
+          if (walls.has(key) || (r === startNode.r && c === startNode.c)) return;
+          targetNode = { r, c };
           renderKnightBoard();
         });
 
-        knightGridEl.appendChild(cell);
+        boardEl.appendChild(btn);
       }
     }
 
-    if (startValEl) startValEl.textContent = `${toCoordName(knightStart.r, knightStart.c)} (${knightStart.c}, ${7 - knightStart.r})`;
-    if (targetValEl) targetValEl.textContent = `${toCoordName(knightTarget.r, knightTarget.c)} (${knightTarget.c}, ${7 - knightTarget.r})`;
-    if (movesValEl) {
-      const mCount = Math.max(0, path.length - 1);
-      movesValEl.textContent = currentLang === 'tr' ? `${mCount} Hamle` : `${mCount} Moves`;
+    if (kStartEl) kStartEl.textContent = cellName(startNode.r, startNode.c);
+    if (kTargetEl) kTargetEl.textContent = cellName(targetNode.r, targetNode.c);
+    if (kMovesEl) {
+      const m = Math.max(0, path.length - 1);
+      kMovesEl.textContent = currentLang === 'tr' ? `${m} Hamle` : `${m} Moves`;
     }
-    if (visitedValEl) visitedValEl.textContent = `${visitedOrder.length} / 64`;
-
-    if (routeBadgesEl) {
-      routeBadgesEl.innerHTML = path
-        .map((p) => `<span class="route-step">${toCoordName(p.r, p.c)}</span>`)
-        .join(' → ');
+    if (kRouteEl) {
+      kRouteEl.textContent = path.map((p) => cellName(p.r, p.c)).join(' → ');
     }
   }
-
   renderKnightBoard();
 
-  const randomKnightBtn = document.getElementById('random-knight-btn');
-  const toggleObstaclesBtn = document.getElementById('toggle-obstacles-btn');
+  document.getElementById('knight-random-btn')?.addEventListener('click', () => {
+    let r = 0;
+    let c = 0;
+    do {
+      r = Math.floor(Math.random() * 8);
+      c = Math.floor(Math.random() * 8);
+    } while ((r === startNode.r && c === startNode.c) || walls.has(`${r},${c}`));
+    targetNode = { r, c };
+    renderKnightBoard();
+  });
 
-  if (randomKnightBtn) {
-    randomKnightBtn.addEventListener('click', () => {
-      let nr = 0;
-      let nc = 0;
-      do {
-        nr = Math.floor(Math.random() * 8);
-        nc = Math.floor(Math.random() * 8);
-      } while (
-        (nr === knightStart.r && nc === knightStart.c) ||
-        obstacles.has(`${nr},${nc}`)
-      );
-      knightTarget = { r: nr, c: nc };
-      renderKnightBoard();
-    });
-  }
-
-  if (toggleObstaclesBtn) {
-    toggleObstaclesBtn.addEventListener('click', () => {
-      obstacles = new Set();
-      while (obstacles.size < 6) {
-        const r = Math.floor(Math.random() * 8);
-        const c = Math.floor(Math.random() * 8);
-        if (
-          (r !== knightStart.r || c !== knightStart.c) &&
-          (r !== knightTarget.r || c !== knightTarget.c)
-        ) {
-          obstacles.add(`${r},${c}`);
-        }
+  document.getElementById('knight-walls-btn')?.addEventListener('click', () => {
+    walls = new Set();
+    while (walls.size < 5) {
+      const r = Math.floor(Math.random() * 8);
+      const c = Math.floor(Math.random() * 8);
+      if ((r !== startNode.r || c !== startNode.c) && (r !== targetNode.r || c !== targetNode.c)) {
+        walls.add(`${r},${c}`);
       }
-      renderKnightBoard();
-    });
-  }
+    }
+    renderKnightBoard();
+  });
 
   /* --------------------------------------------------------------------------
-     8. SCROLL PROGRESS, REVEAL ON SCROLL & ACTIVE NAV LINK
+     6. ORIGINAL UPLOADED PDF CV SWITCHER
      -------------------------------------------------------------------------- */
-  const progressBar = document.getElementById('scroll-progress-bar');
-  const revealEls = document.querySelectorAll('.reveal-up');
+  const cvTabs = document.querySelectorAll('.cv-tab');
+  const cvIframe = document.getElementById('cv-iframe');
+  const cvOpenNew = document.getElementById('cv-open-new');
+  const cvDownload = document.getElementById('cv-download-link');
+  const cvLabel = document.getElementById('cv-active-label');
+
+  cvTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      cvTabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      const pdfPath = tab.getAttribute('data-pdf');
+      if (cvIframe) cvIframe.src = `${pdfPath}#toolbar=0&navpanes=0`;
+      if (cvOpenNew) cvOpenNew.href = pdfPath;
+      if (cvDownload) cvDownload.href = pdfPath;
+      if (cvLabel) cvLabel.textContent = `${tab.textContent.trim()} — Semih_Utku_Canverdi.pdf`;
+    });
+  });
+
+  /* --------------------------------------------------------------------------
+     7. SCROLL PROGRESS & SMOOTH REVEALS
+     -------------------------------------------------------------------------- */
+  const scrollBar = document.getElementById('scroll-progress');
   const sections = document.querySelectorAll('main section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  function triggerInitialReveals() {
+  function initScrollReveal() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const delay = parseInt(entry.target.getAttribute('data-delay') || '0', 10);
-            setTimeout(() => {
-              entry.target.classList.add('in-view');
-            }, delay);
+            setTimeout(() => entry.target.classList.add('visible'), delay);
           }
         });
       },
       { threshold: 0.12 }
     );
-    revealEls.forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   }
 
   window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    if (progressBar) progressBar.style.width = `${pct}%`;
+    const top = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollBar && max > 0) {
+      scrollBar.style.width = `${(top / max) * 100}%`;
+    }
 
-    let currentSec = 'hero';
+    let current = '';
     sections.forEach((sec) => {
-      const top = sec.offsetTop - 220;
-      if (scrollTop >= top) {
-        currentSec = sec.id;
-      }
+      if (top >= sec.offsetTop - 180) current = sec.id;
     });
-
     navLinks.forEach((link) => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${currentSec}`);
+      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
     });
   });
-
-  /* --------------------------------------------------------------------------
-     9. PROJECT FILTERING, LANGUAGE TOGGLE, CV MODAL & TOAST
-     -------------------------------------------------------------------------- */
-  // Language switch
-  const langToggleBtn = document.getElementById('lang-toggle');
-  if (langToggleBtn) {
-    langToggleBtn.addEventListener('click', () => {
-      setLanguage(currentLang === 'tr' ? 'en' : 'tr');
-      renderKnightBoard();
-    });
-  }
-
-  // Project filter tabs
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.getAttribute('data-filter');
-
-      projectCards.forEach((card) => {
-        const cat = card.getAttribute('data-category');
-        const show = filter === 'all' || cat === filter;
-        card.classList.toggle('hidden-card', !show);
-      });
-    });
-  });
-
-  // Toast helper
-  const toastEl = document.getElementById('toast-notification');
-  const toastText = document.getElementById('toast-text');
-  let toastTimer = null;
-
-  function showToast(msg) {
-    if (!toastEl || !toastText) return;
-    toastText.textContent = msg;
-    toastEl.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      toastEl.classList.remove('show');
-    }, 3000);
-  }
-
-  // Copy email buttons
-  document.querySelectorAll('.copy-email-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const email = btn.getAttribute('data-email') || 'utkucnvrdi@gmail.com';
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(email);
-      }
-      showToast(
-        currentLang === 'tr'
-          ? `E-posta kopyalandı: ${email}`
-          : `Email copied to clipboard: ${email}`
-      );
-    });
-  });
-
-  // Contact form
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('sender-name').value.trim();
-      const email = document.getElementById('sender-email').value.trim();
-      const topic = document.getElementById('sender-topic').value;
-      const msg = document.getElementById('sender-msg').value.trim();
-
-      const subject = encodeURIComponent(`[Portfolio] ${topic} — ${name}`);
-      const body = encodeURIComponent(`From: ${name} (${email})\nTopic: ${topic}\n\n${msg}`);
-      window.location.href = `mailto:utkucnvrdi@gmail.com?subject=${subject}&body=${body}`;
-
-      showToast(
-        currentLang === 'tr'
-          ? 'E-posta istemciniz mesajınızla birlikte açılıyor!'
-          : 'Opening your email client with the prepared message!'
-      );
-    });
-  }
-
-  // CV Modal & Multi-Track Summaries (from his 4 CV variants)
-  const cvModal = document.getElementById('cv-modal');
-  const openCvBtn = document.getElementById('open-cv-modal');
-  const closeCvBtn = document.getElementById('close-cv-modal');
-  const printCvBtn = document.getElementById('print-cv-btn');
-  const cvSummaryEl = document.getElementById('cv-dynamic-summary');
-  const cvTrackBtns = document.querySelectorAll('.cv-track-btn');
-
-  const trackSummaries = {
-    ai: '4th-year Software Engineering student focused on deep learning, neural network architectures, and data-driven systems. Developing advanced neural pipelines for symbolic music finger positioning at VISTA Lab, alongside predictive machine learning workflows and EU-funded HEALTH-AI certification.',
-    backend: '4th-year Software Engineering student with a strong foundation in software development, system architecture, and performance optimization. Experienced in building robust backend services, scalable web applications, and data-driven systems with FastAPI, Java, Spring Boot, React, and PostgreSQL.',
-    gamedev: '4th-year Software Engineering student focused on game development, algorithmic problem-solving, and AI-driven systems. Passionate about designing core gameplay mechanics, autonomous AI agents, pathfinding logic, and clean software architectures using Unity, C#, and Python.'
-  };
-
-  if (openCvBtn && cvModal) {
-    openCvBtn.addEventListener('click', () => {
-      cvModal.classList.add('open');
-      cvModal.setAttribute('aria-hidden', 'false');
-    });
-  }
-
-  if (closeCvBtn && cvModal) {
-    closeCvBtn.addEventListener('click', () => {
-      cvModal.classList.remove('open');
-      cvModal.setAttribute('aria-hidden', 'true');
-    });
-  }
-
-  if (cvModal) {
-    cvModal.addEventListener('click', (e) => {
-      if (e.target === cvModal) {
-        cvModal.classList.remove('open');
-        cvModal.setAttribute('aria-hidden', 'true');
-      }
-    });
-  }
-
-  cvTrackBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      cvTrackBtns.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      const track = btn.getAttribute('data-track');
-      if (cvSummaryEl && trackSummaries[track]) {
-        cvSummaryEl.textContent = trackSummaries[track];
-      }
-    });
-  });
-
-  if (printCvBtn) {
-    printCvBtn.addEventListener('click', () => {
-      window.print();
-    });
-  }
 })();

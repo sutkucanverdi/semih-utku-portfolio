@@ -1,526 +1,229 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="obsidian">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semih Utku Canverdi — AI Researcher & Software Engineer</title>
-  <meta name="description" content="Portfolio of Semih Utku Canverdi — Deep Learning Researcher at VISTA Lab, Software Engineer specializing in Machine Learning, Neural Architectures, Backend Systems, and Algorithmic Problem Solving." />
-  <meta name="keywords" content="Semih Utku Canverdi, AI Engineer, Machine Learning, Deep Learning, VISTA Lab, PyTorch, FastAPI, Software Engineer, Portfolio" />
+  <title>Semih Utku Canverdi — Software Engineering &amp; Machine Learning</title>
+  <meta name="description" content="Semih Utku Canverdi — Software Engineering student focused on Machine Learning, AI-driven systems, and clean software architectures." />
   <meta name="author" content="Semih Utku Canverdi" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Semih Utku Canverdi — AI & Systems Architect" />
-  <meta property="og:description" content="Deep Learning Researcher at VISTA Lab & Software Engineering Student building neural pipelines, high-performance backends, and intelligent algorithms." />
-  <meta property="og:type" content="website" />
-
-  <!-- Google Fonts: Syne, Instrument Serif, Plus Jakarta Sans, JetBrains Mono -->
+  <!-- Fonts: Plus Jakarta Sans & Cormorant Garamond & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="loading">
-  <!-- Top Scroll Progress Indicator -->
-  <div id="scroll-progress-container" aria-hidden="true">
-    <div id="scroll-progress-bar"></div>
-  </div>
+<body class="is-loading name-pending">
+  <!-- Subtle Top Scroll Progress -->
+  <div id="scroll-progress" aria-hidden="true"></div>
 
-  <!-- Custom Luxury Magnetic Cursor -->
+  <!-- Smooth Interactive Cursor -->
   <div id="cursor-dot" aria-hidden="true"></div>
-  <div id="cursor-ring" aria-hidden="true">
-    <span id="cursor-label"></span>
-  </div>
-  <div id="cursor-ambient-glow" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
 
-  <!-- Interactive Background Neural Constellation Canvas -->
-  <canvas id="neural-canvas" aria-hidden="true"></canvas>
-
-  <!-- Ambient Luxury Lighting Orbs -->
-  <div class="ambient-mesh" aria-hidden="true">
-    <div class="orb orb-gold"></div>
-    <div class="orb orb-indigo"></div>
-    <div class="orb orb-cyan"></div>
-    <div class="noise-overlay"></div>
-  </div>
+  <!-- Interactive Fluid Silk & Particle Canvas -->
+  <canvas id="interactive-canvas" aria-hidden="true"></canvas>
 
   <!-- =========================================================
-       CINEMATIC PRELOADER / INITIALIZATION SEQUENCE
+       MINIMALIST & FLUID LUXURY OPENING CURTAIN
        ========================================================= -->
-  <div id="preloader" role="status" aria-label="Loading Portfolio">
-    <div class="preloader-shutter shutter-top"></div>
-    <div class="preloader-shutter shutter-bottom"></div>
-
-    <div class="preloader-content">
-      <div class="preloader-top-meta">
-        <span class="mono-tag">SYS.BOOT // v2026.4</span>
-        <span class="mono-tag" id="preloader-status-tag">INITIALIZING NEURAL CORE</span>
+  <div id="intro-curtain" aria-hidden="true">
+    <div class="curtain-inner">
+      <span class="curtain-eyebrow">PORTFOLIO</span>
+      <h1 class="curtain-title">
+        <span>Semih Utku</span> <em>Canverdi</em>
+      </h1>
+      <div class="curtain-line-wrap">
+        <div class="curtain-line" id="curtain-line"></div>
       </div>
-
-      <div class="preloader-center">
-        <div class="preloader-monogram">
-          <svg viewBox="0 0 120 120" class="monogram-svg">
-            <defs>
-              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#F5E6B3" />
-                <stop offset="50%" stop-color="#D4AF37" />
-                <stop offset="100%" stop-color="#8A6D1B" />
-              </linearGradient>
-            </defs>
-            <polygon points="60,6 110,33 110,87 60,114 10,87 10,33" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" class="hex-path" />
-            <circle cx="60" cy="60" r="36" fill="none" stroke="rgba(212, 175, 55, 0.25)" stroke-width="1" stroke-dasharray="4 4" class="orbit-ring" />
-          </svg>
-          <span class="monogram-letters">SUC</span>
-        </div>
-
-        <h1 class="preloader-name">
-          <span class="reveal-char">SEMIH UTKU CANVERDI</span>
-        </h1>
-        <p class="preloader-subtitle">MACHINE LEARNING • NEURAL ARCHITECTURES • SOFTWARE ENGINEERING</p>
-
-        <div class="preloader-progress-track">
-          <div class="preloader-progress-fill" id="preloader-bar"></div>
-        </div>
-
-        <div class="preloader-telemetry">
-          <div class="telemetry-log" id="preloader-log">
-            &gt; LOADING PYTORCH TENSOR GRAPH...
-          </div>
-          <div class="telemetry-counter" id="preloader-counter">00%</div>
-        </div>
-      </div>
-
-      <button id="skip-preloader" class="skip-btn" type="button">
-        <span data-i18n="preloader.skip">Girişi Geç</span> ↗
-      </button>
     </div>
   </div>
 
   <!-- =========================================================
-       FLOATING LUXURY GLASS NAVIGATION BAR
+       FLOATING GLASS NAVIGATION BAR
        ========================================================= -->
-  <header class="site-header" id="site-header">
-    <nav class="nav-glass">
-      <a href="#hero" class="brand-logo magnetic" data-cursor="HOME">
-        <span class="brand-emblem">SUC</span>
-        <div class="brand-text">
-          <span class="brand-name">S. Utku Canverdi</span>
-          <span class="brand-role" data-i18n="nav.role">AI &amp; Software Architect</span>
-        </div>
+  <header class="site-header">
+    <nav class="nav-bar">
+      <a href="#hero" class="nav-brand magnetic">
+        <span class="brand-dot"></span>
+        <span class="brand-name">Semih Utku Canverdi</span>
       </a>
 
-      <ul class="nav-links">
-        <li><a href="#hero" class="nav-link active" data-i18n="nav.overview">Genel Bakış</a></li>
-        <li><a href="#neural-lab" class="nav-link" data-i18n="nav.lab">Neural Lab</a></li>
-        <li><a href="#experience" class="nav-link" data-i18n="nav.experience">Deneyim</a></li>
-        <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Projeler</a></li>
-        <li><a href="#credentials" class="nav-link" data-i18n="nav.skills">Yetenek &amp; Eğitim</a></li>
+      <ul class="nav-menu">
+        <li><a href="#experience" class="nav-link" data-i18n="nav.exp">Deneyim</a></li>
+        <li><a href="#projects" class="nav-link" data-i18n="nav.proj">Projeler</a></li>
+        <li><a href="#interactive" class="nav-link" data-i18n="nav.demo">İnteraktif Modeller</a></li>
+        <li><a href="#education" class="nav-link" data-i18n="nav.edu">Eğitim &amp; Yetenekler</a></li>
+        <li><a href="#cv-section" class="nav-link" data-i18n="nav.cv">CV</a></li>
       </ul>
 
-      <div class="nav-actions">
-        <button id="lang-toggle" class="icon-pill magnetic" type="button" aria-label="Change Language" data-cursor="LANG">
-          <span class="lang-opt active-lang" id="lang-tr">TR</span>
-          <span class="lang-divider">/</span>
-          <span class="lang-opt" id="lang-en">EN</span>
+      <div class="nav-right">
+        <button id="lang-btn" class="lang-switch magnetic" type="button" aria-label="Switch Language">
+          <span id="lang-en" class="lang-item">EN</span>
+          <span class="lang-sep">/</span>
+          <span id="lang-tr" class="lang-item active">TR</span>
         </button>
-
-        <a href="#contact" class="btn-gold-sm magnetic" data-cursor="CONNECT">
-          <span class="status-dot"></span>
-          <span data-i18n="nav.contact">İletişim</span>
-        </a>
+        <a href="#contact" class="nav-cta magnetic" data-i18n="nav.contact">İletişim</a>
       </div>
     </nav>
   </header>
 
-  <!-- =========================================================
-       MAIN CONTENT
-       ========================================================= -->
-  <main id="main-content">
+  <main>
+    <!-- =========================================================
+         1. SPACIOUS, MINIMAL, FLUID HERO SECTION
+         ========================================================= -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-centered">
+        <span class="hero-eyebrow reveal" lang="en" data-i18n="hero.tag">Software Engineering · Machine Learning · Piano</span>
 
-    <!-- 1. HERO SECTION -->
-    <section id="hero" class="hero-section section-padding">
-      <div class="container">
-        <div class="hero-grid">
-          <div class="hero-left">
-            <div class="eyebrow-pill reveal-up">
-              <span class="pulse-ring"></span>
-              <span class="mono-text" data-i18n="hero.badge">VISTA LAB DEEP LEARNING RESEARCHER • HEALTH-AI (EU)</span>
+        <h1 class="hero-name" id="hero-name">
+          <span>Semih Utku</span> <em>Canverdi</em>
+        </h1>
+
+        <p class="hero-lead reveal" data-delay="120" data-i18n="hero.summary">
+          Piyano çalan bir yazılım mühendisliği öğrencisiyim. Şu an VISTA Lab'de bir sinir ağına, piyanoda hangi notaya hangi parmağın basacağını öğretiyorum.
+        </p>
+
+        <!-- Signature object: every key is a skill (white) or a piece of work (black) -->
+        <div class="hero-piano" id="hero-piano">
+          <div class="piano-readout" aria-live="polite">
+            <div class="readout-meta">
+              <span class="readout-note" id="ro-note">—</span>
+              <span class="readout-kind" id="ro-kind" data-i18n="piano.idleKind">Bir tuşa bas</span>
             </div>
-
-            <h2 class="hero-title reveal-up" data-delay="100">
-              <span data-i18n="hero.titleLine1">Zeki Sistemler,</span>
-              <span class="serif-gold" data-i18n="hero.titleHighlight">Derin Öğrenme</span>
-              <span data-i18n="hero.titleLine2">&amp; Algoritmik Mimari.</span>
-            </h2>
-
-            <p class="hero-description reveal-up" data-delay="200" data-i18n="hero.description">
-              Merhaba, ben <strong>Semih Utku Canverdi</strong>. Çankaya Üniversitesi 4. sınıf Yazılım Mühendisliği öğrencisi ve <strong>VISTA Lab</strong> bünyesinde derin öğrenme araştırmacısıyım. Klasik piyano konservatuvar geçmişimi <strong>PyTorch</strong> tabanlı sinir ağı modelleriyle birleştiriyor; ölçeklenebilir backend servisleri (FastAPI, Java, PostgreSQL) ve otonom algoritmalar geliştiriyorum.
-            </p>
-
-            <div class="hero-cta-group reveal-up" data-delay="300">
-              <a href="#neural-lab" class="btn-luxury-primary magnetic" data-cursor="EXPLORE">
-                <span data-i18n="hero.ctaLab">Canlı AI Laboratuvarını Dene</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-
-              <a href="#projects" class="btn-luxury-secondary magnetic" data-cursor="PROJECTS">
-                <span data-i18n="hero.ctaProjects">Seçkin Projeler</span>
-              </a>
-
-              <button type="button" id="open-cv-modal" class="btn-luxury-ghost magnetic" data-cursor="RESUME">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="16" y1="13" x2="8" y2="13"/>
-                  <line x1="16" y1="17" x2="8" y2="17"/>
-                </svg>
-                <span data-i18n="hero.ctaCv">CV İncele / İndir</span>
-              </button>
+            <div class="readout-body">
+              <strong class="readout-title" id="ro-title" data-i18n="piano.idleTitle">Her tuş bir yetenek ya da bir iş.</strong>
+              <span class="readout-line" id="ro-line" data-i18n="piano.idleLine">Beyaz tuşlar teknolojiler, siyah tuşlar deneyim ve projeler. Klavyenden de çalabilirsin.</span>
             </div>
-
-            <div class="hero-social-strip reveal-up" data-delay="400">
-              <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="social-chip magnetic" data-cursor="GITHUB">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                <span>github.com/sutkucanverdi</span>
-              </a>
-              <a href="https://linkedin.com/in/semihutkucanverdi" target="_blank" rel="noopener noreferrer" class="social-chip magnetic" data-cursor="LINKEDIN">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                <span>in/semihutkucanverdi</span>
-              </a>
-              <button type="button" class="social-chip copy-email-btn magnetic" data-email="utkucnvrdi@gmail.com" data-cursor="COPY">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                <span>utkucnvrdi@gmail.com</span>
-              </button>
-            </div>
+            <button type="button" class="readout-play" id="hero-play-btn">
+              <span class="play-icon" aria-hidden="true">▶</span>
+              <span data-i18n="piano.play">Çal</span>
+            </button>
           </div>
 
-          <!-- Hero Right: 3D Interactive Neural Identity Card -->
-          <div class="hero-right reveal-up" data-delay="250">
-            <div class="identity-card-3d tilt-card" data-tilt-max="10">
-              <div class="card-spotlight"></div>
-              <div class="identity-card-header">
-                <div class="window-dots">
-                  <span></span><span></span><span></span>
-                </div>
-                <span class="mono-badge">NEURAL_PROFILE // SUC-2026</span>
-              </div>
-
-              <div class="identity-visual">
-                <canvas id="hero-tensor-canvas" width="420" height="220"></canvas>
-                <div class="tensor-overlay-badge">
-                  <span class="live-dot"></span>
-                  <span class="mono-xs" data-i18n="hero.tensorLabel">ETKİLEŞİMLİ TENSÖR TOPOLOJİSİ (FAREYİ GEZDİRİN)</span>
-                </div>
-              </div>
-
-              <div class="identity-body">
-                <div class="identity-row">
-                  <span class="id-key" data-i18n="hero.cardFocusKey">Odak Alanı</span>
-                  <span class="id-val gold-text" data-i18n="hero.cardFocusVal">Deep Learning, Symbolic Music AI &amp; Backend</span>
-                </div>
-                <div class="identity-row">
-                  <span class="id-key" data-i18n="hero.cardLabKey">Aktif Araştırma</span>
-                  <span class="id-val">VISTA Lab (Neural Piano Fingering)</span>
-                </div>
-                <div class="identity-row">
-                  <span class="id-key" data-i18n="hero.cardStackKey">Çekirdek Stack</span>
-                  <span class="id-val mono-xs">PyTorch • Python • FastAPI • React • Java • C#</span>
-                </div>
-                <div class="identity-row">
-                  <span class="id-key" data-i18n="hero.cardCertKey">Avrupa Fonlu Sertifika</span>
-                  <span class="id-val">HEALTH-AI (Erasmus+ / EU Funded)</span>
-                </div>
-              </div>
-
-              <div class="identity-footer">
-                <div class="metric-mini">
-                  <span class="metric-num">4.</span>
-                  <span class="metric-lbl" data-i18n="hero.metricYear">Sınıf Yazılım Müh.</span>
-                </div>
-                <div class="metric-mini">
-                  <span class="metric-num">3</span>
-                  <span class="metric-lbl" data-i18n="hero.metricExp">Kurumsal &amp; Lab Deneyimi</span>
-                </div>
-                <div class="metric-mini">
-                  <span class="metric-num">4 Yıl</span>
-                  <span class="metric-lbl" data-i18n="hero.metricPiano">Konservatuvar Piyano</span>
-                </div>
-              </div>
-            </div>
+          <div class="piano-body">
+            <div class="piano-rail"><span class="piano-rail-fill" id="piano-rail-fill"></span></div>
+            <div class="piano-keys" id="hero-keys" role="group" aria-label="Piano"></div>
           </div>
+          <p class="piano-hint" data-i18n="piano.hint">Çal'a basınca gamın üstünde gerçek sağ el parmak numaraları görünür (1 = başparmak, 5 = serçe).</p>
         </div>
 
-        <!-- Scroll Down Prompt -->
-        <a href="#neural-lab" class="scroll-indicator magnetic" data-cursor="SCROLL">
-          <div class="mouse-outline">
-            <div class="mouse-wheel"></div>
-          </div>
-          <span class="mono-xs" data-i18n="hero.scrollPrompt">AŞAĞI KAYDIR &amp; KEŞFET</span>
-        </a>
+        <div class="hero-actions reveal" data-delay="240">
+          <a href="#experience" class="btn-primary magnetic">
+            <span data-i18n="hero.btnExplore">Çalışmalarımı İncele</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          </a>
+          <a href="#cv-section" class="btn-secondary magnetic">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span data-i18n="hero.btnCv">Orijinal CV'lerim (PDF)</span>
+          </a>
+        </div>
+
+        <div class="hero-links reveal" data-delay="320">
+          <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="minimal-link magnetic">
+            GitHub <span>↗</span>
+          </a>
+          <span class="link-dot">•</span>
+          <a href="https://linkedin.com/in/semihutkucanverdi" target="_blank" rel="noopener noreferrer" class="minimal-link magnetic">
+            LinkedIn <span>↗</span>
+          </a>
+          <span class="link-dot">•</span>
+          <a href="mailto:utkucnvrdi@gmail.com" class="minimal-link magnetic">
+            utkucnvrdi@gmail.com
+          </a>
+        </div>
       </div>
+
+      <a href="#experience" class="scroll-hint" aria-label="Scroll Down">
+        <span class="scroll-line"></span>
+      </a>
     </section>
 
     <!-- =========================================================
-         2. INTERACTIVE NEURAL LAB (LIVE SIMULATIONS)
+         2. WORK EXPERIENCE (EXACT CV CONTENT)
          ========================================================= -->
-    <section id="neural-lab" class="lab-section section-padding">
+    <section id="experience" class="section">
       <div class="container">
-        <div class="section-header reveal-up">
-          <div class="section-tag-row">
-            <span class="section-index">01 //</span>
-            <span class="mono-tag" data-i18n="lab.tag">ETKİLEŞİMLİ YAPAY ZEKA &amp; ALGORİTMA LABORATUVARI</span>
-          </div>
+        <div class="section-head reveal">
+          <span class="eyebrow" data-i18n="exp.eyebrow">WORK EXPERIENCE</span>
           <h2 class="section-title">
-            <span data-i18n="lab.title1">Sadece Okumayın —</span>
-            <span class="serif-gold" data-i18n="lab.title2">Modellerimi Canlı Test Edin.</span>
-          </h2>
-          <p class="section-subtitle" data-i18n="lab.subtitle">
-            VISTA Lab'deki klasik piyano parmak pozisyonu derin öğrenme araştırmamın ve algoritmik yol bulma (Knight Path Finder) çalışmalarımın tarayıcı içinde çalışan canlı simülasyonları.
-          </p>
-        </div>
-
-        <div class="lab-grid">
-          <!-- LAB MODULE 1: VISTA LAB NEURAL PIANO FINGERING -->
-          <div class="lab-card tilt-card reveal-up" data-tilt-max="4">
-            <div class="card-spotlight"></div>
-            <div class="lab-card-top">
-              <div>
-                <span class="pill-gold">VISTA LAB RESEARCH SIMULATION</span>
-                <h3 class="lab-card-title" data-i18n="lab.pianoTitle">Deep Learning Piano Finger Positioning</h3>
-              </div>
-              <div class="audio-badge" id="audio-status-badge">
-                <span class="sound-wave"><i></i><i></i><i></i><i></i></span>
-                <span class="mono-xs" data-i18n="lab.audioReady">WEB AUDIO SYNTH AKTİF</span>
-              </div>
-            </div>
-
-            <p class="lab-card-desc" data-i18n="lab.pianoDesc">
-              Klasik piyano eserlerinde (nota dizisi, aralık mesafesi ve biyomekanik el kısıtları) en uygun parmak numarasını (1: Başparmak → 5: Serçe Parmak) tahmin eden sinir ağı hattı. Tuşlara tıklayın veya hazır bir klasik motif çalıştırın:
-            </p>
-
-            <!-- Neural Inference Telemetry Panel -->
-            <div class="piano-telemetry-panel">
-              <div class="telemetry-box">
-                <span class="t-label" data-i18n="lab.inputNote">AKTİF NOTA / FREKANS</span>
-                <span class="t-value" id="piano-note-display">C4 • 261.6 Hz</span>
-              </div>
-              <div class="telemetry-box highlight-box">
-                <span class="t-label" data-i18n="lab.predFinger">TAHMİN EDİLEN PARMAK</span>
-                <span class="t-value gold-text" id="piano-finger-display">#1 (Başparmak)</span>
-              </div>
-              <div class="telemetry-box">
-                <span class="t-label" data-i18n="lab.confidence">MODEL GÜVENİ (SOFTMAX)</span>
-                <span class="t-value cyan-text" id="piano-conf-display">98.4%</span>
-              </div>
-              <div class="telemetry-box">
-                <span class="t-label" data-i18n="lab.biomechCost">BİYOMEKANİK MALİYET</span>
-                <span class="t-value" id="piano-cost-display">0.12 (Optimal)</span>
-              </div>
-            </div>
-
-            <!-- Finger Probability Distribution Bars (1 to 5) -->
-            <div class="finger-probs" id="finger-probs">
-              <div class="prob-item">
-                <div class="prob-label"><span>P1 (Thumb)</span><span id="prob-val-1">92%</span></div>
-                <div class="prob-track"><div class="prob-fill active" id="prob-bar-1" style="width: 92%"></div></div>
-              </div>
-              <div class="prob-item">
-                <div class="prob-label"><span>P2 (Index)</span><span id="prob-val-2">4%</span></div>
-                <div class="prob-track"><div class="prob-fill" id="prob-bar-2" style="width: 4%"></div></div>
-              </div>
-              <div class="prob-item">
-                <div class="prob-label"><span>P3 (Middle)</span><span id="prob-val-3">2%</span></div>
-                <div class="prob-track"><div class="prob-fill" id="prob-bar-3" style="width: 2%"></div></div>
-              </div>
-              <div class="prob-item">
-                <div class="prob-label"><span>P4 (Ring)</span><span id="prob-val-4">1%</span></div>
-                <div class="prob-track"><div class="prob-fill" id="prob-bar-4" style="width: 1%"></div></div>
-              </div>
-              <div class="prob-item">
-                <div class="prob-label"><span>P5 (Pinky)</span><span id="prob-val-5">1%</span></div>
-                <div class="prob-track"><div class="prob-fill" id="prob-bar-5" style="width: 1%"></div></div>
-              </div>
-            </div>
-
-            <!-- Interactive Piano Keyboard -->
-            <div class="piano-keyboard-wrapper">
-              <div class="piano-keyboard" id="piano-keyboard" role="group" aria-label="Interactive Piano Keyboard">
-                <!-- Populated & enhanced via JS -->
-              </div>
-            </div>
-
-            <!-- Sequencer Controls -->
-            <div class="lab-controls-row">
-              <button type="button" class="btn-lab-action magnetic" id="play-bach-btn" data-cursor="RUN AI">
-                <span>▶</span>
-                <span data-i18n="lab.runBach">Bach Motifini Çalıştır (Neural Sequence)</span>
-              </button>
-              <button type="button" class="btn-lab-secondary magnetic" id="play-chopin-btn" data-cursor="RUN AI">
-                <span>▶</span>
-                <span data-i18n="lab.runChopin">Chopin Arpej Analizi</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- LAB MODULE 2: KNIGHT PATH FINDER & AI AGENT VISUALIZER -->
-          <div class="lab-card tilt-card reveal-up" data-delay="150" data-tilt-max="4">
-            <div class="card-spotlight"></div>
-            <div class="lab-card-top">
-              <div>
-                <span class="pill-cyan">GRAPH TRAVERSAL &amp; AUTONOMOUS AI</span>
-                <h3 class="lab-card-title" data-i18n="lab.knightTitle">Knight Path Finder &amp; Search Visualizer</h3>
-              </div>
-              <span class="mono-xs cyan-text" id="path-telemetry-tag">BFS / A* GRAPH ENGINE</span>
-            </div>
-
-            <p class="lab-card-desc" data-i18n="lab.knightDesc">
-              <strong>Knight Path Finder</strong> ve <strong>MağaraJam AI</strong> projelerimdeki graf gezinme (graph traversal) ve engel aşma algoritması. Tahtada herhangi bir hedef kareye tıklayın; otonom ajan engellerin etrafından en kısa L-hamleli yolu gerçek zamanlı hesaplasın:
-            </p>
-
-            <div class="pathfinder-layout">
-              <div class="chess-grid" id="knight-grid" role="grid" aria-label="Knight Pathfinding Grid">
-                <!-- 8x8 Interactive cells generated by JS -->
-              </div>
-
-              <div class="pathfinder-sidebar">
-                <div class="telemetry-box">
-                  <span class="t-label" data-i18n="lab.startPos">BAŞLANGIÇ DÜĞÜMÜ</span>
-                  <span class="t-value" id="knight-start-val">B1 (1, 0)</span>
-                </div>
-                <div class="telemetry-box">
-                  <span class="t-label" data-i18n="lab.targetPos">HEDEF DÜĞÜM</span>
-                  <span class="t-value gold-text" id="knight-target-val">G7 (6, 6)</span>
-                </div>
-                <div class="telemetry-box">
-                  <span class="t-label" data-i18n="lab.OptimalMoves">MİNİMUM HAMLE</span>
-                  <span class="t-value cyan-text" id="knight-moves-val">4 Hamle</span>
-                </div>
-                <div class="telemetry-box">
-                  <span class="t-label" data-i18n="lab.visitedNodes">TARANAN DÜĞÜMLER</span>
-                  <span class="t-value" id="knight-visited-val">28 / 64</span>
-                </div>
-
-                <div class="path-sequence-box">
-                  <span class="t-label" data-i18n="lab.optimalRoute">OPTİMAL VEKTÖR ROTASI</span>
-                  <div class="route-badges" id="knight-route-badges"></div>
-                </div>
-
-                <div class="lab-controls-stack">
-                  <button type="button" class="btn-lab-action magnetic" id="random-knight-btn" data-cursor="SOLVE">
-                    <span data-i18n="lab.randomTarget">Rastgele Hedef &amp; Çöz</span>
-                  </button>
-                  <button type="button" class="btn-lab-secondary magnetic" id="toggle-obstacles-btn" data-cursor="OBSTACLES">
-                    <span data-i18n="lab.shuffleWalls">Engelleri Yeniden Dağıt</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         3. WORK EXPERIENCE TIMELINE
-         ========================================================= -->
-    <section id="experience" class="experience-section section-padding">
-      <div class="container">
-        <div class="section-header reveal-up">
-          <div class="section-tag-row">
-            <span class="section-index">02 //</span>
-            <span class="mono-tag" data-i18n="exp.tag">KARİYER &amp; ARAŞTIRMA GEÇMİŞİ</span>
-          </div>
-          <h2 class="section-title">
-            <span data-i18n="exp.title1">Akademik Araştırma &amp;</span>
-            <span class="serif-gold" data-i18n="exp.title2">Endüstriyel Mühendislik.</span>
+            <span data-i18n="exp.title1">Deneyim &amp;</span>
+            <em class="serif-accent" data-i18n="exp.title2">Araştırma</em>
           </h2>
         </div>
 
-        <div class="timeline-wrapper">
-          <div class="timeline-line" aria-hidden="true"></div>
-
-          <!-- Experience 1: VISTA Lab -->
-          <article class="timeline-item reveal-up">
-            <div class="timeline-node active-node"></div>
-            <div class="timeline-card tilt-card" data-tilt-max="5">
-              <div class="card-spotlight"></div>
-              <div class="timeline-meta">
-                <span class="timeline-date" data-i18n="exp.vistaDate">Eylül 2026 — Günümüz</span>
-                <span class="timeline-badge gold" data-i18n="exp.vistaType">DERİN ÖĞRENME ARAŞTIRMASI</span>
+        <div class="experience-list">
+          <!-- VISTA Lab -->
+          <article class="lux-card interactive-card reveal">
+            <div class="card-glow"></div>
+            <div class="exp-row">
+              <div class="exp-left">
+                <span class="exp-date" data-i18n="exp.vistaDate">September 2026 – Present</span>
+                <h3 class="exp-company">VISTA Lab</h3>
+                <span class="exp-tag">Deep Learning &amp; Neural Pipelines</span>
               </div>
-              <h3 class="timeline-role">
-                <span>VISTA Lab</span>
-                <span class="role-divider">—</span>
-                <span class="serif-gold" data-i18n="exp.vistaRole">Deep Learning Researcher</span>
-              </h3>
-              <p class="timeline-desc" data-i18n="exp.vistaDesc">
-                Karmaşık müzik veri setlerini kullanarak klasik piyano notaları için <strong>optimal parmak pozisyonunu tahmin eden</strong> ileri düzey bir derin öğrenme modeli geliştiriyorum. Kapsamlı veri ön işleme (data preprocessing), öznitelik çıkarım hatları (feature extraction pipelines), sinir ağı mimarisi tasarımı ve iteratif model eğitimi iş akışlarına liderlik ediyorum.
-              </p>
-              <div class="tag-cloud">
-                <span class="tech-pill">PyTorch</span>
-                <span class="tech-pill">Deep Learning</span>
-                <span class="tech-pill">Neural Network Pipelines</span>
-                <span class="tech-pill">Feature Extraction</span>
-                <span class="tech-pill">Symbolic Music AI</span>
-                <span class="tech-pill">Python</span>
+              <div class="exp-right">
+                <p class="exp-text" data-i18n="exp.vistaDesc">
+                  Klasik piyano notaları için optimal parmak pozisyonunu tahmin eden bir derin öğrenme modeli geliştiriyorum; kapsamlı veri ön işleme (data preprocessing), öznitelik çıkarım hatları (feature extraction pipelines), sinir ağı mimarisi tasarımı ve iteratif model eğitimi süreçlerine odaklanıyorum.
+                </p>
+                <div class="pill-row">
+                  <span class="pill">Python</span>
+                  <span class="pill">PyTorch</span>
+                  <span class="pill">Deep Learning</span>
+                  <span class="pill">Feature Extraction</span>
+                  <span class="pill">Neural Networks</span>
+                </div>
               </div>
             </div>
           </article>
 
-          <!-- Experience 2: TEİAŞ -->
-          <article class="timeline-item reveal-up" data-delay="100">
-            <div class="timeline-node"></div>
-            <div class="timeline-card tilt-card" data-tilt-max="5">
-              <div class="card-spotlight"></div>
-              <div class="timeline-meta">
-                <span class="timeline-date" data-i18n="exp.teiasDate">Temmuz 2026 — Ağustos 2026</span>
-                <span class="timeline-badge" data-i18n="exp.teiasType">KURUMSAL YAZILIM MÜHENDİSLİĞİ</span>
+          <!-- TEİAŞ -->
+          <article class="lux-card interactive-card reveal">
+            <div class="card-glow"></div>
+            <div class="exp-row">
+              <div class="exp-left">
+                <span class="exp-date" data-i18n="exp.teiasDate">July 2026 – August 2026</span>
+                <h3 class="exp-company">TEİAŞ</h3>
+                <span class="exp-tag">Backend &amp; Web Applications</span>
               </div>
-              <h3 class="timeline-role">
-                <span>TEİAŞ</span>
-                <span class="role-divider">—</span>
-                <span class="serif-gold" data-i18n="exp.teiasRole">Software Engineering Intern</span>
-              </h3>
-              <p class="timeline-desc" data-i18n="exp.teiasDesc">
-                Kurumsal operasyonlar için kritik öneme sahip (mission-critical) iç web uygulamalarının <strong>Java</strong> ve <strong>Angular</strong> kullanılarak geliştirilmesi ve bakımında görev aldım. Backend <strong>RESTful API</strong> mimarisi tasarımına, güvenli veritabanı entegrasyonuna ve modüler frontend arayüz bileşenlerine doğrudan katkı sağladım.
-              </p>
-              <div class="tag-cloud">
-                <span class="tech-pill">Java</span>
-                <span class="tech-pill">Spring Boot</span>
-                <span class="tech-pill">Angular</span>
-                <span class="tech-pill">RESTful APIs</span>
-                <span class="tech-pill">Database Integration</span>
-                <span class="tech-pill">Enterprise Architecture</span>
+              <div class="exp-right">
+                <p class="exp-text" data-i18n="exp.teiasDesc">
+                  Java ve Angular kullanarak kurum içi web uygulamaları geliştirdim ve bakımını üstlendim; backend RESTful API tasarımına, güvenli veritabanı entegrasyonuna ve kurumsal operasyonlar için modüler frontend arayüz bileşenlerine katkıda bulundum.
+                </p>
+                <div class="pill-row">
+                  <span class="pill">Java</span>
+                  <span class="pill">Spring Boot</span>
+                  <span class="pill">Angular</span>
+                  <span class="pill">RESTful API</span>
+                  <span class="pill">Database Integration</span>
+                </div>
               </div>
             </div>
           </article>
 
-          <!-- Experience 3: TeamSec -->
-          <article class="timeline-item reveal-up" data-delay="200">
-            <div class="timeline-node"></div>
-            <div class="timeline-card tilt-card" data-tilt-max="5">
-              <div class="card-spotlight"></div>
-              <div class="timeline-meta">
-                <span class="timeline-date" data-i18n="exp.teamsecDate">Temmuz 2025 — Ocak 2026</span>
-                <span class="timeline-badge cyan" data-i18n="exp.teamsecType">BACKEND &amp; VERİ MÜHENDİSLİĞİ</span>
+          <!-- TeamSec -->
+          <article class="lux-card interactive-card reveal">
+            <div class="card-glow"></div>
+            <div class="exp-row">
+              <div class="exp-left">
+                <span class="exp-date" data-i18n="exp.teamsecDate">July 2025 – January 2026</span>
+                <h3 class="exp-company">TeamSec</h3>
+                <span class="exp-tag">Backend Services &amp; Data Analytics</span>
               </div>
-              <h3 class="timeline-role">
-                <span>TeamSec</span>
-                <span class="role-divider">—</span>
-                <span class="serif-gold" data-i18n="exp.teamsecRole">Software &amp; Data Engineer</span>
-              </h3>
-              <p class="timeline-desc" data-i18n="exp.teamsecDesc">
-                <strong>FastAPI</strong> ve <strong>Streamlit</strong> kullanarak güçlü backend servisleri ile interaktif finansal ve operasyonel veri panelleri (dashboards) inşa ettim. Eski (legacy) sistemleri modern <strong>React.js</strong> mimarisine taşıdım, <strong>Power BI</strong> ile yapılandırılmış veri analizi gerçekleştirdim ve <strong>PostgreSQL</strong> sorgu/indeksleme optimizasyonlarıyla veritabanı çalışma performansını ve sistem güvenilirliğini artırdım.
-              </p>
-              <div class="tag-cloud">
-                <span class="tech-pill">FastAPI</span>
-                <span class="tech-pill">React.js</span>
-                <span class="tech-pill">Streamlit</span>
-                <span class="tech-pill">PostgreSQL Optimization</span>
-                <span class="tech-pill">Power BI</span>
-                <span class="tech-pill">SQL Indexing</span>
+              <div class="exp-right">
+                <p class="exp-text" data-i18n="exp.teamsecDesc">
+                  FastAPI ve Streamlit kullanarak backend servisleri ile interaktif operasyonel/finansal paneller (dashboards) geliştirdim. Eski (legacy) sistemleri modern React mimarisine taşıdım, Power BI ile veri analizi ve görselleştirme yaptım; PostgreSQL sorgu performansını ve sistem güvenilirliğini artırmak için optimize edilmiş SQL sorguları ve veritabanı indekslemeleri yazdım.
+                </p>
+                <div class="pill-row">
+                  <span class="pill">FastAPI</span>
+                  <span class="pill">Streamlit</span>
+                  <span class="pill">React.js</span>
+                  <span class="pill">PostgreSQL</span>
+                  <span class="pill">Power BI</span>
+                  <span class="pill">SQL Optimization</span>
+                </div>
               </div>
             </div>
           </article>
@@ -529,387 +232,311 @@
     </section>
 
     <!-- =========================================================
-         4. FEATURED PROJECTS SECTION (WITH FILTERING)
+         3. PROJECTS (EXACT PROJECTS FROM YOUR CVs)
          ========================================================= -->
-    <section id="projects" class="projects-section section-padding">
+    <section id="projects" class="section">
       <div class="container">
-        <div class="section-header-flex reveal-up">
+        <div class="section-head reveal">
+          <span class="eyebrow" data-i18n="proj.eyebrow">SELECTED PROJECTS</span>
+          <h2 class="section-title">
+            <span data-i18n="proj.title1">Seçili</span>
+            <em class="serif-accent" data-i18n="proj.title2">Projeler</em>
+          </h2>
+        </div>
+
+        <div class="projects-grid">
+          <!-- 1. Air Quality Prediction -->
+          <article class="lux-card project-box interactive-card reveal">
+            <div class="card-glow"></div>
+            <div class="proj-top">
+              <span class="proj-type" data-i18n="proj.airType">University Project • Machine Learning</span>
+            </div>
+            <h3 class="proj-name">Air Quality Prediction</h3>
+            <p class="proj-desc" data-i18n="proj.airDesc">
+              Çevresel veri setlerini analiz etmek, keşifsel veri analizi (EDA) gerçekleştirmek ve uçtan uca veri bilimi iş akışlarını yürütmek üzere Python kullanarak tahminleyici bir makine öğrenmesi modeli geliştirdim.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Python</span>
+              <span class="pill">Machine Learning</span>
+              <span class="pill">Exploratory Data Analysis</span>
+              <span class="pill">Data Science</span>
+            </div>
+          </article>
+
+          <!-- 2. Knight Path Finder -->
+          <article class="lux-card project-box interactive-card reveal" data-delay="80">
+            <div class="card-glow"></div>
+            <div class="proj-top">
+              <span class="proj-type" data-i18n="proj.knightType">Algorithms &amp; Graph Traversal</span>
+              <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="proj-ext">GitHub ↗</a>
+            </div>
+            <h3 class="proj-name">Knight Path Finder</h3>
+            <p class="proj-desc" data-i18n="proj.knightDesc">
+              Yol bulma mantığı (pathfinding logic), graf gezinme (graph traversal) ve interaktif algoritmik problem çözmeye odaklanan bir algoritma görselleştiricisi tasarladım.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Pathfinding</span>
+              <span class="pill">Graph Traversal</span>
+              <span class="pill">Algorithms</span>
+              <span class="pill">Data Structures</span>
+            </div>
+          </article>
+
+          <!-- 3. Game Development & AI (MağaraJam) -->
+          <article class="lux-card project-box interactive-card reveal">
+            <div class="card-glow"></div>
+            <div class="proj-top">
+              <span class="proj-type" data-i18n="proj.jamType">Game Jam Project • AI Agents</span>
+              <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="proj-ext">GitHub ↗</a>
+            </div>
+            <h3 class="proj-name">Game Development &amp; AI (MağaraJam)</h3>
+            <p class="proj-desc" data-i18n="proj.jamDesc">
+              Unity ve C# kullanarak kısıtlı süre altında oynanabilir bir oyun prototipi geliştirdim; çeşitli arama (search), yol bulma (pathfinding) ve optimizasyon algoritmalarını kullanan yapay zeka ajanları ve temel oynanış mekanikleri uyguladım.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Unity</span>
+              <span class="pill">C#</span>
+              <span class="pill">AI Agents</span>
+              <span class="pill">Search &amp; Optimization</span>
+            </div>
+          </article>
+
+          <!-- 4. YatDice -->
+          <article class="lux-card project-box interactive-card reveal" data-delay="80">
+            <div class="card-glow"></div>
+            <div class="proj-top">
+              <span class="proj-type" data-i18n="proj.yatType">Personal Project • OOP Architecture</span>
+            </div>
+            <h3 class="proj-name">YatDice</h3>
+            <p class="proj-desc" data-i18n="proj.yatDesc">
+              C# kullanarak sıfırdan interaktif bir zar oyunu uygulaması tasarladım ve geliştirdim; temiz nesne yönelimli mimari (clean OOP), rastgeleleştirilmiş mekanikler, yapılandırılmış durum yönetimi (state management) ve güçlü kullanıcı etkileşimi kurguladım.
+            </p>
+            <div class="pill-row">
+              <span class="pill">C#</span>
+              <span class="pill">Object-Oriented Architecture</span>
+              <span class="pill">State Management</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. SPACIOUS TABBED INTERACTIVE SHOWCASE (NO CRAMPING!)
+         ========================================================= -->
+    <section id="interactive" class="section">
+      <div class="container">
+        <div class="section-head-split reveal">
           <div>
-            <div class="section-tag-row">
-              <span class="section-index">03 //</span>
-              <span class="mono-tag" data-i18n="proj.tag">SEÇKİN MÜHENDİSLİK &amp; AI PROJELERİ</span>
-            </div>
+            <span class="eyebrow" data-i18n="demo.eyebrow">INTERACTIVE PREVIEW</span>
             <h2 class="section-title">
-              <span data-i18n="proj.title1">Üretim Kalitesinde</span>
-              <span class="serif-gold" data-i18n="proj.title2">Kod &amp; Araştırma.</span>
+              <span data-i18n="demo.title1">İnteraktif</span>
+              <em class="serif-accent" data-i18n="demo.title2">Deneyim</em>
             </h2>
+            <p class="section-desc" data-i18n="demo.subtitle">
+              Üzerinde çalıştığım <strong>VISTA Lab Piyano Parmak Pozisyonu</strong> modelinin ve <strong>Knight Path Finder</strong> algoritmasının sadeleştirilmiş interaktif önizlemesi.
+            </p>
           </div>
 
-          <div class="filter-tabs" role="tablist" aria-label="Project Filters">
-            <button type="button" class="filter-btn active magnetic" data-filter="all" data-i18n="proj.filterAll">Tümü</button>
-            <button type="button" class="filter-btn magnetic" data-filter="ai" data-i18n="proj.filterAi">AI &amp; Veri Bilimi</button>
-            <button type="button" class="filter-btn magnetic" data-filter="algo" data-i18n="proj.filterAlgo">Algoritma &amp; Oyun AI</button>
-            <button type="button" class="filter-btn magnetic" data-filter="sys" data-i18n="proj.filterSys">Sistem &amp; Mimari</button>
+          <div class="stage-tabs" role="tablist">
+            <button type="button" class="stage-tab active magnetic" data-stage="piano" data-i18n="demo.tabPiano">
+              01. VISTA Lab — Piano Fingering
+            </button>
+            <button type="button" class="stage-tab magnetic" data-stage="knight" data-i18n="demo.tabKnight">
+              02. Knight Path Finder
+            </button>
           </div>
         </div>
 
-        <div class="projects-grid" id="projects-grid">
-          <!-- Project 1: Classical Piano DL -->
-          <article class="project-card tilt-card reveal-up" data-category="ai" data-tilt-max="6">
-            <div class="card-spotlight"></div>
-            <div class="project-top">
-              <span class="project-num">01</span>
-              <span class="project-cat-badge gold">DEEP LEARNING • VISTA LAB</span>
-            </div>
-            <h3 class="project-title" data-i18n="proj.p1Title">Neural Piano Finger Positioning</h3>
-            <p class="project-desc" data-i18n="proj.p1Desc">
-              Klasik piyano partisyonlarında nota dizilerini, el anatomisi kısıtlarını ve geçiş maliyetlerini analiz ederek en doğru parmak numaralandırmasını tahmin eden derin öğrenme mimarisi.
-            </p>
-            <div class="project-highlights">
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p1H1">Sembolik müzik verisi ön işleme &amp; çok boyutlu öznitelik çıkarımı</span>
-              </div>
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p1H2">Sekans tabanlı sinir ağı eğitimi ve doğrulama boru hattı</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="tag-cloud">
-                <span class="tech-pill">PyTorch</span>
-                <span class="tech-pill">Python</span>
-                <span class="tech-pill">Deep Learning</span>
-                <span class="tech-pill">Feature Engineering</span>
-              </div>
-              <a href="#neural-lab" class="project-link magnetic" data-cursor="DEMO">
-                <span data-i18n="proj.tryDemo">Canlı Simülasyon</span> ↗
-              </a>
-            </div>
-          </article>
+        <!-- Stage Container -->
+        <div class="lux-card stage-card interactive-card reveal">
+          <div class="card-glow"></div>
 
-          <!-- Project 2: Air Quality Prediction -->
-          <article class="project-card tilt-card reveal-up" data-category="ai" data-delay="100" data-tilt-max="6">
-            <div class="card-spotlight"></div>
-            <div class="project-top">
-              <span class="project-num">02</span>
-              <span class="project-cat-badge cyan">MACHINE LEARNING • DATA SCIENCE</span>
-            </div>
-            <h3 class="project-title" data-i18n="proj.p2Title">Air Quality Prediction Engine</h3>
-            <p class="project-desc" data-i18n="proj.p2Desc">
-              Çevresel sensör ve atmosfer veri setlerini analiz ederek hava kalitesi indeksini yüksek doğrulukla tahmin eden uçtan uca makine öğrenmesi ve veri bilimi projesi.
-            </p>
-            <div class="project-highlights">
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p2H1">Kapsamlı Keşifsel Veri Analizi (EDA), aykırı değer temizliği ve korelasyon matrisleri</span>
+          <!-- STAGE 1: PIANO FINGERING -->
+          <div id="stage-piano" class="stage-pane active-pane">
+            <div class="stage-top-bar">
+              <div>
+                <h3 class="stage-title">Classical Piano Finger Positioning</h3>
+                <p class="stage-sub" data-i18n="demo.pianoHint">
+                  Tuşlara tıklayarak veya örnek sekansı başlatarak nota geçişlerine göre tahmin edilen parmak numaralarını (1: Başparmak → 5: Serçe) görebilirsiniz.
+                </p>
               </div>
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p2H2">Regresyon ve topluluk (ensemble) modelleri ile hiperparametre optimizasyonu</span>
+              <div class="stage-actions">
+                <button type="button" id="run-sequence-btn" class="btn-secondary-sm magnetic" data-i18n="demo.playMotif">
+                  ▶ Örnek Sekansı Çalıştır
+                </button>
               </div>
             </div>
-            <div class="project-footer">
-              <div class="tag-cloud">
-                <span class="tech-pill">Python</span>
-                <span class="tech-pill">Machine Learning</span>
-                <span class="tech-pill">EDA</span>
-                <span class="tech-pill">Data Pipelines</span>
-              </div>
-              <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="project-link magnetic" data-cursor="GITHUB">
-                <span>GitHub</span> ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 3: Knight Path Finder -->
-          <article class="project-card tilt-card reveal-up" data-category="algo" data-delay="200" data-tilt-max="6">
-            <div class="card-spotlight"></div>
-            <div class="project-top">
-              <span class="project-num">03</span>
-              <span class="project-cat-badge">ALGORITHMS • GRAPH THEORY</span>
-            </div>
-            <h3 class="project-title" data-i18n="proj.p3Title">Knight Path Finder</h3>
-            <p class="project-desc" data-i18n="proj.p3Desc">
-              Graf gezinme (graph traversal), en kısa yol bulma mantığı ve interaktif algoritmik problem çözmeye odaklanan görsel algoritma analiz ve simülasyon aracı.
-            </p>
-            <div class="project-highlights">
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p3H1">BFS ve sezgisel (heuristic) durum uzayı araması ile optimal hamle garantisi</span>
+            <div class="piano-stats-row">
+              <div class="stat-pill">
+                <span class="stat-lbl" data-i18n="demo.lblNote">Nota</span>
+                <strong id="p-note">C4 (261.6 Hz)</strong>
               </div>
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p3H2">Adım adım düğüm keşfi ve rota görselleştirme motoru</span>
+              <div class="stat-pill gold-border">
+                <span class="stat-lbl" data-i18n="demo.lblFinger">Optimal Parmak</span>
+                <strong id="p-finger" class="gold-accent">1 — Başparmak</strong>
+              </div>
+              <div class="stat-pill">
+                <span class="stat-lbl" data-i18n="demo.lblConf">Tahmin Güveni</span>
+                <strong id="p-conf">94%</strong>
               </div>
             </div>
-            <div class="project-footer">
-              <div class="tag-cloud">
-                <span class="tech-pill">Graph Traversal</span>
-                <span class="tech-pill">Pathfinding</span>
-                <span class="tech-pill">Algorithms</span>
-                <span class="tech-pill">Data Structures</span>
-              </div>
-              <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="project-link magnetic" data-cursor="GITHUB">
-                <span>GitHub</span> ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 4: Game Development & AI (MağaraJam) -->
-          <article class="project-card tilt-card reveal-up" data-category="algo" data-tilt-max="6">
-            <div class="card-spotlight"></div>
-            <div class="project-top">
-              <span class="project-num">04</span>
-              <span class="project-cat-badge gold">AUTONOMOUS AGENTS • GAME AI</span>
-            </div>
-            <h3 class="project-title" data-i18n="proj.p4Title">MağaraJam — Autonomous AI &amp; Game Prototype</h3>
-            <p class="project-desc" data-i18n="proj.p4Desc">
-              Kısıtlı sürede Unity ve C# kullanılarak geliştirilen; geniş kapsamlı arama (search), yol bulma (pathfinding) ve optimizasyon algoritmalarını kullanan karmaşık yapay zeka ajanlarına sahip oynanabilir prototip.
-            </p>
-            <div class="project-highlights">
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p4H1">Gerçek zamanlı karar ağaçları, otonom ajan navigasyonu ve oyun mekaniği mimarisi</span>
-              </div>
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p4H2">Modüler C# bileşen tasarımı ve yüksek kare hızı (FPS) optimizasyonu</span>
-              </div>
-            </div>
-            <div class="project-footer">
-              <div class="tag-cloud">
-                <span class="tech-pill">Unity</span>
-                <span class="tech-pill">C#</span>
-                <span class="tech-pill">AI Agents</span>
-                <span class="tech-pill">Search &amp; Optimization</span>
-              </div>
-              <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="project-link magnetic" data-cursor="GITHUB">
-                <span>GitHub</span> ↗
-              </a>
-            </div>
-          </article>
+            <div class="piano-keys-container" id="piano-keys"></div>
+          </div>
 
-          <!-- Project 5: YatDice -->
-          <article class="project-card tilt-card reveal-up" data-category="sys" data-delay="100" data-tilt-max="6">
-            <div class="card-spotlight"></div>
-            <div class="project-top">
-              <span class="project-num">05</span>
-              <span class="project-cat-badge">CLEAN ARCHITECTURE • OOP</span>
-            </div>
-            <h3 class="project-title" data-i18n="proj.p5Title">YatDice — State-Driven Interactive Engine</h3>
-            <p class="project-desc" data-i18n="proj.p5Desc">
-              C# kullanılarak sıfırdan tasarlanan; temiz nesne yönelimli mimari (Clean OOP), olasılıksal mekanikler ve yapılandırılmış durum yönetimi (state management) içeren interaktif uygulama.
-            </p>
-            <div class="project-highlights">
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p5H1">SOLID prensiplerine uygun, genişletilebilir oyun/uygulama durum makinesi</span>
+          <!-- STAGE 2: KNIGHT PATH FINDER (WIDE & SPACIOUS, NO CUTOFF) -->
+          <div id="stage-knight" class="stage-pane">
+            <div class="stage-top-bar">
+              <div>
+                <h3 class="stage-title">Knight Path Finder — Graph Traversal</h3>
+                <p class="stage-sub" data-i18n="demo.knightHint">
+                  Tahta üzerinde herhangi bir kareye tıklayın; başlangıç noktasından (♞) hedefe (★) engellerin etrafından en kısa L-hamleli yol hesaplansın.
+                </p>
               </div>
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p5H2">Deterministik olmayan zar olasılık hesaplayıcısı ve akıcı kullanıcı etkileşimi</span>
+              <div class="stage-actions">
+                <button type="button" id="knight-random-btn" class="btn-secondary-sm magnetic" data-i18n="demo.btnRandom">
+                  Rastgele Hedef Seç
+                </button>
+                <button type="button" id="knight-walls-btn" class="btn-secondary-sm magnetic" data-i18n="demo.btnWalls">
+                  Engelleri Değiştir
+                </button>
               </div>
             </div>
-            <div class="project-footer">
-              <div class="tag-cloud">
-                <span class="tech-pill">C#</span>
-                <span class="tech-pill">Clean OOP</span>
-                <span class="tech-pill">State Management</span>
-                <span class="tech-pill">System Design</span>
-              </div>
-              <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="project-link magnetic" data-cursor="GITHUB">
-                <span>GitHub</span> ↗
-              </a>
-            </div>
-          </article>
 
-          <!-- Project 6: Financial & Operational Analytics Platform -->
-          <article class="project-card tilt-card reveal-up" data-category="sys" data-delay="200" data-tilt-max="6">
-            <div class="card-spotlight"></div>
-            <div class="project-top">
-              <span class="project-num">06</span>
-              <span class="project-cat-badge cyan">FULL-STACK &amp; DATA ENGINEERING</span>
-            </div>
-            <h3 class="project-title" data-i18n="proj.p6Title">Real-Time Financial &amp; Operational Analytics Suite</h3>
-            <p class="project-desc" data-i18n="proj.p6Desc">
-              FastAPI, Streamlit ve React.js kullanılarak geliştirilen; yüksek hacimli verileri işleyen, indeksleme ile hızlandırılmış PostgreSQL sorguları ve Power BI görselleştirmeleri sunan kurumsal analitik mimari.
-            </p>
-            <div class="project-highlights">
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p6H1">Legacy sistemlerin modern React.js ve asenkron FastAPI servislerine dönüşümü</span>
+            <div class="knight-stage-grid">
+              <div class="board-wrap">
+                <div id="knight-board" class="knight-board"></div>
               </div>
-              <div class="highlight-line">
-                <span class="h-dot"></span>
-                <span data-i18n="proj.p6H2">B-Tree / kompozit veritabanı indeksleme ile sorgu sürelerinde yüksek iyileştirme</span>
+              <div class="knight-info">
+                <div class="stat-pill">
+                  <span class="stat-lbl" data-i18n="demo.kStart">Başlangıç</span>
+                  <strong id="k-start">B1</strong>
+                </div>
+                <div class="stat-pill gold-border">
+                  <span class="stat-lbl" data-i18n="demo.kTarget">Hedef Kare</span>
+                  <strong id="k-target" class="gold-accent">G7</strong>
+                </div>
+                <div class="stat-pill">
+                  <span class="stat-lbl" data-i18n="demo.kMoves">En Kısa Yol</span>
+                  <strong id="k-moves">4 Hamle</strong>
+                </div>
+                <div class="stat-pill">
+                  <span class="stat-lbl" data-i18n="demo.kRoute">Rota Dizisi</span>
+                  <div id="k-route" class="route-list"></div>
+                </div>
               </div>
             </div>
-            <div class="project-footer">
-              <div class="tag-cloud">
-                <span class="tech-pill">FastAPI</span>
-                <span class="tech-pill">React.js</span>
-                <span class="tech-pill">PostgreSQL</span>
-                <span class="tech-pill">Streamlit</span>
-              </div>
-              <a href="#experience" class="project-link magnetic" data-cursor="DETAILS">
-                <span data-i18n="proj.expDetails">Deneyim Detayı</span> ↗
-              </a>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- =========================================================
-         5. CREDENTIALS, EDUCATION & SKILL ARCHITECTURE (BENTO GRID)
+         5. EDUCATION, CERTIFICATES & SKILLS (EXACT CV DATA)
          ========================================================= -->
-    <section id="credentials" class="credentials-section section-padding">
+    <section id="education" class="section">
       <div class="container">
-        <div class="section-header reveal-up">
-          <div class="section-tag-row">
-            <span class="section-index">04 //</span>
-            <span class="mono-tag" data-i18n="cred.tag">TEKNİK MİMARİ, AKADEMİ &amp; SERTİFİKALAR</span>
-          </div>
+        <div class="section-head reveal">
+          <span class="eyebrow" data-i18n="edu.eyebrow">EDUCATION, CERTIFICATES &amp; SKILLS</span>
           <h2 class="section-title">
-            <span data-i18n="cred.title1">Çok Disiplinli</span>
-            <span class="serif-gold" data-i18n="cred.title2">Mühendislik Yetkinliği.</span>
+            <span data-i18n="edu.title1">Eğitim &amp;</span>
+            <em class="serif-accent" data-i18n="edu.title2">Yetkinlikler</em>
           </h2>
         </div>
 
-        <div class="bento-grid">
-          <!-- Bento 1: HEALTH-AI Certificate (Featured Luxury Card) -->
-          <div class="bento-card bento-cert tilt-card reveal-up" data-tilt-max="5">
-            <div class="card-spotlight"></div>
-            <div class="cert-ribbon">ERASMUS+ / EUROPEAN UNION FUNDED</div>
-            <div class="cert-icon-box">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#goldGrad)" stroke-width="1.8">
-                <circle cx="12" cy="8" r="6" />
-                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-              </svg>
-            </div>
-            <span class="mono-xs gold-text">MAY 2026 • CERTIFICATE OF ACHIEVEMENT</span>
-            <h3 class="bento-title" data-i18n="cred.certTitle">HEALTH-AI Project</h3>
-            <p class="bento-desc" data-i18n="cred.certDesc">
-              Avrupa Birliği ve Erasmus+ tarafından fonlanan <strong>HEALTH-AI</strong> projesi kapsamında sağlıkta yapay zeka uygulamaları ve veri odaklı sistemler üzerine Başarı Sertifikası (Certificate of Achievement).
-            </p>
-          </div>
-
-          <!-- Bento 2: Education & Conservatory -->
-          <div class="bento-card bento-edu tilt-card reveal-up" data-delay="100" data-tilt-max="5">
-            <div class="card-spotlight"></div>
-            <span class="mono-xs cyan-text" data-i18n="cred.eduTag">AKADEMİK &amp; SANATSAL TEMEL</span>
-            <h3 class="bento-title" data-i18n="cred.eduTitle">Eğitim Geçmişi</h3>
-
-            <div class="edu-list">
-              <div class="edu-item">
-                <div class="edu-year">2023 — Present</div>
-                <div class="edu-info">
+        <div class="two-col-grid">
+          <!-- Left: Education & Certificate -->
+          <div class="lux-card interactive-card reveal">
+            <div class="card-glow"></div>
+            <h3 class="sub-heading" data-i18n="edu.eduHeading">Eğitim</h3>
+            <div class="clean-timeline">
+              <div class="ct-item">
+                <span class="ct-year">2023 – Present</span>
+                <div>
                   <h4>Çankaya University</h4>
-                  <p data-i18n="cred.eduCankaya">Yazılım Mühendisliği Lisans (B.Sc. Software Engineering — 4. Sınıf)</p>
+                  <p data-i18n="edu.cankaya">Software Engineering (4th-Year)</p>
                 </div>
               </div>
-              <div class="edu-item">
-                <div class="edu-year">2017 — 2021</div>
-                <div class="edu-info">
+              <div class="ct-item">
+                <span class="ct-year">2017 – 2021</span>
+                <div>
                   <h4>Süleymanpaşa Municipality Conservatory</h4>
-                  <p data-i18n="cred.eduCons">Müzik / Klasik Piyano Eğitimi (VISTA Lab AI araştırmasının sanatsal temeli)</p>
+                  <p data-i18n="edu.conservatory">Music / Piano</p>
                 </div>
               </div>
-              <div class="edu-item">
-                <div class="edu-year">2019 — 2023</div>
-                <div class="edu-info">
+              <div class="ct-item">
+                <span class="ct-year">2019 – 2023</span>
+                <div>
                   <h4>Namık Kemal Anadolu Lisesi</h4>
-                  <p data-i18n="cred.eduHigh">Lise Eğitimi</p>
+                  <p data-i18n="edu.highschool">High School</p>
                 </div>
               </div>
+            </div>
+
+            <div class="divider-line"></div>
+
+            <h3 class="sub-heading" data-i18n="edu.certHeading">Sertifika</h3>
+            <div class="cert-highlight">
+              <span class="ct-year">May 2026</span>
+              <h4>Certificate of Achievement — HEALTH-AI Project</h4>
+              <p>Erasmus+ / European Union Funded</p>
             </div>
           </div>
 
-          <!-- Bento 3: Full Technical Matrix -->
-          <div class="bento-card bento-skills tilt-card reveal-up" data-delay="200" data-tilt-max="3">
-            <div class="card-spotlight"></div>
-            <div class="skills-header">
-              <div>
-                <span class="mono-xs gold-text">TECHNICAL STACK MATRIX</span>
-                <h3 class="bento-title" data-i18n="cred.skillsTitle">Dil, Framework ve Mimari Yetkinlikler</h3>
-              </div>
-              <span class="mono-xs" data-i18n="cred.skillsHint">KARTLARIN ÜZERİNDE GEZİNİN</span>
-            </div>
+          <!-- Right: Skills from CV -->
+          <div class="lux-card interactive-card reveal" data-delay="80">
+            <div class="card-glow"></div>
+            <h3 class="sub-heading" data-i18n="edu.skillsHeading">Teknik Yetenekler</h3>
 
-            <div class="skill-categories-grid">
-              <div class="skill-group">
-                <h4 class="skill-group-title">
-                  <span class="dot-gold"></span>
-                  <span data-i18n="cred.catAi">AI, Deep Learning &amp; Veri</span>
-                </h4>
-                <div class="skill-bars">
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>PyTorch &amp; Deep Learning</span><span class="mono-xs">95%</span></div>
-                    <div class="sb-track"><div class="sb-fill" style="width:95%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>Python &amp; Data Pipelines</span><span class="mono-xs">96%</span></div>
-                    <div class="sb-track"><div class="sb-fill" style="width:96%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>Transformers &amp; Neural Nets</span><span class="mono-xs">90%</span></div>
-                    <div class="sb-track"><div class="sb-fill" style="width:90%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>Streamlit &amp; Power BI</span><span class="mono-xs">92%</span></div>
-                    <div class="sb-track"><div class="sb-fill" style="width:92%"></div></div>
-                  </div>
+            <div class="skill-groups">
+              <div class="sg-block">
+                <span class="sg-label">Programming</span>
+                <div class="pill-row">
+                  <span class="pill">Python</span>
+                  <span class="pill">Java</span>
+                  <span class="pill">C/C++</span>
+                  <span class="pill">C#</span>
+                  <span class="pill">C</span>
+                  <span class="pill">JavaScript</span>
+                  <span class="pill">SQL</span>
+                  <span class="pill">HTML/CSS</span>
                 </div>
               </div>
 
-              <div class="skill-group">
-                <h4 class="skill-group-title">
-                  <span class="dot-cyan"></span>
-                  <span data-i18n="cred.catBackend">Backend &amp; Veritabanı Mimarisi</span>
-                </h4>
-                <div class="skill-bars">
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>FastAPI &amp; RESTful Architecture</span><span class="mono-xs">94%</span></div>
-                    <div class="sb-track"><div class="sb-fill cyan" style="width:94%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>Java &amp; Spring Boot</span><span class="mono-xs">88%</span></div>
-                    <div class="sb-track"><div class="sb-fill cyan" style="width:88%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>PostgreSQL &amp; Query Optimization</span><span class="mono-xs">92%</span></div>
-                    <div class="sb-track"><div class="sb-fill cyan" style="width:92%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>Docker &amp; Git Workflows</span><span class="mono-xs">89%</span></div>
-                    <div class="sb-track"><div class="sb-fill cyan" style="width:89%"></div></div>
-                  </div>
+              <div class="sg-block">
+                <span class="sg-label">Frameworks</span>
+                <div class="pill-row">
+                  <span class="pill">PyTorch</span>
+                  <span class="pill">Spring Boot</span>
+                  <span class="pill">React.js</span>
+                  <span class="pill">FastAPI</span>
+                  <span class="pill">Streamlit</span>
+                  <span class="pill">Angular</span>
                 </div>
               </div>
 
-              <div class="skill-group">
-                <h4 class="skill-group-title">
-                  <span class="dot-indigo"></span>
-                  <span data-i18n="cred.catSys">Algoritma, Oyun &amp; Frontend</span>
-                </h4>
-                <div class="skill-bars">
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>C# / C / C++ &amp; OOP Architecture</span><span class="mono-xs">93%</span></div>
-                    <div class="sb-track"><div class="sb-fill indigo" style="width:93%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>React.js, Angular &amp; JavaScript</span><span class="mono-xs">88%</span></div>
-                    <div class="sb-track"><div class="sb-fill indigo" style="width:88%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>Unity &amp; Autonomous Game AI</span><span class="mono-xs">91%</span></div>
-                    <div class="sb-track"><div class="sb-fill indigo" style="width:91%"></div></div>
-                  </div>
-                  <div class="skill-bar-item">
-                    <div class="sb-top"><span>Data Structures &amp; Pathfinding</span><span class="mono-xs">95%</span></div>
-                    <div class="sb-track"><div class="sb-fill indigo" style="width:95%"></div></div>
-                  </div>
+              <div class="sg-block">
+                <span class="sg-label">Tools</span>
+                <div class="pill-row">
+                  <span class="pill">PostgreSQL</span>
+                  <span class="pill">Docker</span>
+                  <span class="pill">Git</span>
+                  <span class="pill">Power BI</span>
+                  <span class="pill">Unity</span>
+                </div>
+              </div>
+
+              <div class="sg-block">
+                <span class="sg-label">Concepts</span>
+                <div class="pill-row">
+                  <span class="pill">Machine Learning</span>
+                  <span class="pill">Deep Learning</span>
+                  <span class="pill">Transformers</span>
+                  <span class="pill">System Architecture</span>
+                  <span class="pill">OOP</span>
+                  <span class="pill">Data Structures</span>
                 </div>
               </div>
             </div>
@@ -919,200 +546,100 @@
     </section>
 
     <!-- =========================================================
-         6. LUXURY CONTACT & COLLABORATION SECTION
+         6. ORIGINAL PDF CVs SECTION (YOUR EXACT UPLOADED PDFs)
          ========================================================= -->
-    <section id="contact" class="contact-section section-padding">
+    <section id="cv-section" class="section">
       <div class="container">
-        <div class="contact-panel tilt-card reveal-up" data-tilt-max="3">
-          <div class="card-spotlight"></div>
+        <div class="section-head-split reveal">
+          <div>
+            <span class="eyebrow">CURRICULUM VITAE</span>
+            <h2 class="section-title">
+              <span data-i18n="cv.title1">Orijinal</span>
+              <em class="serif-accent" data-i18n="cv.title2">Özgeçmişlerim</em>
+            </h2>
+            <p class="section-desc" data-i18n="cv.subtitle">
+              Farklı odak alanları için hazırladığım orijinal CV'lerimi doğrudan buradan inceleyebilir veya PDF olarak indirebilirsiniz.
+            </p>
+          </div>
 
-          <div class="contact-grid">
-            <div class="contact-left">
-              <div class="eyebrow-pill">
-                <span class="pulse-ring"></span>
-                <span class="mono-text" data-i18n="contact.badge">AÇIK POZİSYONLAR &amp; ARAŞTIRMA İŞ BİRLİKLERİNE UYGUN</span>
-              </div>
+          <div class="cv-selector-row">
+            <button type="button" class="cv-tab active magnetic" data-pdf="cv/Semih_Utku_Canverdi_CV_4.pdf">
+              AI, ML &amp; Data
+            </button>
+            <button type="button" class="cv-tab magnetic" data-pdf="cv/Semih_Utku_Canverdi_CV_3.pdf">
+              Software &amp; AI Systems
+            </button>
+            <button type="button" class="cv-tab magnetic" data-pdf="cv/Semih_Utku_Canverdi_CV_2.pdf">
+              Backend &amp; Architecture
+            </button>
+            <button type="button" class="cv-tab magnetic" data-pdf="cv/Semih_Utku_Canverdi_CV_1.pdf">
+              Game Dev &amp; Algorithms
+            </button>
+          </div>
+        </div>
 
-              <h2 class="contact-title">
-                <span data-i18n="contact.title1">Bir Sonraki Zeki Sistemi</span>
-                <span class="serif-gold" data-i18n="contact.title2">Birlikte İnşa Edelim.</span>
-              </h2>
-
-              <p class="contact-desc" data-i18n="contact.desc">
-                Yapay zeka / derin öğrenme mühendisliği, ölçeklenebilir backend mimarileri veya Ar-Ge projeleri için doğrudan iletişime geçebilirsiniz.
-              </p>
-
-              <div class="contact-direct-cards">
-                <div class="direct-item">
-                  <span class="direct-lbl">E-MAIL</span>
-                  <div class="direct-val-row">
-                    <a href="mailto:utkucnvrdi@gmail.com" class="direct-link">utkucnvrdi@gmail.com</a>
-                    <button type="button" class="copy-email-btn mini-copy-btn" data-email="utkucnvrdi@gmail.com" data-i18n="contact.copy">Kopyala</button>
-                  </div>
-                </div>
-
-                <div class="direct-item">
-                  <span class="direct-lbl" data-i18n="contact.phoneLbl">TELEFON</span>
-                  <div class="direct-val-row">
-                    <a href="tel:+905070952321" class="direct-link">+90 507 095 2321</a>
-                  </div>
-                </div>
-
-                <div class="direct-item">
-                  <span class="direct-lbl" data-i18n="contact.socialLbl">AĞLAR</span>
-                  <div class="direct-val-row social-links-inline">
-                    <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                    <a href="https://linkedin.com/in/semihutkucanverdi" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-                  </div>
-                </div>
-              </div>
+        <div class="lux-card cv-viewer-card reveal">
+          <div class="cv-toolbar">
+            <span class="cv-filename" id="cv-active-label">Semih_Utku_Canverdi_CV.pdf</span>
+            <div class="cv-toolbar-btns">
+              <a id="cv-open-new" href="cv/Semih_Utku_Canverdi_CV_4.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary-sm magnetic" data-i18n="cv.openTab">
+                Yeni Sekmede Aç ↗
+              </a>
+              <a id="cv-download-link" href="cv/Semih_Utku_Canverdi_CV_4.pdf" download="Semih_Utku_Canverdi_CV.pdf" class="btn-primary-sm magnetic" data-i18n="cv.download">
+                PDF İndir ↓
+              </a>
             </div>
+          </div>
+          <div class="cv-frame-wrap">
+            <iframe id="cv-iframe" src="cv/Semih_Utku_Canverdi_CV_4.pdf#toolbar=0&navpanes=0" title="Semih Utku Canverdi CV PDF"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <!-- Interactive Quick Message Composer -->
-            <div class="contact-right">
-              <form id="contact-form" class="luxury-form">
-                <h3 class="form-title" data-i18n="contact.formTitle">Hızlı Mesaj Gönder</h3>
-                <div class="form-group">
-                  <label for="sender-name" data-i18n="contact.nameLabel">Adınız / Kurum</label>
-                  <input type="text" id="sender-name" required placeholder="Örn: Dr. Ahmet Yılmaz / AI Tech" />
-                </div>
-                <div class="form-group">
-                  <label for="sender-email" data-i18n="contact.emailLabel">E-Posta Adresiniz</label>
-                  <input type="email" id="sender-email" required placeholder="name@company.com" />
-                </div>
-                <div class="form-group">
-                  <label for="sender-topic" data-i18n="contact.topicLabel">Konu</label>
-                  <select id="sender-topic">
-                    <option value="AI / Machine Learning Role" data-i18n="contact.optAi">AI / Machine Learning Mühendisliği</option>
-                    <option value="Software / Backend Engineering" data-i18n="contact.optSoft">Yazılım &amp; Backend Mühendisliği</option>
-                    <option value="Research Collaboration" data-i18n="contact.optRes">Akademik / Ar-Ge İş Birliği</option>
-                    <option value="General Inquiry" data-i18n="contact.optOther">Diğer Tanışma &amp; Proje</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="sender-msg" data-i18n="contact.msgLabel">Mesajınız</label>
-                  <textarea id="sender-msg" rows="3" required placeholder="Merhaba Utku, portfolyonu inceledik..."></textarea>
-                </div>
-                <button type="submit" class="btn-luxury-primary full-width magnetic" data-cursor="SEND">
-                  <span data-i18n="contact.sendBtn">Mesajı Hazırla &amp; Gönder</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                  </svg>
-                </button>
-              </form>
-            </div>
+    <!-- =========================================================
+         7. MINIMALIST LUXURY CONTACT SECTION
+         ========================================================= -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="lux-card contact-box interactive-card reveal">
+          <div class="card-glow"></div>
+          <span class="eyebrow" data-i18n="contact.eyebrow">GET IN TOUCH</span>
+          <h2 class="contact-heading">
+            <span data-i18n="contact.title1">İletişime</span>
+            <em class="serif-accent" data-i18n="contact.title2">Geçin</em>
+          </h2>
+          <p class="contact-sub" data-i18n="contact.desc">
+            Staj, tam/yarı zamanlı mühendislik pozisyonları veya proje iş birlikleri için bana doğrudan ulaşabilirsiniz.
+          </p>
+
+          <div class="contact-links-grid">
+            <a href="mailto:utkucnvrdi@gmail.com" class="contact-item magnetic">
+              <span class="c-label">E-Mail</span>
+              <strong class="c-val">utkucnvrdi@gmail.com</strong>
+            </a>
+            <a href="https://linkedin.com/in/semihutkucanverdi" target="_blank" rel="noopener noreferrer" class="contact-item magnetic">
+              <span class="c-label">LinkedIn</span>
+              <strong class="c-val">in/semihutkucanverdi ↗</strong>
+            </a>
+            <a href="https://github.com/sutkucanverdi" target="_blank" rel="noopener noreferrer" class="contact-item magnetic">
+              <span class="c-label">GitHub</span>
+              <strong class="c-val">github.com/sutkucanverdi ↗</strong>
+            </a>
+            <a href="tel:+905070952321" class="contact-item magnetic">
+              <span class="c-label" data-i18n="contact.phone">Telefon</span>
+              <strong class="c-val">+90 507 095 2321</strong>
+            </a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- =========================================================
-       INTERACTIVE CV VIEWER / TRACK SELECTOR MODAL
-       ========================================================= -->
-  <div id="cv-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-glass">
-      <div class="modal-header">
-        <div>
-          <span class="mono-xs gold-text">CURRICULUM VITAE // MULTI-TRACK EDITION</span>
-          <h3 class="modal-title">Semih Utku Canverdi — CV &amp; Özgeçmiş</h3>
-        </div>
-        <button type="button" id="close-cv-modal" class="modal-close-btn" aria-label="Close Modal">✕</button>
-      </div>
-
-      <div class="modal-track-tabs">
-        <button type="button" class="cv-track-btn active" data-track="ai">AI &amp; Deep Learning Track</button>
-        <button type="button" class="cv-track-btn" data-track="backend">Backend &amp; Systems Track</button>
-        <button type="button" class="cv-track-btn" data-track="gamedev">Algorithms &amp; Game AI Track</button>
-      </div>
-
-      <div class="modal-body" id="cv-printable-area">
-        <div class="cv-sheet">
-          <div class="cv-sheet-header">
-            <h2>Semih Utku Canverdi</h2>
-            <p class="cv-sheet-links">
-              github.com/sutkucanverdi • linkedin.com/in/semihutkucanverdi • utkucnvrdi@gmail.com • +90 507 095 2321
-            </p>
-          </div>
-
-          <div class="cv-sheet-section">
-            <h4>SUMMARY</h4>
-            <p id="cv-dynamic-summary">
-              4th-year Software Engineering student with a strong foundation in deep learning, system architecture, and performance optimization. Developing neural network pipelines at VISTA Lab and experienced in building scalable backend services, data-driven dashboards, and algorithmic solutions using PyTorch, Python, FastAPI, Java, and C#.
-            </p>
-          </div>
-
-          <div class="cv-sheet-section">
-            <h4>WORK EXPERIENCE</h4>
-            <div class="cv-item">
-              <div class="cv-item-head"><strong>VISTA Lab — Deep Learning Researcher</strong> <span>September 2026 – Present</span></div>
-              <p>Developing an advanced deep learning model to predict optimal finger positioning for classical piano scores using complex musical datasets. Focusing on comprehensive data preprocessing, feature extraction pipelines, neural network architecture design, and iterative model training workflows.</p>
-            </div>
-            <div class="cv-item">
-              <div class="cv-item-head"><strong>TEİAŞ — Software Engineering Intern</strong> <span>July 2026 – August 2026</span></div>
-              <p>Developed and maintained internal mission-critical web applications using Java and Angular, contributing to backend RESTful API design, secure database integration, and modular frontend interface components.</p>
-            </div>
-            <div class="cv-item">
-              <div class="cv-item-head"><strong>TeamSec — Software &amp; Data Engineer</strong> <span>July 2025 – January 2026</span></div>
-              <p>Engineered robust backend services and interactive financial/operational dashboards using FastAPI and Streamlit. Migrated legacy systems to React, performed structured data analysis via Power BI, and wrote optimized SQL queries alongside database indexing to enhance PostgreSQL performance.</p>
-            </div>
-          </div>
-
-          <div class="cv-sheet-section">
-            <h4>SELECTED PROJECTS</h4>
-            <div class="cv-item">
-              <div class="cv-item-head"><strong>Air Quality Prediction</strong> <span>Machine Learning / Python</span></div>
-              <p>Built a predictive machine learning model utilizing Python to analyze environmental datasets, perform exploratory data analysis, and execute complete data science workflows.</p>
-            </div>
-            <div class="cv-item">
-              <div class="cv-item-head"><strong>Knight Path Finder &amp; MağaraJam AI Prototype</strong> <span>Algorithms &amp; Game AI / Unity &amp; C#</span></div>
-              <p>Designed an interactive graph traversal and pathfinding visualizer alongside autonomous game AI agents utilizing search, pathfinding, and optimization algorithms.</p>
-            </div>
-            <div class="cv-item">
-              <div class="cv-item-head"><strong>YatDice</strong> <span>Clean OOP Architecture / C#</span></div>
-              <p>Designed and developed an interactive dice game application from scratch using C#, implementing clean object-oriented architecture and structured state management.</p>
-            </div>
-          </div>
-
-          <div class="cv-sheet-section">
-            <h4>CERTIFICATES &amp; EDUCATION</h4>
-            <p><strong>May 2026:</strong> Certificate of Achievement — HEALTH-AI Project (Erasmus+ / European Union Funded)</p>
-            <p><strong>2023 – Present:</strong> B.Sc. Software Engineering at Çankaya University</p>
-            <p><strong>2017 – 2021:</strong> Music / Piano at Süleymanpaşa Municipality Conservatory</p>
-          </div>
-
-          <div class="cv-sheet-section">
-            <h4>SKILLS</h4>
-            <p><strong>Programming:</strong> Python, Java, C/C++, C#, JavaScript, SQL, HTML/CSS | <strong>Frameworks &amp; Tools:</strong> PyTorch, Spring Boot, React.js, FastAPI, Streamlit, PostgreSQL, Docker, Git, Power BI, Unity | <strong>Concepts:</strong> Machine Learning, Deep Learning, Transformers, System Architecture, OOP, Data Structures</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" id="print-cv-btn" class="btn-luxury-primary">
-          <span data-i18n="modal.printBtn">PDF Olarak Yazdır / Kaydet</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast-notification" class="toast-pill" role="status" aria-live="polite">
-    <span class="toast-dot"></span>
-    <span id="toast-text">E-posta adresi panoya kopyalandı!</span>
-  </div>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container footer-flex">
-      <div class="footer-left">
-        <span class="brand-emblem-sm">SUC</span>
-        <span>© 2026 Semih Utku Canverdi. Crafted with Neural Precision.</span>
-      </div>
-      <div class="footer-right mono-xs">
-        <span>STATUS: ALL NEURAL SYSTEMS NOMINAL</span>
-      </div>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© 2026 Semih Utku Canverdi</span>
+      <span class="footer-muted">Software Engineering • Machine Learning</span>
     </div>
   </footer>
 

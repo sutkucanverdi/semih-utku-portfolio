@@ -419,7 +419,7 @@
       btn.className = `pk ${key.black ? 'pk-black' : 'pk-white'}`;
       btn.setAttribute('aria-label', `${key.n} — ${key.label}`);
       btn.style.setProperty('--d', `${key.black ? 300 + i * 18 : i * 32}ms`);
-      if (key.black) btn.style.left = `calc(100% / 14 * ${key.after + 1} - (100% / 14 * 0.3))`;
+      if (key.black) btn.style.left = `calc(100% / 14 * ${key.after + 1})`; // centred via margin-left in CSS
       btn.innerHTML = `<span class="pk-finger" aria-hidden="true"></span><span class="pk-label">${key.label}</span>`;
       btn.addEventListener('pointerdown', (e) => {
         e.preventDefault();

@@ -16,15 +16,15 @@
       'nav.edu': 'Eğitim & Yetenekler',
       'nav.cv': 'CV',
       'nav.contact': 'İletişim',
-      'hero.tag': 'Software Engineering · Machine Learning · Piano',
-      'hero.summary': "Piyano çalan bir yazılım mühendisliği öğrencisiyim. Şu an VISTA Lab'de bir sinir ağına, piyanoda hangi notaya hangi parmağın basacağını öğretiyorum.",
+      'hero.tag': 'AI · FinTech · Software Engineering',
+      'hero.summary': 'Yapay zeka ve fintech odaklı bir yazılım mühendisliği öğrencisi ve konservatuvar geçmişli bir piyanist. Makine öğrenmesi modelleri, güvenilir backend servisleri ve finansal ürünlerin dayandığı veri sistemleri kuruyorum.',
       'piano.idleKind': 'Bir tuşa bas',
       'piano.idleTitle': 'Her tuş bir yetenek ya da bir iş.',
       'piano.idleLine': 'Beyaz tuşlar teknolojiler, siyah tuşlar deneyim ve projeler. Klavyenden de çalabilirsin.',
       'piano.play': 'Çal',
       'piano.hint': 'Çal\'a basınca gamın üstünde gerçek sağ el parmak numaraları görünür (1 = başparmak, 5 = serçe).',
       'hero.btnExplore': 'Çalışmalarımı İncele',
-      'hero.btnCv': "Orijinal CV'lerim (PDF)",
+      'hero.btnCv': 'CV (PDF)',
       'exp.eyebrow': 'WORK EXPERIENCE',
       'exp.title1': 'Deneyim &',
       'exp.title2': 'Araştırma',
@@ -72,9 +72,9 @@
       'edu.highschool': 'Lise Eğitimi',
       'edu.certHeading': 'Sertifika',
       'edu.skillsHeading': 'Teknik Yetenekler',
-      'cv.title1': 'Orijinal',
-      'cv.title2': 'Özgeçmişlerim',
-      'cv.subtitle': "Farklı odak alanları için hazırladığım orijinal CV'lerimi doğrudan buradan inceleyebilir veya PDF olarak indirebilirsiniz.",
+      'cv.title1': 'Güncel',
+      'cv.title2': 'Özgeçmişim',
+      'cv.subtitle': 'Buradan okuyabilir ya da PDF olarak indirebilirsiniz.',
       'cv.openTab': 'Yeni Sekmede Aç ↗',
       'cv.download': 'PDF İndir ↓',
       'contact.eyebrow': 'GET IN TOUCH',
@@ -90,15 +90,15 @@
       'nav.edu': 'Education & Skills',
       'nav.cv': 'CV',
       'nav.contact': 'Contact',
-      'hero.tag': 'Software Engineering · Machine Learning · Piano',
-      'hero.summary': 'A software engineering student who plays the piano. At VISTA Lab, I am teaching a neural network which finger should play which note.',
+      'hero.tag': 'AI · FinTech · Software Engineering',
+      'hero.summary': 'Software engineering student focused on AI and FinTech, and a conservatory-trained pianist. I build machine learning models, reliable backend services and the data systems financial products depend on.',
       'piano.idleKind': 'Press a key',
       'piano.idleTitle': 'Every key is a skill or a piece of work.',
       'piano.idleLine': 'White keys are technologies, black keys are experience and projects. Your keyboard works too.',
       'piano.play': 'Play',
       'piano.hint': 'Press Play to see real right-hand fingering over the scale (1 = thumb, 5 = pinky).',
       'hero.btnExplore': 'Explore Work',
-      'hero.btnCv': 'Original CVs (PDF)',
+      'hero.btnCv': 'Résumé (PDF)',
       'exp.eyebrow': 'WORK EXPERIENCE',
       'exp.title1': 'Experience &',
       'exp.title2': 'Research',
@@ -146,9 +146,9 @@
       'edu.highschool': 'High School',
       'edu.certHeading': 'Certificates',
       'edu.skillsHeading': 'Technical Skills',
-      'cv.title1': 'Original',
-      'cv.title2': 'Resumes (PDF)',
-      'cv.subtitle': 'View or download my original PDF resumes tailored for different engineering focuses directly below.',
+      'cv.title1': 'My',
+      'cv.title2': 'Résumé',
+      'cv.subtitle': 'Read it right here or download it as a PDF.',
       'cv.openTab': 'Open in New Tab ↗',
       'cv.download': 'Download PDF ↓',
       'contact.eyebrow': 'GET IN TOUCH',
@@ -159,7 +159,7 @@
     }
   };
 
-  let currentLang = 'tr';
+  let currentLang = 'en';
 
   function applyLanguage(lang) {
     currentLang = lang;
@@ -177,6 +177,7 @@
 
   document.getElementById('lang-btn')?.addEventListener('click', () => {
     applyLanguage(currentLang === 'tr' ? 'en' : 'tr');
+    try { localStorage.setItem('lang', currentLang); } catch (_) {}
   });
 
   /* --------------------------------------------------------------------------
@@ -301,8 +302,8 @@
       en: 'Internal web applications with Java and Angular.' },
     { n: 'F♯4', f: 369.99, k: 'KeyG', after: 3, label: 'TeamSec',
       kindTr: 'Deneyim · Tem 2025 – Oca 2026', kindEn: 'Experience · Jul 2025 – Jan 2026',
-      tr: 'FastAPI/Streamlit servisleri, React geçişi, PostgreSQL optimizasyonu.',
-      en: 'FastAPI/Streamlit services, a React migration, PostgreSQL tuning.' },
+      tr: 'Finansal ve operasyonel paneller, FastAPI servisleri, React geçişi, PostgreSQL optimizasyonu.',
+      en: 'Financial and operational dashboards, FastAPI services, a React migration, PostgreSQL tuning.' },
     { n: 'G♯4', f: 415.3, k: 'KeyH', after: 4, label: 'Air Quality',
       kindTr: 'Proje · Makine Öğrenmesi', kindEn: 'Project · Machine Learning',
       tr: 'Çevresel veri setleri üzerinde tahminleyici model.',
@@ -865,4 +866,10 @@
       link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
     });
   });
+  /* --------------------------------------------------------------------------
+     8. INITIAL LANGUAGE — English by default, remembers a switch to Turkish
+     -------------------------------------------------------------------------- */
+  let savedLang = null;
+  try { savedLang = localStorage.getItem('lang'); } catch (_) {}
+  applyLanguage(savedLang === 'tr' ? 'tr' : 'en');
 })();

@@ -16,11 +16,12 @@
       'nav.edu': 'Eğitim & Yetenekler',
       'nav.cv': 'CV',
       'nav.contact': 'İletişim',
-      'hero.tag': 'Software Engineering · Full Stack · AI',
+      'hero.tag': 'Software Engineering · Çankaya University',
       'hero.summary': "Sistemin tamamını kurmayı seven bir yazılım mühendisliği öğrencisiyim: backend servisleri, web arayüzleri, veri hatları ve makine öğrenmesi modelleri. En çok yapay zeka ve fintech ilgimi çekiyor. Bir de konservatuvar geçmişli bir piyanistim.",
       'piano.idleKind': 'Bir tuşa bas',
       'piano.idleTitle': 'Her tuş bir yetenek ya da bir iş.',
       'piano.idleLine': 'Beyaz tuşlar teknolojiler, siyah tuşlar deneyim ve projeler. Klavyenden de çalabilirsin.',
+      'piano.idleLineTouch': 'Beyaz tuşlar teknolojiler, siyah tuşlar deneyim ve projeler.',
       'piano.play': 'Çal',
       'piano.hint': 'Çal\'a basınca gamın üstünde gerçek sağ el parmak numaraları görünür (1 = başparmak, 5 = serçe).',
       'hero.btnExplore': 'Çalışmalarımı İncele',
@@ -90,11 +91,12 @@
       'nav.edu': 'Education & Skills',
       'nav.cv': 'CV',
       'nav.contact': 'Contact',
-      'hero.tag': 'Software Engineering · Full Stack · AI',
+      'hero.tag': 'Software Engineering · Çankaya University',
       'hero.summary': 'Software engineering student who likes building the whole system: backend services, web interfaces, data pipelines and ML models. Especially drawn to AI and FinTech. Also a conservatory-trained pianist.',
       'piano.idleKind': 'Press a key',
       'piano.idleTitle': 'Every key is a skill or a piece of work.',
       'piano.idleLine': 'White keys are technologies, black keys are experience and projects. Your keyboard works too.',
+      'piano.idleLineTouch': 'White keys are technologies, black keys are experience and projects.',
       'piano.play': 'Play',
       'piano.hint': 'Press Play to see real right-hand fingering over the scale (1 = thumb, 5 = pinky).',
       'hero.btnExplore': 'Explore Work',
@@ -165,8 +167,10 @@
     currentLang = lang;
     document.documentElement.lang = lang;
     const dict = TEXTS[lang];
+    const touchOnly = window.matchMedia('(hover: none)').matches;
     document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
+      let key = el.getAttribute('data-i18n');
+      if (key === 'piano.idleLine' && touchOnly) key = 'piano.idleLineTouch';
       if (dict[key]) el.innerHTML = dict[key];
     });
     document.getElementById('lang-tr')?.classList.toggle('active', lang === 'tr');

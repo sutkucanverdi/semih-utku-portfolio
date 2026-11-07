@@ -10,7 +10,7 @@ Personal portfolio site. Plain HTML, CSS and JavaScript — no framework, no bui
 ## Run locally
 
 ```bash
-node server.js
+node dev/server.js
 ```
 
 Then open `http://localhost:3000`.

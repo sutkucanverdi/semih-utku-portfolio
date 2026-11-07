@@ -2,11 +2,9 @@
   "name": "semih-utku-canverdi-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Luxury AI, Machine Learning & Software Architecture Portfolio of Semih Utku Canverdi",
+  "description": "Personal portfolio of Semih Utku Canverdi",
   "scripts": {
-    "dev": "npx --yes serve . -l 3000",
-    "start": "npx --yes serve . -l 3000",
-    "build": "echo \"Static luxury bundle ready for deployment\""
+    "dev": "node dev/server.js"
   },
   "author": "Semih Utku Canverdi <utkucnvrdi@gmail.com>",
   "license": "MIT"

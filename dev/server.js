@@ -17,16 +17,16 @@ const MIME_TYPES = {
   '.pdf': 'application/pdf'
 };
 
-// Local stand-in for Vercel's /api/chat. With ANTHROPIC_API_KEY set it runs the
+// Local stand-in for Vercel's /api/chat. With GEMINI_API_KEY set it runs the
 // real function; without it, it streams a canned reply so the UI can be tested.
 async function handleChat(req, res) {
   const chunks = [];
   for await (const c of req) chunks.push(c);
   const body = Buffer.concat(chunks);
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-    const reply = '(local mock, no ANTHROPIC_API_KEY) Utku is a 4th-year Software Engineering student at Çankaya University. Email: utkucnvrdi@gmail.com';
+    const reply = '(local mock, no GEMINI_API_KEY) Utku is a 4th-year Software Engineering student at Çankaya University. Email: utkucnvrdi@gmail.com';
     for (const word of reply.split(' ')) {
       res.write(word + ' ');
       await new Promise((r) => setTimeout(r, 40));

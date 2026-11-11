@@ -9,6 +9,6 @@
   "author": "Semih Utku Canverdi <utkucnvrdi@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@anthropic-ai/sdk": "^1.8.0"
+    "@google/genai": "^3.1.0"
   }
 }

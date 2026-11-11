@@ -6,7 +6,7 @@ Personal portfolio site. Plain HTML, CSS and JavaScript — no framework, no bui
 - **Interactive demos** — a piano fingering preview and a Knight Path Finder (BFS shortest knight path around obstacles).
 - **English / Turkish** — English by default; the choice is remembered.
 - **CV** — viewable in the page or downloadable as PDF.
-- **Ask about me** — an AI assistant (Claude API) that answers visitors' questions from my CV. It runs as a Vercel serverless function (`api/chat.mjs`) and needs the `ANTHROPIC_API_KEY` environment variable; `CHAT_MODEL` optionally overrides the model.
+- **Ask about me** — an AI assistant (Google Gemini API) that answers visitors' questions from my CV. It runs as a Vercel serverless function (`api/chat.mjs`) and needs the `GEMINI_API_KEY` environment variable; `CHAT_MODEL` optionally overrides the model.
 
 ## Run locally
 
@@ -14,7 +14,7 @@ Personal portfolio site. Plain HTML, CSS and JavaScript — no framework, no bui
 node dev/server.js
 ```
 
-Then open `http://localhost:3000`. Without `ANTHROPIC_API_KEY` the assistant streams a canned local reply.
+Then open `http://localhost:3000`. Without `GEMINI_API_KEY` the assistant streams a canned local reply.
 
 ## Deploy
 

@@ -1,13 +1,13 @@
 // Vercel serverless function: POST /api/chat
-// Answers visitors' questions about Semih Utku Canverdi using Claude,
+// Answers visitors' questions about Semih Utku Canverdi using Gemini,
 // grounded only in the profile below. Streams plain text back.
 //
-// Needs the ANTHROPIC_API_KEY environment variable (set it in Vercel,
+// Needs the GEMINI_API_KEY environment variable (set it in Vercel,
 // never in the page). CHAT_MODEL can override the model.
 
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenAI, ApiError } from '@google/genai';
 
-const MODEL = process.env.CHAT_MODEL || 'claude-opus-5-5';
+const MODEL = process.env.CHAT_MODEL || 'gemini-3.5-flash-lite';
 const MAX_TURNS = 16; // messages kept from the conversation
 const MAX_CHARS = 600; // per visitor message
 
@@ -39,7 +39,7 @@ Most interested in AI and FinTech. Also a conservatory-trained pianist.
 - Knight Path Finder: a visualizer that finds the shortest knight path around obstacles with BFS
   (there is a playable demo on this site).
 - This portfolio site: plain HTML/CSS/JS, a playable piano hero (white keys = skills, black keys =
-  experience and projects), and this AI assistant (Claude API via a Vercel serverless function).
+  experience and projects), and this AI assistant (Google Gemini API via a Vercel serverless function).
 
 ## Certificates
 - May 2026: Certificate of Achievement, HEALTH-AI project (Erasmus+ / European Union funded).
@@ -82,7 +82,7 @@ Reply in the language the visitor writes in (Turkish or English, or any other).
 ${PROFILE}
 </profile>`;
 
-let client; // created on first request; reads ANTHROPIC_API_KEY
+let client; // created on first request
 
 function badRequest(msg, status = 400) {
   return new Response(JSON.stringify({ error: msg }), {
@@ -105,7 +105,7 @@ function cleanMessages(raw) {
 }
 
 export async function POST(request) {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return badRequest('The assistant is not configured yet.', 503);
   }
 
@@ -122,32 +122,38 @@ export async function POST(request) {
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        client ??= new Anthropic();
-        const claude = client.beta.messages.stream({
+        client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+        const result = await client.models.generateContentStream({
           model: MODEL,
-          max_tokens: 1024,
-          output_config: { effort: 'low' },
-          betas: ['server-side-fallback-2026-07-01'],
-          fallbacks: 'default',
-          system: SYSTEM,
-          messages,
+          contents: messages.map((m) => ({
+            role: m.role === 'assistant' ? 'model' : 'user',
+            parts: [{ text: m.content }],
+          })),
+          config: {
+            systemInstruction: SYSTEM,
+            maxOutputTokens: 1024,
+          },
         });
-        for await (const event of claude) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(event.delta.text));
+        let sent = false;
+        for await (const chunk of result) {
+          const text = chunk.text;
+          if (text) {
+            controller.enqueue(encoder.encode(text));
+            sent = true;
           }
         }
-        const final = await claude.finalMessage();
-        if (final.stop_reason === 'refusal') {
-          controller.enqueue(encoder.encode("\n\nSorry, I can't help with that one."));
+        if (!sent) {
+          controller.enqueue(encoder.encode("Sorry, I can't help with that one."));
         }
       } catch (err) {
-        console.error('chat error', err instanceof Anthropic.APIError ? `${err.status} ${err.message}` : err);
+        console.error('chat error', err instanceof ApiError ? `${err.status} ${err.message}` : err);
         const msg =
-          err instanceof Anthropic.RateLimitError
+          err instanceof ApiError && err.status === 429
             ? 'The assistant is busy right now, please try again in a minute.'
             : 'Something went wrong, please try again.';
-        controller.enqueue(encoder.encode(`\n\n${msg}`));
+        controller.enqueue(encoder.encode(`
+
+${msg}`));
       } finally {
         controller.close();
       }

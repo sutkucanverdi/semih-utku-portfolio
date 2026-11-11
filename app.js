@@ -93,7 +93,6 @@
       'contact.title1': 'İletişime',
       'contact.title2': 'Geçin',
       'contact.desc': 'Staj, tam/yarı zamanlı mühendislik pozisyonları veya proje iş birlikleri için bana doğrudan ulaşabilirsiniz.',
-      'contact.phone': 'Telefon'
     },
     en: {
       'nav.exp': 'Experience',
@@ -179,7 +178,6 @@
       'contact.title1': 'Get in',
       'contact.title2': 'Touch',
       'contact.desc': 'Feel free to reach out directly for software engineering, machine learning roles, or project collaborations.',
-      'contact.phone': 'Phone'
     }
   };
 

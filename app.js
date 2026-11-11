@@ -75,6 +75,17 @@
       'edu.skillsHeading': 'Teknik Yetenekler',
       'cv.title1': 'Güncel',
       'cv.title2': 'Özgeçmişim',
+      'ask.fab': 'Bana sor',
+      'ask.title': 'Utku hakkında sor',
+      'ask.sub': 'CV’me göre cevap veren bir yapay zeka asistanı.',
+      'ask.q1': 'Utku neler üzerinde çalıştı?',
+      'ask.q2': 'Hangi teknolojileri kullanıyor?',
+      'ask.q3': 'Piyano yapay zeka projesi ne?',
+      'ask.placeholder': 'Bir soru yaz…',
+      'ask.send': 'Gönder',
+      'ask.note': 'Yapay zeka hata yapabilir. Önemli konular için bana e-posta at.',
+      'ask.error': 'Şu an cevap veremiyorum, biraz sonra tekrar dene.',
+      'ask.limit': 'Bu sohbet için soru sınırına ulaştın. Devamı için bana e-posta atabilirsin.',
       'cv.subtitle': 'Buradan okuyabilir ya da PDF olarak indirebilirsiniz.',
       'cv.openTab': 'Yeni Sekmede Aç ↗',
       'cv.download': 'PDF İndir ↓',
@@ -150,6 +161,17 @@
       'edu.skillsHeading': 'Technical Skills',
       'cv.title1': 'My',
       'cv.title2': 'Résumé',
+      'ask.fab': 'Ask about me',
+      'ask.title': 'Ask about Utku',
+      'ask.sub': 'An AI assistant that answers from my CV.',
+      'ask.q1': 'What has Utku worked on?',
+      'ask.q2': 'Which technologies does Utku use?',
+      'ask.q3': 'What is the piano AI project?',
+      'ask.placeholder': 'Type a question…',
+      'ask.send': 'Send',
+      'ask.note': 'AI can make mistakes. For anything important, email me.',
+      'ask.error': 'I can’t answer right now, please try again in a moment.',
+      'ask.limit': 'You’ve reached the question limit for this chat. Feel free to email me for more.',
       'cv.subtitle': 'Read it right here or download it as a PDF.',
       'cv.openTab': 'Open in New Tab ↗',
       'cv.download': 'Download PDF ↓',
@@ -173,6 +195,11 @@
       if (key === 'piano.idleLine' && touchOnly) key = 'piano.idleLineTouch';
       if (dict[key]) el.innerHTML = dict[key];
     });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+      const text = dict[el.getAttribute('data-i18n-placeholder')];
+      if (text) el.setAttribute('placeholder', text);
+    });
+    window.SITE_TEXTS = dict;
     document.getElementById('lang-tr')?.classList.toggle('active', lang === 'tr');
     document.getElementById('lang-en')?.classList.toggle('active', lang === 'en');
     renderKnightBoard();

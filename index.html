@@ -628,6 +628,37 @@
     </div>
   </footer>
 
+  <!-- AI assistant: answers questions about Utku (see api/chat.mjs) -->
+  <div class="ask" id="ask">
+    <button class="ask-fab" id="ask-fab" type="button" aria-expanded="false" aria-controls="ask-panel">
+      <span class="ask-fab-dot" aria-hidden="true"></span>
+      <span data-i18n="ask.fab">Ask about me</span>
+    </button>
+    <section class="ask-panel" id="ask-panel" role="dialog" aria-labelledby="ask-title" hidden>
+      <header class="ask-head">
+        <div>
+          <h2 class="ask-title" id="ask-title" data-i18n="ask.title">Ask about Utku</h2>
+          <p class="ask-sub" data-i18n="ask.sub">An AI assistant that answers from my CV.</p>
+        </div>
+        <button class="ask-close" id="ask-close" type="button" aria-label="Close">&times;</button>
+      </header>
+      <div class="ask-log" id="ask-log" aria-live="polite">
+        <div class="ask-chips" id="ask-chips">
+          <button type="button" class="ask-chip" data-i18n="ask.q1">What has Utku worked on?</button>
+          <button type="button" class="ask-chip" data-i18n="ask.q2">Which technologies does Utku use?</button>
+          <button type="button" class="ask-chip" data-i18n="ask.q3">What is the piano AI project?</button>
+        </div>
+      </div>
+      <form class="ask-form" id="ask-form" autocomplete="off">
+        <input class="ask-input" id="ask-input" type="text" maxlength="600" required
+               data-i18n-placeholder="ask.placeholder" placeholder="Type a question…" aria-label="Your question">
+        <button class="ask-send" id="ask-send" type="submit" data-i18n="ask.send">Send</button>
+      </form>
+      <p class="ask-note" data-i18n="ask.note">AI can make mistakes. For anything important, email me.</p>
+    </section>
+  </div>
+
   <script src="app.js"></script>
+  <script src="chat.js"></script>
 </body>
 </html>

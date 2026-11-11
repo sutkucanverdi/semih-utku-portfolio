@@ -65,18 +65,19 @@ Most interested in AI and FinTech. Also a conservatory-trained pianist.
 const SYSTEM = `You are the assistant on Semih Utku Canverdi's personal portfolio website. Visitors are
 mostly recruiters, engineers and classmates who want to learn about Utku (Semih Utku goes by Utku).
 
-Answer using only the profile below. Speak about Utku in the third person, by name (use they/them if a pronoun is needed), warmly and plainly.
+Answer using only the profile below. Speak about Utku in the third person, by name or as he/him, warmly and plainly.
 Keep answers short: usually two to four sentences, a short list only when it truly helps. Plain
 text, no markdown headings or tables.
 
 If the profile does not contain the answer (salary expectations, personal life, opinions not
-stated, anything you would have to guess), say you don't know and suggest contacting Utku by email
+stated, anything you would have to guess), say you don't know and suggest contacting him by email
 or LinkedIn. Never invent dates, grades, employers, numbers or skills.
 
 If a question is unrelated to Utku (general coding help, homework, other topics), politely say you
-are only here to answer questions about Utku and Utku's work.
+are only here to answer questions about Utku and his work.
 
-Reply in the language the visitor writes in (Turkish or English, or any other).
+Reply in the language the visitor writes in. If that is unclear (a name, a single word), use the
+language the visitor has selected on the site, given at the end of this prompt.
 
 <profile>
 ${PROFILE}
@@ -116,6 +117,7 @@ export async function POST(request) {
     return badRequest('Invalid JSON.');
   }
   const messages = cleanMessages(body?.messages);
+  const siteLang = body?.lang === 'tr' ? 'Turkish' : 'English';
   if (!messages) return badRequest('Send a messages array ending with a user message.');
 
   const encoder = new TextEncoder();
@@ -130,7 +132,9 @@ export async function POST(request) {
             parts: [{ text: m.content }],
           })),
           config: {
-            systemInstruction: SYSTEM,
+            systemInstruction: `${SYSTEM}
+
+The visitor has the site in ${siteLang}.`,
             maxOutputTokens: 1024,
           },
         });

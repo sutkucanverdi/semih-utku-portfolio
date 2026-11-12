@@ -113,7 +113,6 @@ section[id] {
   pointer-events: none;
 }
 
-#intro-curtain.curtain-open .curtain-eyebrow,
 #intro-curtain.curtain-open .curtain-line-wrap {
   opacity: 0;
   transition: opacity 0.4s var(--ease-silk);
@@ -138,15 +137,6 @@ section[id] {
   padding: 2rem;
 }
 
-.curtain-eyebrow {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  color: var(--gold-main);
-  opacity: 0.8;
-  margin-bottom: 0.9rem;
-}
 
 .curtain-title {
   display: inline-block;

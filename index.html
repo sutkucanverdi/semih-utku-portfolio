@@ -56,7 +56,10 @@
   <!-- Fonts: Plus Jakarta Sans & Cormorant Garamond & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Loaded without blocking the first paint; text shows in a fallback font until it arrives -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" /></noscript>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -384,10 +387,10 @@
           </div>
 
           <div class="stage-tabs" role="tablist">
-            <button type="button" class="stage-tab active magnetic" data-stage="piano" data-i18n="demo.tabPiano">
+            <button type="button" role="tab" aria-selected="true" aria-controls="stage-piano" class="stage-tab active magnetic" data-stage="piano" data-i18n="demo.tabPiano">
               01. VISTA Lab — Piano Fingering
             </button>
-            <button type="button" class="stage-tab magnetic" data-stage="knight" data-i18n="demo.tabKnight">
+            <button type="button" role="tab" aria-selected="false" aria-controls="stage-knight" class="stage-tab magnetic" data-stage="knight" data-i18n="demo.tabKnight">
               02. Knight Path Finder
             </button>
           </div>
@@ -398,7 +401,7 @@
           <div class="card-glow"></div>
 
           <!-- STAGE 1: PIANO FINGERING -->
-          <div id="stage-piano" class="stage-pane active-pane">
+          <div id="stage-piano" class="stage-pane active-pane" role="tabpanel">
             <div class="stage-top-bar">
               <div>
                 <h3 class="stage-title">Classical Piano Finger Positioning</h3>
@@ -432,7 +435,7 @@
           </div>
 
           <!-- STAGE 2: KNIGHT PATH FINDER (WIDE & SPACIOUS, NO CUTOFF) -->
-          <div id="stage-knight" class="stage-pane">
+          <div id="stage-knight" class="stage-pane" role="tabpanel">
             <div class="stage-top-bar">
               <div>
                 <h3 class="stage-title">Knight Path Finder — Graph Traversal</h3>

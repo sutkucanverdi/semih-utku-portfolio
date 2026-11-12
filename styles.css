@@ -16,7 +16,7 @@
 
   --text-main: #f4f6f9;
   --text-body: #a0aab8;
-  --text-dim: #646f80;
+  --text-dim: #808b9c;
 
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -210,6 +210,7 @@ section[id] {
   font-weight: 600;
   font-size: 0.92rem;
   letter-spacing: -0.01em;
+  min-height: 32px;
 }
 
 .brand-dot {
@@ -271,7 +272,6 @@ section[id] {
 
 .lang-sep {
   margin: 0 0.2rem;
-  opacity: 0.4;
 }
 
 .nav-cta {
@@ -867,6 +867,10 @@ body.name-pending .hero-name {
   color: var(--text-body);
   text-decoration: none;
   transition: color 0.25s;
+  /* larger tap area without moving the layout */
+  display: inline-block;
+  padding: 6px 0;
+  margin: -6px 0;
 }
 
 .minimal-link:hover {

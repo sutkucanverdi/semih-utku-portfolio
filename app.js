@@ -268,7 +268,9 @@
     requestAnimationFrame(() => {
       if (curtainLine) curtainLine.style.width = '100%';
     });
-    setTimeout(liftCurtain, 1000);
+    // Fonts load without blocking the page, so measure the names only once they are in (max 1.5 s extra)
+    const fontsIn = Promise.race([document.fonts?.ready, new Promise((r) => setTimeout(r, 1500))]);
+    setTimeout(() => fontsIn.then(liftCurtain), 1000);
   });
 
   /* --------------------------------------------------------------------------
@@ -637,8 +639,9 @@
 
   stageTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
-      stageTabs.forEach((t) => t.classList.remove('active'));
+      stageTabs.forEach((t) => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
       const target = tab.getAttribute('data-stage');
       stagePiano?.classList.toggle('active-pane', target === 'piano');
       stageKnight?.classList.toggle('active-pane', target === 'knight');
@@ -850,6 +853,7 @@
     tab.addEventListener('click', () => {
       cvTabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
       const pdfPath = tab.getAttribute('data-pdf');
       if (cvIframe) cvIframe.src = `${pdfPath}#toolbar=0&navpanes=0`;
       if (cvOpenNew) cvOpenNew.href = pdfPath;
